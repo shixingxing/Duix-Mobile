@@ -57,12 +57,12 @@
 我们提供了一些公共的测试模型，可以方便大家进行下载后接入使用，欢迎下载接入体验：
 
 
-#### female
+#### 女性
 | <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Hazel.jpg" width="200"> | <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Luna.jpg" width="200"> | <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Ivy.jpg" width="200"> | <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Aurora.jpg" width="200"> | 
 |:-------:|:-------:|:-------:|:-------:|
 | **Hazel**<br>[Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/674402003804229_f6e86fb375c4f1f1b82b24f7ee4e7cb4_optim_m80.zip) | **Luna**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/674393494597701_f49fcf68f5afdb241d516db8a7d88a7b_optim_m80.zip) | **Ivy**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/674397294927941_6e297e18a4bdbe35c07a6ae48a1f021f_optim_m80.zip) | **Aurora**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/674400178376773_3925e756433c5a9caa9b9d54147ae4ab_optim_m80.zip) | 
 
-#### male
+#### 男性
 |  <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/William.jpg" width="200"> |  <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/andrew.jpg" width="200"> |  <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Michael.jpg" width="200"> |  <img src="https://github.com/GuijiAI/duix.ai/blob/main/res/Eric.jpg" width="200"> |
 |:-------:|:-------:|:-------:|:-------:|
 | **William**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/627306542239813_1871244b5e6912efc636ba31ea4c5c6d_optim_m80.zip) | **andrew**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/651705983152197_ccf3256b2449c76e77f94276dffcb293_optim_m80.zip) |  **Michael**<br> [Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/675429759852613_7f8d9388a4213080b1820b83dd057cfb_optim_m80.zip) | **Eric**<br>[Download](https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/airuike_20240409.zip) |
@@ -107,6 +107,7 @@
 
 
 邮件联系：james@duix.com
+
 微信联系：Guiji-AIGC（微信号搜索）
 
 
