@@ -111,7 +111,10 @@ Explore enterprise features at [duix.com](https://duix.com/).
 ## <a id="contact-us"></a>6. Contact Us
 
 
-If you have any questions, please raise an issue or contact us at james@duix.com
+If you have any questions, please raise an issue or contact us：
+Email：james@duix.com
+Wechat：Guiji-AIGC
+
 
 
 ## Star History
