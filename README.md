@@ -95,7 +95,7 @@ Yes, speech start and end callbacks are documented in the SDK.
   
 (6) Is there an API to control avatar actions?
 
-The open-source version does not support action APIs. Mobile Pro supports action-driven playback (requires a model with predefined actions). See [Mobile Pro version]().
+The open-source version does not support action APIs. Mobile Pro supports action-driven playback (requires a model with predefined actions). See [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md).
   
 (7) How do I replace downloaded files?
 
@@ -103,7 +103,7 @@ File replacement workflows are code-level managed (see implementation guides).
 
 (8) Does the speech WAV file support streaming?
 
-Streaming is not supported in the open-source version. Our Mobile Pro version supports streaming. See [Mobile Pro version]().
+Streaming is not supported in the open-source version. Our Mobile Pro version supports streaming. See [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md).
   
 (9) Want advanced solutions?
 
