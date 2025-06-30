@@ -112,7 +112,9 @@ Explore enterprise features at [duix.com](https://duix.com/).
 
 
 If you have any questions, please raise an issue or contact us：
+
 Email：james@duix.com
+
 Wechat：Guiji-AIGC
 
 
