@@ -116,6 +116,6 @@ If you have any questions, please raise an issue or contact us at james@duix.com
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=DUIX.com/Duix.mobile&type=Date)](https://star-history.com/#DUIX.com/Duix.mobile&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=duixcom/Duix.mobile&type=Date)](https://star-history.com/#duixcom/Duix.mobile&Date)
 
 
