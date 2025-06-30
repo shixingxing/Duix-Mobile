@@ -88,7 +88,7 @@
  
 
 5. 播报的wav文件是否支持流式数据？  
-答：开源版本不支持流式，我们的mobile pro版本支持流式，可以点击查看Mobile pro版本（这里放置pro版链接）。  
+答：开源版本不支持流式，我们的mobile pro版本支持流式，可以点击查看[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro)。  
 
 6. 播报开始和结束是否有回调方法？  
 答：数字人播报开始与结束的回调方法详见SDK文档说明。  
