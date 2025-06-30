@@ -87,21 +87,25 @@ The open-source version uses public models only. Custom updates require a servic
   
 (4) Is there an API for avatar cloning?
 
-Training services currently require deployment on our managed servers.
+Not available yet. Please contact us if you need this feature.
   
 (5) Are broadcast start/end callbacks available?
 
-Yes, implemented via SDK methods (see documentation).
+Yes, speech start and end callbacks are documented in the SDK.
   
-(6) Can I control avatar gestures via API?
+(6) Is there an API to control avatar actions?
 
-Action control APIs are currently unavailable.
+The open-source version does not support action APIs. Mobile Pro supports action-driven playback (requires a model with predefined actions). See [Mobile Pro version]().
   
 (7) How do I replace downloaded files?
 
 File replacement workflows are code-level managed (see implementation guides).
+
+(8) Does the speech WAV file support streaming?
+
+Streaming is not supported in the open-source version. Our Mobile Pro version supports streaming. See [Mobile Pro version]().
   
-(8) Want advanced solutions?
+(9) Want advanced solutions?
 
 Explore enterprise features at [duix.com](https://duix.com/).
 
