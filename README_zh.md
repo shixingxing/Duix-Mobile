@@ -94,7 +94,7 @@
 答：数字人播报开始与结束的回调方法详见SDK文档说明。  
 
 7. 是否有控制数字人动作的API？  
-答：开源版本不支持动作API，我们的mobile pro版本可以支持动作驱动（前提是您定制的模型有对应动作），可以点击查看Mobile pro版本（https://github.com/duixcom/Duix.mobile-pro）。  
+答：开源版本不支持动作API，我们的mobile pro版本可以支持动作驱动（前提是您定制的模型有对应动作），可以点击查看[Mobile pro版本]（https://github.com/duixcom/Duix.mobile-pro）。  
 
 8. 如何替换已下载的文件？  
 答：文件替换方式详见代码注释说明。 
