@@ -20,7 +20,7 @@
    4. [Model Downloads](#model-downloads)<br>
    5. [FAQ](#faq)<br>
    6. [Contact Us](#contact-us)<br>
-   7. [Want Customized](#Want)<br>
+   7. [Want Customized Services?](#Want)<br>
    
   ## <a id="introduction"></a>1. Introduction
    
@@ -124,7 +124,7 @@ Email：james@duix.com
 Wechat：Guiji-AIGC
 
 
-## <a id="Want Customized Services?"></a>7. Want Customized Services?
+## <a id="Want"></a>7. Want Customized Services?
 
 If you require:
 a、Custom private avatars
