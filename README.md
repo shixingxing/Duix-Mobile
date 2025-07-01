@@ -20,6 +20,7 @@
    4. [Model Downloads](#model-downloads)<br>
    5. [FAQ](#faq)<br>
    6. [Contact Us](#contact-us)<br>
+   7. [Want Customized Services?](#Want Customized Services?)<br>
    
   ## <a id="introduction"></a>1. Introduction
    
@@ -117,11 +118,19 @@ Explore enterprise features at [duix.com](https://duix.com/).
 
 If you have any questions, please raise an issue or contact us：
 
+
 Email：james@duix.com
 
 Wechat：Guiji-AIGC
 
 
+## <a id="Want Customized Services?"></a>7. Want Customized Services?
+
+If you require:
+a、Custom private avatars
+b、Driving digital humans to perform specific actions
+c、Real-time digital human animation via streaming audio
+We recommend upgrading to our [Mobile Pro version] (https://github.com/duixcom/Duix.mobile-pro).
 
 ## Star History
 
