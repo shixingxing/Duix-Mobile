@@ -115,9 +115,13 @@
 ## <a id="想要定制化服务？"></a>7.想要定制化服务？
 
 如果你想要：
+
 a、定制自己的私人模特
+
 b、驱动数字人做指定动作
+
 c、使用流式音频进行数字人驱动
+
 建议升级体验我们的[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro)
 
 
