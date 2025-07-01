@@ -20,7 +20,7 @@
    4. [Model Downloads](#model-downloads)<br>
    5. [FAQ](#faq)<br>
    6. [Contact Us](#contact-us)<br>
-   7. [Want Customized Services](#Want Customized Services)<br>
+   7. [Want Customized](#Want Customized Services)<br>
    
   ## <a id="introduction"></a>1. Introduction
    
