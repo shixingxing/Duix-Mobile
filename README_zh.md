@@ -122,7 +122,7 @@ b、驱动数字人做指定动作
 
 c、使用流式音频进行数字人驱动
 
-建议升级体验我们的[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro)
+建议升级体验我们的[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro/blob/main/README_zh.md)
 
 
 ## Star History
