@@ -130,7 +130,7 @@ If you require:
 a、Custom private avatars
 b、Driving digital humans to perform specific actions
 c、Real-time digital human animation via streaming audio
-We recommend upgrading to our [Mobile Pro version] (https://github.com/duixcom/Duix.mobile-pro).
+We recommend upgrading to our [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro).
 
 ## Star History
 
