@@ -77,7 +77,7 @@
 ## <a id="常见问题"></a>5. 常见问题
 
 1. 如何定制数字人形象？  
-答：定制数字人需拍摄一段真人出镜讲话的3-5分钟视频。具体说话仪态和内容可根据实际使用场景确定，例如法律咨询类视频可选择正装出镜并讲述法律相关内容，确保与整体语境相符。我们升级了更为多元的Mobile pro 版本为大家提供定制服务，您可以点击查看[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro/blob/main/README_zh.md)。  
+答：定制数字人需拍摄一段真人出镜讲话的2-3分钟视频。具体说话仪态和内容可根据实际使用场景确定，例如法律咨询类视频可选择正装出镜并讲述法律相关内容，确保与整体语境相符。我们升级了更为多元的Mobile pro 版本为大家提供定制服务，您可以点击查看[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro/blob/main/README_zh.md)。  
 
 2. 数字人形象定制如何收费？  
 答：我们提供的数字人Mobile Pro定制服务包含形象和声音定制以及流式驱动等，同时可兼容开源SDK。如果您有额外的定制需求，可以查看[Mobile pro版本](https://github.com/duixcom/Duix.mobile-pro/blob/main/README_zh.md)进行联系和定制  
