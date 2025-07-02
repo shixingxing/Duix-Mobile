@@ -76,11 +76,12 @@ Please download the model files according to your needs. We recommend that you c
 
 (1) How do I create a custom digital avatar?
 
-Record a 2-5 minute video of a person speaking naturally to the camera. Adjust posture/content for your use case (e.g., wear formal attire and discuss legal topics for consultation scenarios).
+Record a 15 seconds-2 minute video of a person speaking naturally to the camera. Adjust posture/content for your use case (e.g., wear formal attire and discuss legal topics for consultation scenarios).
+We've upgraded to a more versatile Mobile Pro version to deliver customized services. Explore now:[Mobile Pro](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md)
   
 (2) What’s included in digital avatar pricing?
 
-Our base package covers avatar appearance and voice cloning, fully compatible with our SDK. For advanced needs, contact us.
+Our base package covers avatar appearance and voice cloning, fully compatible with our SDK.For additional customization needs, explore our [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md) to discuss and tailor your solution.
   
 (3) Can I update my custom avatar?
 
