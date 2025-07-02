@@ -83,31 +83,28 @@ We've upgraded to a more versatile Mobile Pro version to deliver customized serv
 
 Our base package covers avatar appearance and voice cloning, fully compatible with our SDK.For additional customization needs, explore our [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md) to discuss and tailor your solution.
   
-(3) Can I update my custom avatar?
-
-The open-source version uses public models only. Custom updates require a service request.
   
-(4) Is there an API for avatar cloning?
+(3) Is there an API for avatar cloning?
 
 Not available yet. Please contact us if you need this feature.
   
-(5) Are broadcast start/end callbacks available?
+(4) Are broadcast start/end callbacks available?
 
 Yes, speech start and end callbacks are documented in the SDK.
   
-(6) Is there an API to control avatar actions?
+(5) Is there an API to control avatar actions?
 
 The open-source version does not support action APIs. Mobile Pro supports action-driven playback (requires a model with predefined actions). See [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md).
   
-(7) How do I replace downloaded files?
+(6) How do I replace downloaded files?
 
 File replacement workflows are code-level managed (see implementation guides).
 
-(8) Does the speech WAV file support streaming?
+(7) Does the speech WAV file support streaming?
 
 Streaming is not supported in the open-source version. Our Mobile Pro version supports streaming. See [Mobile Pro version](https://github.com/duixcom/Duix.mobile-pro/blob/main/README.md).
   
-(9) Want advanced solutions?
+(8) Want advanced solutions?
 
 Explore enterprise features at [duix.com](https://duix.com/).
 
