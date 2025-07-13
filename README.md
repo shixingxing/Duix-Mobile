@@ -1,6 +1,6 @@
 简体中文 | [English](/README_en.md)
 
-<video src="https://github.com/user-attachments/assets/4a06226e-ea3e-4c38-98b2-3ec7f3bc33f8">Duix-Mobile</video>
+<video src="https://github.com/user-attachments/assets/03cbb49c-c446-4d0a-b00a-1efd8c779389">Duix-Mobile</video>
 
 # ❇️❇️❇️ Duix-Mobile —— 移动端的实时交互数字人方案
 
