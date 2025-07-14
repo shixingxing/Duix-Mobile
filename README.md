@@ -87,7 +87,7 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 - 部署遇到问题？想要定制私有化数字人？
 - 请发邮件至邮箱：`amos.young@duix.com`
-- 或者添加企业微信：
+- 或者加入技术支持群：
 
 <img src="./res/contact.png" alt="企业微信" width="260">
 
