@@ -2,7 +2,7 @@
 
 https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
 
-# ❇️❇️❇️ Duix-Mobile —— 全网效果最好的移动端【实时对话数字人】
+# 🚀🚀🚀 Duix-Mobile —— 全网效果最好的移动端【实时对话数字人】
 
 **（跨平台支持：iOS/Android/平板/车载系统/VR设备/IOT终端/大屏交互等）**
 
