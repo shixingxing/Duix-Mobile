@@ -2,7 +2,7 @@
 
 https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
 
-# ❇️❇️❇️ Duix-Mobile — Real-time Interactive Digital Human Solution for Mobile Devices
+# ❇️❇️❇️ Duix-Mobile — The Best Real-time Interactive Digital Human Solution for Mobile Devices
 
 **(Supporting Android/iOS/Pad/Large Screens, etc.)**
 
@@ -48,36 +48,37 @@ Start building your own interactive digital human now and significantly boost yo
   <tr>
     <td align="center">
       <img src="./res/avatar/1.png" alt="Model 1" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_1.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv0515_20240516_optim_m80.zip"><button>Download</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/2.png" alt="Model 2" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_2.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv3_20240511_optim_m80.zip"><button>Download</button></a>
     </td>
-    <td align="center">      <img src="./res/avatar/3.png" alt="Model 3" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_3.zip"><button>Download</button></a>
+    <td align="center">
+      <img src="./res/avatar/3.png" alt="Model 3" width="100%"><br>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/wuhao_20240418_optim_m80.zip"><button>Download</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_8.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/siyao_20240418_optim_m80.zip"><button>Download</button></a>
     </td>
   </tr>
   <tr>
     <td align="center">
       <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_5.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696309955760197_fdc4a25a012c99789cd1ec95f5faf0de_optim_m80.zip"><button>Download</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_6.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696303589556293_268307125eeeff7e2c85461dd8c3ac52_optim_m80.zip"><button>Download</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_7.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696326678212677_9d4da9041e81466f5dadc99ddd1e3bd9.zip"><button>Download</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/4.png" alt="Model 4" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_4.zip"><button>Download</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/651686686687301_846161843f9ffdaaeace716bf3436be5_optim_m80.zip"><button>Download</button></a>
     </td>
   </tr>
 </table>

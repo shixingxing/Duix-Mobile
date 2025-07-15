@@ -33,8 +33,8 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 ## 📑 开发文档
 
-- Android 开发者：[DUIX-Mobile SDK for Android](https://github.com/GuijiAI/duix.ai/blob/main/duix-android/dh_aigc_android/README_en.md)
-- iOS 开发者：[DUIX-Mobile SDK for iOS](https://github.com/GuijiAI/duix.ai/blob/main/duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK_en.md)
+- Android 开发者：[DUIX-Mobile SDK for Android](https://github.com/GuijiAI/duix.ai/blob/main/duix-android/dh_aigc_android/README.md)
+- iOS 开发者：[DUIX-Mobile SDK for iOS](https://github.com/GuijiAI/duix.ai/blob/main/duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
 
 ## 💚 体验 DEMO
 
@@ -48,37 +48,37 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
   <tr>
     <td align="center">
       <img src="./res/avatar/1.png" alt="Model 1" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_1.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv0515_20240516_optim_m80.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/2.png" alt="Model 2" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_2.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv3_20240511_optim_m80.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/3.png" alt="Model 3" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_3.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/wuhao_20240418_optim_m80.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_8.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/siyao_20240418_optim_m80.zip"><button>下载</button></a>
     </td>
   </tr>
   <tr>
     <td align="center">
       <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_5.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696309955760197_fdc4a25a012c99789cd1ec95f5faf0de_optim_m80.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_6.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696303589556293_268307125eeeff7e2c85461dd8c3ac52_optim_m80.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_7.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696326678212677_9d4da9041e81466f5dadc99ddd1e3bd9.zip"><button>下载</button></a>
     </td>
     <td align="center">
       <img src="./res/avatar/4.png" alt="Model 4" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/gj_4.zip"><button>下载</button></a>
+      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/651686686687301_846161843f9ffdaaeace716bf3436be5_optim_m80.zip"><button>下载</button></a>
     </td>
   </tr>
 </table>
