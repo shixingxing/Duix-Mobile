@@ -1,204 +1,166 @@
-## Silicon Basic Edition DUIX SDK Usage Document (1.2.0)
+# GJLocalDigitalSDK Documentation (v1.2.0)
 
-[简体中文](./GJLocalDigitalSDK.md) | English
+English | [简体中文](./GJLocalDigitalSDK.md)
 
-###  Supported Systems and Hardware Versions
- GJLocalDigitalSDK.framework  (-Embed & Sign)
- 
+---
 
- 
-      
+## 1. Product Overview
 
-### Development Environment
-Development Tool: Xcode ios12.0 and above iphone8 and above
+`GJLocalDigitalSDK` is a lightweight local deployment solution for 2D virtual humans that supports real-time driving of virtual characters through voice. This SDK runs on iOS devices and features low latency, high frame rate, and edge computing capabilities for offline operation.
 
-## Quick Start
-```
+### 1.1 Applicable Scenarios
 
-            NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
-             if(result==1)
-             {
-       
+- **Low Deployment Cost**: No server support required, suitable for large-screen terminals and quick integration into local apps
+- **Minimal Network Dependency**: Runs locally, ideal for weak network environments like government halls, exhibition centers, and airports
+- **Diverse Functionality**: Applicable for AI digital human scenarios such as guided tours, business consulting, and digital reception
 
-                 [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
-                     if(isSuccess)
-                     {
-                         
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                      
-                    
-                         
-                                [[GJLDigitalManager manager] toStartRuning];
-                           
-                          
-                     
-                         });
+### 1.2 Core Features
 
+- **Digital Human Rendering & Driving**: Local rendering of virtual characters with real-time lip-syncing to voice input
+- **Voice Broadcast Control**: Supports audio playback, PCM streaming, and action-broadcast coordination
+- **Motion Control System**: Customizable start, stop, and random actions
 
-                     }
-                     else
-                     {
-                         [SVProgressHUD showInfoWithStatus:errorMsg];
-                     }
-                 }];
-             }
-            else
-            {
-                [SVProgressHUD showInfoWithStatus:@"model fail"];
-            }
-     
-```
-## Call process
-```
-1. Prepare the basic configuration and model files required for the synchronous digital person before starting the service.
-2. Initialize the digital person rendering service.
-3. Call the toStart function to start rendering the digital person
-4. Call the toSpeakWithPath function to drive the digital person to broadcast.
-5. Call cancelAudioPlay to actively stop broadcasting.
-6. Call toStop to end and release the digital person rendering
-```
+This SDK provides locally deployed 2D digital human rendering and voice broadcast capabilities for devices running iOS 12+. It supports real-time presentation of voice-driven digital humans with low latency, low power consumption, and high performance.
 
-### SDK Callback
+---
+
+## 2. Development Preparation
+
+- **SDK Component**: `GJLocalDigitalSDK.framework` (Set to Embed & Sign)
+- **Development Environment**:
+  - Xcode 12+
+  - iPhone 8+ devices
+  - iOS 12.0+
+
+---
+
+## 3. Quick Start
 
 ```
-/*
-*Digital person rendering error callback
-*-1 uninitialized 50009 resource timeout or not configured
-*/
-@property (nonatomic, copy) void (^playFailed)(NSInteger code,NSString *errorMsg);
+// 1. Initialize authorization
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
+                                                 digitalModel:weakSelf.digitalPath 
+                                                    showView:weakSelf.showView];
 
-/*
-*Audio playback end callback 
-*/
-@property (nonatomic, copy) void (^audioPlayEnd)(void);
-
-/*
-*Audio playback progress callback 
-/
-@property (nonatomic, copy) void (^audioPlayProgress)(float current,float total);
-```
-
-## Methods
-
-
-
-
-### Initialization
+if (result == 1) {
+    // 2. Start rendering
+    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 3. Start streaming driver
+                [[GJLDigitalManager manager] toStartRuning];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        }
+    }];
+}
 
 ```
-/*
-*basePath Base common model path - remains unchanged
-*digitalPath Digital person model path - only need to replace this path to replace the digital person
-*return 1 Success  -1 Initialization failed
-*showView Display interface
-*/
+
+---
+
+##  4. Workflow
+
+1. Prepare resources: Synchronize base configurations and model files required for the digital human
+
+2. Initialize service: initBaseModel:digitalModel:showView:
+
+3. Start rendering: toStart:
+
+4. Drive broadcast: toWavPcmData: (streaming-driven)
+
+5. Stop broadcast: stopPlaying: (active stop)
+
+6. Release resources: toStop (stop rendering)
+
+---
+
+## 5. Core Function Interfaces
+
+### 5.1 Initialization Configuration
+
+```
+/**
+ * Initialize digital human service
+ * @param basePath    Base model path (fixed)
+ * @param digitalPath Digital human model path (update when replacing digital human)
+ * @param showView    Digital human rendering view
+ * @return Status code 1=success, 0=unauthorized, -1=failure
+ */
 -(NSInteger)initBaseModel:(NSString*)basePath digitalModel:(NSString*)digitalPath showView:(UIView*)showView;
 ```
 
-### Replace background
+### 5.2 Digital Human Rendering Control
 
 ```
 /*
-* bbgPath Replace background
-* Note: -jpg format ----Background size equals the digital person model's getDigitalSize-----------
-*/
--(void)toChangeBBGWithPath:(NSString*)bbgPath;
-```
-
-
-### Start rendering digital person
-
-```
-/*
-*Start
+* Start digital human rendering
 */
 -(void)toStart:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
 ```
 
-### End rendering digital person and release
 ```
 /*
-*End
+* Stop rendering and release resources
 */
 -(void)toStop;
 ```
 
-### Width and height of digital person model
-
 ```
 /*
-*After initializing the model, you can get it
-*getDigitalSize Width of digital person model Height of digital person model
+* Resume playback (call after pause)
 */
--(CGSize)getDigitalSize;
+-(void)toPlay;
 ```
-
-### Cancel playing audio
 
 ```
 /*
-*Cancel playing audio
+* Pause digital human playback
 */
--(void)cancelAudioPlay;
+-(void)toPause;
 ```
 
-
-
-### Authorization Success
+### 5.3 Background Management
 
 ```
-/*
-* Check if authorization is successful
-*/
--(NSInteger)isGetAuth;
+/**
+ * Dynamically replace background
+ * @param bbgPath JPG format background image path
+ */
+-(void)toChangeBBGWithPath:(NSString*)bbgPath;
 ```
 
-### PCM Streaming
-
-```
-/*
-* Start recording and playback
-*/
--(void)toStartRuning;
-```
+### 5.4 Audio Control
 
 ```
 /*
-* Initialize session for a sentence or paragraph
-*/
--(void)newSession;
-```
-
-```
-/*
-* Call finishSession when streaming ends (not when playback ends)
-*/
--(void)finishSession;
-```
-
-
-```
-/*
-* Continue session after finishSession
-*/
--(void)continueSession;
-```
-
-```
-/*
-* Mute/unmute
-*/
--(void)toMute:(BOOL)isMute;
-```
-
-
-```
-/*
-* pcm
-* size
-* Refer to toSpeakWithPath for PCM conversion code
+* Play audio stream (PCM format), refer to toSpeakWithPath in GJLPCMManager demo class for PCM conversion
+* Drive digital human broadcast (PCM stream)
 */
 -(void)toWavPcmData:(NSData*)audioData;
+```
+
+
+```
+/*
+* Start audio stream playback
+*/
+- (void)startPlaying;
+```
+
+```
+/*
+* Stop audio stream playback
+*/
+- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+```
+
+```
+/*
+* Set mute mode
+*/
+-(void)toMute:(BOOL)isMute;
 ```
 
 ```
@@ -208,22 +170,19 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
 -(void)clearAudioBuffer;
 ```
 
-
 ```
 /*
-* Pause PCM audio streaming
+* Pause audio stream playback
 */
 -(void)toPausePcm;
 ```
 
-
 ```
 /*
-* Resume PCM audio streaming
+* Resume audio stream playback
 */
 -(void)toResumePcm;
 ```
-
 
 ```
 /*
@@ -232,98 +191,134 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
 -(void)toEnableRecord:(BOOL)isEnable;
 ```
 
+### 5.5 Streaming Session Management
 
 ```
 /*
-* Start audio streaming playback
+* Start streaming session
 */
-- (void)startPlaying;
+-(void)toStartRuning;
 ```
 
 ```
 /*
-* Stop audio streaming playback
+* Start new session (single sentence/paragraph)
 */
-- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+-(void)newSession;
 ```
 
-
-## Actions
-
-### Random Action
- 
 ```
 /*
-* Call before starting action
-* Random action (for text containing multiple audio segments, recommended to set at first audio start)
-* return 0 - digital human model doesn't support random action 1 - supported
+* End current session
+*/
+-(void)finishSession;
+```
+
+```
+/*
+* Continue session (call after finish)
+*/
+-(void)continueSession;
+```
+
+### 5.6 Motion Control
+
+```
+/*
+* Enable random motions (recommended at start of first audio segment)
+* Return: 0=unsupported, 1=success
 */
 -(NSInteger)toRandomMotion;
 ```
 
-### Start Action
-
 ```
 /*
-* Start action (for text containing multiple audio segments, set at first audio start)
-* return 0 - digital human model doesn't support start action 1 - supported
+* Enable start motion (call at beginning of first audio segment)
+* Return: 0=unsupported, 1=success
 */
 -(NSInteger)toStartMotion;
 ```
 
-### Stop Action
 ```
 /*
-* Stop action (for text containing multiple audio segments, set when last audio playback ends)
-* isQuickly YES - end action immediately NO - wait for action to complete before silence
-* return 0 - digital human model doesn't support stop action 1 - supported
+* End motion (call at end of last audio segment)
+* isQuickly: YES=end immediately, NO=wait for motion completion
+* Return: 0=unsupported, 1=success
 */
 -(NSInteger)toSopMotion:(BOOL)isQuickly;
 ```
 
-### Resume Digital Human Playback
+
+### 5.7 Status Queries
 ```
 /*
-* Only needed after pausing digital human
-*/
--(void)toPlay;
+* Get digital human model dimensions (call after initialization)
+*/ 
+-(CGSize)getDigitalSize;
 ```
 
-### Pause Digital Human Playback
 ```
 /*
-* Pause digital human playback
+* Check authorization status (1=authorized)
+*/ 
+-(NSInteger)isGetAuth;
+```
+---
+
+## 6. Callback Definitions
+
+```
+/*
+* Digital human rendering error
+* Error codes:
+*    0  = Unauthorized 
+*   -1 = Uninitialized 
+*   50009 = Resource timeout/unconfigured
 */
--(void)toPause;
+@property (nonatomic, copy) void (^playFailed)(NSInteger code,NSString *errorMsg);
 ```
 
-
-
-## Version History
-
-**1.2.0**
 ```
-1. Added PCM streaming support
+/*
+* Audio playback ended callback
+*/
+@property (nonatomic, copy) void (^audioPlayEnd)(void);
 ```
 
-**1.0.3**
 ```
-1. Digital human background transparency
-2. Fixed memory issues during decompression
+/*
+* Audio playback progress callback
+*/
+@property (nonatomic, copy) void (^audioPlayProgress)(float current,float total);
 ```
+---
 
-**1.0.2**
-```
-1. Q&A functionality
-2. Speech recognition
-3. Text synthesis
-4. Speaking animations
-```
+## 7. Version History
 
+### v1.2.0
 
-**1.0.1**
-```
-1. Local authorization and initialization for digital human
-2. Local rendering for digital human
-3. Audio playback and lip-sync driving
-```
+- Added PCM streaming support
+
+### v1.0.3
+
+- Supported transparent backgrounds
+- Optimized model decompression memory
+
+### v1.0.2
+
+- Supported Q&A / speech recognition / motion tagging / synthesized broadcast
+
+### v1.0.1
+
+- Initial version: authorization + rendering + broadcast
+---
+
+## 8. Reference Open-Source Projects
+| Module                                     | Description              |
+| --------------------------------------- | --------------- |
+| [ONNX](https://github.com/onnx/onnx)    | Universal AI model format      |
+| [ncnn](https://github.com/Tencent/ncnn) | High-performance neural network inference framework (Tencent)
+ |
+ 
+ 
+ For additional integration support, please contact technical support.
