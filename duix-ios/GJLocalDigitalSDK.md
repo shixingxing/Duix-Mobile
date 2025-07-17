@@ -19,8 +19,7 @@
              if(result==1)
              {
        
- //                NSString *bgpath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] bundlePath],@"bg2.jpg"];
- //                [[GJLDigitalManager manager] toChangeBBGWithPath:bgpath];
+
                  [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
                      if(isSuccess)
                      {
@@ -30,12 +29,10 @@
                     
                          
                                 [[GJLDigitalManager manager] toStartRuning];
-                                [weakSelf initASR];
-                                [[GJLASRManager manager] toOpenAsr];
                           
                      
                          });
-//
+
 
                      }
                      else
@@ -52,8 +49,8 @@
 2. 使用授权接口授权。
 3. 初始化数字人渲染服务。
 4. 调用toStart函数开始渲染数字人
-5. 调用toSpeakWithPath函数驱动数字人播报。
-6. 调用cancelAudioPlay函数可以主动停止播报。
+5. 调用toWavPcmData函数驱动数字人播报。
+6. 调用stopPlaying函数可以主动停止播报。
 7. 调用toStop结束并释放数字人渲染
 ```
 
