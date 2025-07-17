@@ -62,6 +62,17 @@ if (result == 1) {
 
 ##  4. Workflow
 
+```mermaid
+graph TD
+A[Check Configuration and Model] --> B[Build DUIX Instance]
+B --> C[Call init to initialize]
+C --> D[Display Image / Render]
+D --> E[PCM or WAV Audio Driving]
+E --> F[Playback Control and Action Trigger]
+F --> G[Resource Release]
+```
+
+```
 1. Prepare resources: Synchronize base configurations and model files required for the digital human
 
 2. Initialize service: initBaseModel:digitalModel:showView:
@@ -73,6 +84,7 @@ if (result == 1) {
 5. Stop broadcast: stopPlaying: (active stop)
 
 6. Release resources: toStop (stop rendering)
+```
 
 ---
 
