@@ -30,7 +30,7 @@ The 2D Digital Human SDK allows for real-time driving of virtual humans via voic
 | CPU Architecture      | armeabi-v7a, arm64-v8a                                                                                      |
 | Hardware Requirements | Requires CPU with 8 or more cores (Snapdragon 8 Gen 2), 8GB or more RAM, and 1GB or more available storage. |
 | Network               | None (fully local operation)                                                                                |
-| Development IDE       | Android Studio Giraffe \mid 2022.3.1 Patch 2                                                                |
+| Development IDE       | Android Studio Giraffe 2022.3.1 Patch 2                                                                     |
 | Memory Requirements   | Available memory for the digital human >= 800MB                                                             |
 
 ### 2.2 SDK Integration
