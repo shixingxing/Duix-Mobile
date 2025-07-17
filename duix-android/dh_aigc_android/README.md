@@ -6,29 +6,30 @@
 
 ### 1. 适用场景
 
-部署成本低: 无需客户提供技术团队进行配合,支持低成本快速部署在多种终端及大屏;
-网络依赖小:可落地在地铁、银行、政务等多种场景的虚拟助理自助服务上;
-功能多样化:可根据客户需求满足视频、媒体、客服、金融、广电等多个行业的多样化需求
+- **部署成本低**: 无需客户提供技术团队进行配合,支持低成本快速部署在多种终端及大屏;
+- **网络依赖小**:可落地在地铁、银行、政务等多种场景的虚拟助理自助服务上;
+- **功能多样化**:可根据客户需求满足视频、媒体、客服、金融、广电等多个行业的多样化需求
 
 ### 2. 核心功能
 
-提供定制形象的 AI 主播,智能客服等多场景形象租赁,支持客户快速部署和低成本运营;
-专属形象定制:支持定制专属的虚拟助理形象,可选低成本或深度形象生成;
-播报内容定制:支持定制专属的播报内容,应用在培训、播报等多种场景上;
-实时互动问答:支持实时对话,也可定制专属问答库,可满足咨询查询、语音闲聊、虚拟陪伴、垂类场景的客服问答等需求。
+- **专属形象定制**:支持定制专属的虚拟助理形象,可选低成本或深度形象生成;
+- **播报内容定制**:支持定制专属的播报内容,应用在培训、播报等多种场景上;
+- **实时互动问答**:支持实时对话,也可定制专属问答库,可满足咨询查询、语音闲聊、虚拟陪伴、垂类场景的客服问答等需求。
+
+---
 
 ## 二、SDK集成
 
 ### 1. 支持的系统和硬件版本
 
-| 项目     | 描述                                                 |
-|--------|----------------------------------------------------|
-| 系统     | 支持 Android 10+ 系统。                                 |
-| CPU架构  | armeabi-v7a, arm64-v8a                             |
-| 硬件要求   | 要求设备 CPU8 核极以上(骁龙8 Gen2),内存 8G 及以上。可用存储空间 1GB 及以上。 |
-| 网络     | 无。                                                 |
-| 开发 IDE | Android Studio Giraffe \mid 2022.3.1 Patch 2       |
-| 内存要求   | 可用于数字人的内存 >= 800MB                                 |
+| 项目     | 描述                                                  |
+|--------|-----------------------------------------------------|
+| 系统     | 支持 Android 10+ 系统。                                  |
+| CPU架构  | armeabi-v7a, arm64-v8a                              |
+| 硬件要求   | 要求设备 CPU8 核极以上(骁龙8 Gen2),内存 8G 及以上。可用存储空间 1GB 及以上。  |
+| 网络     | 无（完全本地运行）                                           |
+| 开发 IDE | Android Studio Giraffe \mid 2022.3.1 Patch 2        |
+| 内存要求   | 可用于数字人的内存 >= 800MB                                  |
 
 ### 2. SDK集成
 
@@ -42,16 +43,31 @@ dependencies {
 }
 ```
 
-## 三、SDK调用及API说明
+---
 
+## 三、使用流程概览
+
+
+```mermaid
+graph TD
+A[检查配置与模型] --> B[构建 DUIX 实例]
+B --> C[调用 init 初始化]
+C --> D[展示形象 / 渲染]
+D --> E[PCM 或 WAV 音频驱动]
+E --> F[播放控制与动作触发]
+F --> G[资源释放]
+```
+
+---
+
+## 四、SDK调用及API说明
 
 ### 1. 模型检查及下载
 
 使用渲染服务前需要将基础配置及模型文件同步到本地存储中,SDK中提供了VirtualModelUtil简单演示了模型下载解压流程。
 若模型下载过慢或无法下载，开发者可以选择将模型包缓存到自己的存储服务。
 
-函数定义:
-ai.guiji.duix.sdk.client.VirtualModelUtil
+> 函数定义: `ai.guiji.duix.sdk.client.VirtualModelUtil`
 
 ```
 // 检查基础配置是否已下载
@@ -67,8 +83,7 @@ void baseConfigDownload(Context context, String url, ModelDownloadCallback callb
 void modelDownload(Context context, String modelUrl, ModelDownloadCallback callback)
 ```
 
-其中ModelDownloadCallback:
-ai.guiji.duix.sdk.client.VirtualModelUtil$ModelDownloadCallback
+其中**ModelDownloadCallback**: `ai.guiji.duix.sdk.client.VirtualModelUtil$ModelDownloadCallback`
 
 ```
 interface ModelDownloadCallback {
@@ -83,7 +98,7 @@ interface ModelDownloadCallback {
 }
 ```
 
-调用示例:
+**调用示例**:
 
 ```kotlin
 if (!VirtualModelUtil.checkBaseConfig(mContext)){
@@ -97,13 +112,13 @@ if (!VirtualModelUtil.checkModel(mContext, modelUrl)){
 }
 ```
 
+---
 
 ### 2. 初始化SDK
 
 在渲染页onCreate()阶段构建DUIX对象并调用init接口
 
-函数定义:
-ai.guiji.duix.sdk.client.DUIX
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 // 构建DUIX对象
@@ -113,7 +128,7 @@ public DUIX(Context context, String modelName, RenderSink sink, Callback callbac
 void init()
 ```
 
-DUIX对象构建说明:
+**DUIX对象构建说明**:
 
 | 参数         | 类型         | 描述                                  |
 |------------|------------|-------------------------------------|
@@ -123,8 +138,7 @@ DUIX对象构建说明:
 | callback   | Callback   | SDK处理的各种回调事件                        |
 
 
-其中Callback的定义:
-ai.guiji.duix.sdk.client.Callback
+其中**Callback**的定义: `ai.guiji.duix.sdk.client.Callback`
 
 ```
 interface Callback {
@@ -132,7 +146,7 @@ interface Callback {
 }
 ```
 
-调用示例:
+**调用示例**:
 
 ```kotlin
 duix = DUIX(mContext, modelUrl, mDUIXRender) { event, msg, info ->
@@ -154,13 +168,13 @@ duix?.init()
 
 在init回调中确认初始化结果
 
+---
 
 ### 3. 数字人形象展示
 
 使用RenderSink接口接受渲染帧数据，SDK中提供了该接口实现DUIXRenderer.java。也可以自己实现该接口自定义渲染。
 
-其中RenderSink的定义如下:
-ai.guiji.duix.sdk.client.render.RenderSink
+其中**RenderSink**的定义如下: `ai.guiji.duix.sdk.client.render.RenderSink`
 
 ```java
 /**
@@ -174,7 +188,7 @@ public interface RenderSink {
 }
 ```
 
-调用示例:
+**调用示例**:
 
 使用DUIXRenderer及DUIXTextureView控件简单实现渲染展示,该控件支持透明通道可以自由设置背景及前景
 
@@ -201,13 +215,13 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+---
 
 ### 4. 使用流式推送PCM驱动数字人播报
 
 **PCM格式:16k采样率单通道16位深**
 
-函数定义:
-ai.guiji.duix.sdk.client.DUIX
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 // 通知服务开始推送音频
@@ -223,7 +237,7 @@ void stopPush()
 
 startPush、pushPcm、stopPush需要成对调用，pushPcm不宜过长。可以在一整段音频推送完后调用stopPush结束当前会话，下一段音频再使用startPush重新开启推送。
 
-调用示例:
+**调用示例**:
 
 ```kotlin
 val thread = Thread {
@@ -241,27 +255,27 @@ val thread = Thread {
 thread.start()
 ```
 
+---
 
 ### 5. 启动wav音频驱动数字人播报
 
-函数定义:
-ai.guiji.duix.sdk.client.DUIX
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 void playAudio(String wavPath) 
 ```
 
-该函数兼容旧的wav驱动数字人接口，在内部实际是调用了PCM推流方式实现驱动。
+**该函数兼容旧的wav驱动数字人接口，在内部实际是调用了PCM推流方式实现驱动。**
 
 
-参数说明:
+**参数说明**:
 
 | 参数      | 类型     | 描述                    |
 |---------|--------|-----------------------|
 | wavPath | String | 16k采样率单通道16位深的wav本地文件 |
 
 
-调用示例:
+**调用示例**:
 
 ```kotlin
 duix?.playAudio(wavPath)
@@ -290,28 +304,31 @@ object : Callback {
 }
 ```
 
+---
+
 ### 6. 终止当前播报
 
 当数字人正在播报时调用该接口终止播报。
 
-函数定义:
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 boolean stopAudio();
 ```
 
-调用示例如下：
+**调用示例如下**：
 
 ```kotlin
 duix?.stopAudio()
 ```
 
+---
+
 ### 7. 播放指定动作区间
 
 模型中支持新的动作区间标注(SpecialAction.json)
 
-函数定义:
-ai.guiji.duix.sdk.client.DUIX
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 /**
@@ -322,7 +339,7 @@ ai.guiji.duix.sdk.client.DUIX
 void startMotion(String name, boolean now)
 ```
 
-调用示例如下：
+**调用示例如下**：
 
 ```kotlin
 duix?.startMotion("打招呼", true)
@@ -332,7 +349,7 @@ duix?.startMotion("打招呼", true)
 
 随机播放场景及旧的标注协议(config.json)
 
-函数定义:
+> 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 /**
@@ -342,22 +359,25 @@ duix?.startMotion("打招呼", true)
 void startRandomMotion(boolean now);
 ```
 
-调用示例如下：
+**调用示例如下**：
 
 ```kotlin
 duix?.startRandomMotion(true)
 ```
 
+---
 
-## 四. Proguard配置
+## 五. Proguard配置
 
 如果代码使用了混淆，请在proguard-rules.pro中配置：
 
-```
+```proguard
 -keep class ai.guiji.duix.DuixNcnn{*; }
 ```
-git 
-## 五、注意事项
+
+---
+ 
+## 六、注意事项
 
 1. 驱动渲染初始化前需要确保基础配置文件及模型下载到指定位置。
 2. 播放的PCM音频不宜过长，播放的PCM缓存在内存中，过长的音频流可能导致内存溢出。
@@ -365,7 +385,9 @@ git
 4. 音频驱动的格式: 16k采样率单通道16位深度
 5. 设备性能不足时可能导致音频特征提取的速度跟不上音频播放的速度，可以使用duix?.setReporter()函数添加一个监控观察帧渲染返回的信息。
 
-## 六、版本记录
+---
+
+## 七、版本记录
 
 **<a>4.0.1</a>**
 1. 支持PCM音频流驱动数字人，提升音频播放响应速度。
@@ -392,9 +414,9 @@ git
 1. 优化本地渲染。
 ```
 
-## 七、其他相关的第三方开源项目
+## 八、其他相关的第三方开源项目
 
-| 模块 | 描述 |
-|-----------|--|
-| [onnx](https://github.com/onnx/onnx) | 人工智能框架 |
+| 模块                                      | 描述          |
+|-----------------------------------------|-------------|
+| [onnx](https://github.com/onnx/onnx)    | 人工智能框架      |
 | [ncnn](https://github.com/Tencent/ncnn) | 高性能神经网络计算框架 |
