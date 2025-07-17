@@ -424,7 +424,6 @@
 				A0B1C4302B29BECA009E0716 /* GCDTimer */,
 				A0FC3EA12B2855430069EA0E /* DIMetalView */,
 				A0FC3E942B283E7E0069EA0E /* DigitalHumanDriven */,
-				A0FC3E542B283E460069EA0E /* Cpp */,
 				A0FC3E432B283DD80069EA0E /* libjpeg-turbo */,
 				A0FC3E292B283BAB0069EA0E /* GJFrameWork */,
 				A0FC3D852B282DC40069EA0E /* GJLocalDigitalSDK.h */,
@@ -477,13 +476,6 @@
 				A0FC3E4C2B283DD80069EA0E /* libjpeg.a */,
 			);
 			path = libs;
-			sourceTree = "<group>";
-		};
-		A0FC3E542B283E460069EA0E /* Cpp */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cpp;
 			sourceTree = "<group>";
 		};
 		A0FC3E942B283E7E0069EA0E /* DigitalHumanDriven */ = {
