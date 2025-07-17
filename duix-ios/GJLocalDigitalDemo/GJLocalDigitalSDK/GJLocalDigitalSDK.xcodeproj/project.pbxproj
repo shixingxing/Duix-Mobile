@@ -135,7 +135,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A039144C2DD730B1009FBE81 /* GJLDecry.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GJLDecry.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05E0FF72DCC8BD00057BEC4 /* GJLAudioPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAudioPlayer.h; sourceTree = "<group>"; };
 		A05E0FF82DCC8BD00057BEC4 /* GJLAudioPlayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GJLAudioPlayer.mm; sourceTree = "<group>"; };
 		A05E10012DCC8C170057BEC4 /* GJLKFAudioCapture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLKFAudioCapture.h; sourceTree = "<group>"; };
@@ -623,7 +622,6 @@
 				A066FDA22B289C0D007A3C68 /* Metal.framework */,
 				A066FDA02B2897F7007A3C68 /* Foundation.framework */,
 				A066FD9E2B2897EF007A3C68 /* QuartzCore.framework */,
-				A039144C2DD730B1009FBE81 /* GJLDecry.framework */,
 				A0FC3EB82B285C0D0069EA0E /* CoreGraphics.framework */,
 				A0FC3EB62B285BFD0069EA0E /* CoreTelephony.framework */,
 				A0FC3EB42B285B800069EA0E /* SystemConfiguration.framework */,
