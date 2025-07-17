@@ -156,14 +156,14 @@
 
 -(BOOL)isFileExit
 {
-    if(![[NSFileManager defaultManager] fileExistsAtPath:self.basePath])
+    if(![[NSFileManager defaultManager] fileExistsAtPath:self.basePath]||self.baseTextView.text.length==0)
     {
         NSLog(@"基础模型不存在");
         [SVProgressHUD showInfoWithStatus:@"基础模型不存在"];
         return NO;
     }
     
-    if(![[NSFileManager defaultManager] fileExistsAtPath:self.digitalPath])
+    if(![[NSFileManager defaultManager] fileExistsAtPath:self.digitalPath]||self.digitalTextView.text.length==0)
     {
         NSLog(@"模版不存在");
         [SVProgressHUD showInfoWithStatus:@"模版不存在"];
