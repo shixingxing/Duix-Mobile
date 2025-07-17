@@ -34,33 +34,9 @@ This SDK provides locally deployed 2D digital human rendering and voice broadcas
 
 ---
 
-## 3. Quick Start
 
-```
-// 1. Initialize authorization
-NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
-                                                 digitalModel:weakSelf.digitalPath 
-                                                    showView:weakSelf.showView];
 
-if (result == 1) {
-    // 2. Start rendering
-    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
-        if (isSuccess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 3. Start streaming driver
-                [[GJLDigitalManager manager] toStartRuning];
-            });
-        } else {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
-        }
-    }];
-}
-
-```
-
----
-
-##  4. Workflow
+##  3. Workflow
 
 ```mermaid
 graph TD
@@ -84,6 +60,32 @@ F --> G[Resource Release]
 5. Stop broadcast: stopPlaying: (active stop)
 
 6. Release resources: toStop (stop rendering)
+```
+
+---
+
+## 4. Quick Start
+
+```
+// 1. Initialize authorization
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
+                                                 digitalModel:weakSelf.digitalPath 
+                                                    showView:weakSelf.showView];
+
+if (result == 1) {
+    // 2. Start rendering
+    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 3. Start streaming driver
+                [[GJLDigitalManager manager] toStartRuning];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        }
+    }];
+}
+
 ```
 
 ---

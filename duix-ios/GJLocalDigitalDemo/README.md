@@ -35,32 +35,8 @@
 
 ---
 
-## 三、快速开始
-```
-NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
-                                                 digitalModel:weakSelf.digitalPath 
-                                                    showView:weakSelf.showView];
 
-if (result == 1) {
-    // 2. 启动渲染
-    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
-        if (isSuccess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 3. 启动流式驱动
-                [[GJLDigitalManager manager] toStartRuning];
-            });
-        } else {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
-        }
-    }];
-}
-
-
-```
-  
----
-
-## 四、调用流程
+## 三、调用流程
 
 ```mermaid
 graph TD
@@ -85,7 +61,30 @@ E --> F[播放控制与动作触发]
 6.释放资源：toStop（结束渲染）
 ```
 
+---
 
+## 四、快速开始
+```
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
+                                                 digitalModel:weakSelf.digitalPath 
+                                                    showView:weakSelf.showView];
+
+if (result == 1) {
+    // 2. 启动渲染
+    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 3. 启动流式驱动
+                [[GJLDigitalManager manager] toStartRuning];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        }
+    }];
+}
+
+
+```
 
 ---
 
