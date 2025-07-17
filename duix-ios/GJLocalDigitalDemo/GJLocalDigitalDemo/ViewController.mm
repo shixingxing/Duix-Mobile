@@ -77,7 +77,6 @@
      self.baseTextView.layer.borderColor = [UIColor redColor].CGColor;
      self.baseTextView.layer.borderWidth = 1;
      self.baseTextView.returnKeyType=UIReturnKeyDone;
-    self.baseTextView.text=BASEMODELURL;
     [self.view addSubview:self.baseTextView];
     
 
@@ -99,7 +98,7 @@
      self.digitalTextView.layer.borderColor = [UIColor redColor].CGColor;
      self.digitalTextView.layer.borderWidth = 1;
      self.digitalTextView.returnKeyType=UIReturnKeyDone;
-    self.digitalTextView.text=DIGITALMODELURL;
+
     [self.view addSubview:self.digitalTextView];
 
     
@@ -110,8 +109,9 @@
     [startbtn addTarget:self action:@selector(toStartWav) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:startbtn];
     
-
-
+    NSUserDefaults * defaults=[NSUserDefaults standardUserDefaults];
+    self.baseTextView.text=[defaults objectForKey:@"BASEMODELURL"]?:BASEMODELURL;
+    self.digitalTextView.text=[defaults objectForKey:@"DIGITALMODELURLKEY"]?:DIGITALMODELURL;
 
 
 
@@ -297,10 +297,18 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
-  
+        NSUserDefaults * defaults=[NSUserDefaults standardUserDefaults];
         NSLog(@"Return key was pressed");
         // 如果你想在按下 return 后不换行，可以返回 NO
         // return NO;
+         if(textView==self.baseTextView)
+        {
+            [defaults setObject:text forKey:@"BASEMODELURL"];
+        }
+        else if(textView==self.digitalTextView)
+        {
+            [defaults setObject:text forKey:@"DIGITALMODELURLKEY"];
+        }
         [textView resignFirstResponder];
         [self isDownModel];
     }
