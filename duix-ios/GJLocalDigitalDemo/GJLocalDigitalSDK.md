@@ -1,5 +1,7 @@
 ## 硅基本地版DUIX-PRO SDK使⽤⽂档 (1.2.0)
-    
+
+简体中文 | [English](./GJLocalDigitalSDK_en.md)
+
 ### 物料准备
  GJLocalDigitalSDK.framework  (-Embed & Sign)
  
@@ -17,8 +19,7 @@
              if(result==1)
              {
        
- //                NSString *bgpath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] bundlePath],@"bg2.jpg"];
- //                [[GJLDigitalManager manager] toChangeBBGWithPath:bgpath];
+
                  [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
                      if(isSuccess)
                      {
@@ -28,12 +29,10 @@
                     
                          
                                 [[GJLDigitalManager manager] toStartRuning];
-                                [weakSelf initASR];
-                                [[GJLASRManager manager] toOpenAsr];
                           
                      
                          });
-//
+
 
                      }
                      else
@@ -46,13 +45,12 @@
 ```
 ## 调用流程
 ```
-1. 启动服务前需要准备好授权的appId,appKey以及同步数字人需要的基础配置和模型文件。
-2. 使用授权接口授权。
-3. 初始化数字人渲染服务。
-4. 调用toStart函数开始渲染数字人
-5. 调用toSpeakWithPath函数驱动数字人播报。
-6. 调用cancelAudioPlay函数可以主动停止播报。
-7. 调用toStop结束并释放数字人渲染
+1. 启动服务前需要准备好同步数字人需要的基础配置和模型文件。
+2. 初始化数字人渲染服务。
+3. 调用toStart函数开始渲染数字人
+4. 调用toWavPcmData函数驱动数字人播报。
+5. 调用stopPlaying函数可以主动停止播报。
+6. 调用toStop结束并释放数字人渲染
 ```
 
 ### SDK回调
@@ -190,9 +188,7 @@
 
 ```
 /*
-*pcm
-*size
-* 参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
+*audioData播放音频流 ，参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
@@ -293,78 +289,7 @@
 -(void)toPause;
 ```
 
-## 语音识别 
 
-### 初始化录音和ASR
-
-```
-/*
-*初始化录音和ASR
-*/
--(void)initASR;
-```
-
-### 开始识别
-
-```
-/*
-*开始识别
-*/
--(void)toOpenAsr;
-```
-
-### 停止识别
-
-```
-/*
-*停止识别
-*/
--(void)toCloseAsr;
-```
-
-### 语音识别回调
-
-```
-@property (nonatomic, copy) void (^asrBlock)(NSString * asrText,BOOL isFinish);
-
-/*
- *data 录音返回 单声道 1   采样率 16000
- */
-@property (nonatomic, copy) void (^recordDataBlock)(NSData * data);
-
-
-
-/*
- *音量回调
- */
-@property (nonatomic, copy) void (^rmsBlock)(float rms);
-
-
-@property (nonatomic, copy) void (^errBlock)(NSError *err);
-
-/*
- * 服务端开始推送音频流
- */
-@property (nonatomic, copy) void (^startPushBlock)(void);
-/*
- *data 服务端返回音频流 单声道 1   采样率 16000
- */
-@property (nonatomic, copy) void (^pushDataBlock)(NSData * data);
-/*
- *服务端停止推送音频流
- */
-@property (nonatomic, copy) void (^stopPushBlock)(void);
-
-/*
- *大模型返回文字
- */
-@property (nonatomic, copy) void (^speakTextBlock)(NSString * speakText);
-
-/*
- *返回动作标记
- */
-@property (nonatomic, copy) void (^motionBlock)(NSString * motionText);
-```
 
 ## 版本记录
 

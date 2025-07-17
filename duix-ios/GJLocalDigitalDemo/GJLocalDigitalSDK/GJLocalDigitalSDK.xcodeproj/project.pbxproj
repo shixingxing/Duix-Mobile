@@ -23,6 +23,7 @@
 		A0B1C4332B29BECA009E0716 /* GJLGCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B1C4312B29BECA009E0716 /* GJLGCDTimer.m */; };
 		A0B1C4342B29BECA009E0716 /* GJLGCDTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = A0B1C4322B29BECA009E0716 /* GJLGCDTimer.h */; };
 		A0BA7FA22E26439B00C8EAED /* GJLDecry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BA7FA12E26439B00C8EAED /* GJLDecry.framework */; };
+		A0BA7FBC2E28B2D900C8EAED /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BA7FBB2E28B2D900C8EAED /* AudioToolbox.framework */; };
 		A0BB09242B3ACCA000BF0CC1 /* GJLGlobalFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BB09222B3ACCA000BF0CC1 /* GJLGlobalFunc.m */; };
 		A0BB09252B3ACCA000BF0CC1 /* GJLGlobalFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BB09232B3ACCA000BF0CC1 /* GJLGlobalFunc.h */; };
 		A0C35E712DE6002500FA89D5 /* lightweightsemaphore.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C35E452DE6002500FA89D5 /* lightweightsemaphore.h */; };
@@ -74,39 +75,12 @@
 		A0C35EA32DE6BA7600FA89D5 /* gjsimp.h in Headers */ = {isa = PBXBuildFile; fileRef = A0C35EA22DE6BA7600FA89D5 /* gjsimp.h */; };
 		A0D81D742B298FBB002F98C1 /* DIMetalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A0D81D722B298FBB002F98C1 /* DIMetalView.mm */; };
 		A0D81D752B298FBB002F98C1 /* DIMetalView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0D81D732B298FBB002F98C1 /* DIMetalView.h */; };
-		A0E72AAC2DD42D00006F0809 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AA82DD42D00006F0809 /* SRWebSocket.m */; };
-		A0E72AAD2DD42D00006F0809 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AAA2DD42D00006F0809 /* WebSocketManager.m */; };
-		A0E72AAE2DD42D00006F0809 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AA72DD42D00006F0809 /* SRWebSocket.h */; };
-		A0E72AAF2DD42D00006F0809 /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AA62DD42D00006F0809 /* SocketRocket.h */; };
-		A0E72AB02DD42D00006F0809 /* WebSocketManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AA92DD42D00006F0809 /* WebSocketManager.h */; };
-		A0E72AB62DD42D42006F0809 /* GJLHttpClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AB32DD42D42006F0809 /* GJLHttpClient.h */; };
-		A0E72AB72DD42D42006F0809 /* GJHttpManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AB12DD42D42006F0809 /* GJHttpManager.h */; };
-		A0E72AB82DD42D42006F0809 /* GJLHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AB42DD42D42006F0809 /* GJLHttpClient.m */; };
-		A0E72AB92DD42D42006F0809 /* GJHttpManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AB22DD42D42006F0809 /* GJHttpManager.m */; };
-		A0E72AC92DD42D48006F0809 /* GJLAFCompatibilityMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AC72DD42D48006F0809 /* GJLAFCompatibilityMacros.h */; };
-		A0E72ACA2DD42D48006F0809 /* GJLAFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72ABC2DD42D48006F0809 /* GJLAFURLSessionManager.h */; };
-		A0E72ACB2DD42D48006F0809 /* GJLAFNetworkReachabilityManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72ABB2DD42D48006F0809 /* GJLAFNetworkReachabilityManager.h */; };
-		A0E72ACC2DD42D48006F0809 /* GJLAFHTTPSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72ABF2DD42D48006F0809 /* GJLAFHTTPSessionManager.h */; };
-		A0E72ACD2DD42D48006F0809 /* GJLAFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72ABA2DD42D48006F0809 /* GJLAFSecurityPolicy.h */; };
-		A0E72ACE2DD42D48006F0809 /* GJLAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AC42DD42D48006F0809 /* GJLAFNetworking.h */; };
-		A0E72ACF2DD42D48006F0809 /* GJLAFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AC22DD42D48006F0809 /* GJLAFURLRequestSerialization.h */; };
-		A0E72AD02DD42D48006F0809 /* GJLAFURLResponseSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72ABD2DD42D48006F0809 /* GJLAFURLResponseSerialization.h */; };
-		A0E72AD12DD42D48006F0809 /* GJLAFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AC02DD42D48006F0809 /* GJLAFHTTPSessionManager.m */; };
-		A0E72AD22DD42D48006F0809 /* GJLAFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AC62DD42D48006F0809 /* GJLAFSecurityPolicy.m */; };
-		A0E72AD32DD42D48006F0809 /* GJLAFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AC32DD42D48006F0809 /* GJLAFURLRequestSerialization.m */; };
-		A0E72AD42DD42D48006F0809 /* GJLAFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AC12DD42D48006F0809 /* GJLAFURLSessionManager.m */; };
-		A0E72AD52DD42D48006F0809 /* GJLAFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AC52DD42D48006F0809 /* GJLAFNetworkReachabilityManager.m */; };
-		A0E72AD62DD42D48006F0809 /* GJLAFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72ABE2DD42D48006F0809 /* GJLAFURLResponseSerialization.m */; };
-		A0E72ADA2DD42DF1006F0809 /* GJLASRCofigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AD82DD42DF1006F0809 /* GJLASRCofigModel.m */; };
-		A0E72ADB2DD42DF1006F0809 /* GJLASRCofigModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AD72DD42DF1006F0809 /* GJLASRCofigModel.h */; };
 		A0E72AE22DD4373A006F0809 /* BZQWebRTC.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AE02DD4373A006F0809 /* BZQWebRTC.h */; };
 		A0E72AE32DD4373A006F0809 /* BZQWebRTC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AE12DD4373A006F0809 /* BZQWebRTC.m */; };
 		A0E72AE62DD4375D006F0809 /* gjl_noise_suppression.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72AE52DD4375D006F0809 /* gjl_noise_suppression.h */; };
 		A0E72AE72DD4375D006F0809 /* gjl_noise_suppression.c in Sources */ = {isa = PBXBuildFile; fileRef = A0E72AE42DD4375D006F0809 /* gjl_noise_suppression.c */; };
 		A0E72B4D2DD5E114006F0809 /* GJLDigitalConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72B4B2DD5E114006F0809 /* GJLDigitalConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A0E72B4E2DD5E114006F0809 /* GJLDigitalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72B4C2DD5E114006F0809 /* GJLDigitalConfig.m */; };
-		A0E72B572DD5EBAC006F0809 /* JWTGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E72B562DD5EBAC006F0809 /* JWTGenerator.m */; };
-		A0E72B582DD5EBAC006F0809 /* JWTGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E72B552DD5EBAC006F0809 /* JWTGenerator.h */; };
 		A0E8C97E2B29CD5A0089DEE7 /* GJLOpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E8C97C2B29CD5A0089DEE7 /* GJLOpenUDID.m */; };
 		A0E8C97F2B29CD5A0089DEE7 /* GJLOpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E8C97D2B29CD5A0089DEE7 /* GJLOpenUDID.h */; };
 		A0FC3D882B282DC40069EA0E /* GJLocalDigitalSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = A0FC3D852B282DC40069EA0E /* GJLocalDigitalSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,6 +125,7 @@
 		A0B1C4312B29BECA009E0716 /* GJLGCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJLGCDTimer.m; sourceTree = "<group>"; };
 		A0B1C4322B29BECA009E0716 /* GJLGCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJLGCDTimer.h; sourceTree = "<group>"; };
 		A0BA7FA12E26439B00C8EAED /* GJLDecry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GJLDecry.framework; sourceTree = "<group>"; };
+		A0BA7FBB2E28B2D900C8EAED /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A0BB09202B3ACBB600BF0CC1 /* GJLocalDigitalSDK.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLocalDigitalSDK.pch; sourceTree = "<group>"; };
 		A0BB09222B3ACCA000BF0CC1 /* GJLGlobalFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJLGlobalFunc.m; sourceTree = "<group>"; };
 		A0BB09232B3ACCA000BF0CC1 /* GJLGlobalFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJLGlobalFunc.h; sourceTree = "<group>"; };
@@ -203,39 +178,12 @@
 		A0C35EA22DE6BA7600FA89D5 /* gjsimp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gjsimp.h; sourceTree = "<group>"; };
 		A0D81D722B298FBB002F98C1 /* DIMetalView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DIMetalView.mm; sourceTree = "<group>"; };
 		A0D81D732B298FBB002F98C1 /* DIMetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIMetalView.h; sourceTree = "<group>"; };
-		A0E72AA62DD42D00006F0809 /* SocketRocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketRocket.h; sourceTree = "<group>"; };
-		A0E72AA72DD42D00006F0809 /* SRWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		A0E72AA82DD42D00006F0809 /* SRWebSocket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
-		A0E72AA92DD42D00006F0809 /* WebSocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
-		A0E72AAA2DD42D00006F0809 /* WebSocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
-		A0E72AB12DD42D42006F0809 /* GJHttpManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJHttpManager.h; sourceTree = "<group>"; };
-		A0E72AB22DD42D42006F0809 /* GJHttpManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJHttpManager.m; sourceTree = "<group>"; };
-		A0E72AB32DD42D42006F0809 /* GJLHttpClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLHttpClient.h; sourceTree = "<group>"; };
-		A0E72AB42DD42D42006F0809 /* GJLHttpClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLHttpClient.m; sourceTree = "<group>"; };
-		A0E72ABA2DD42D48006F0809 /* GJLAFSecurityPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFSecurityPolicy.h; sourceTree = "<group>"; };
-		A0E72ABB2DD42D48006F0809 /* GJLAFNetworkReachabilityManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFNetworkReachabilityManager.h; sourceTree = "<group>"; };
-		A0E72ABC2DD42D48006F0809 /* GJLAFURLSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFURLSessionManager.h; sourceTree = "<group>"; };
-		A0E72ABD2DD42D48006F0809 /* GJLAFURLResponseSerialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFURLResponseSerialization.h; sourceTree = "<group>"; };
-		A0E72ABE2DD42D48006F0809 /* GJLAFURLResponseSerialization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFURLResponseSerialization.m; sourceTree = "<group>"; };
-		A0E72ABF2DD42D48006F0809 /* GJLAFHTTPSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFHTTPSessionManager.h; sourceTree = "<group>"; };
-		A0E72AC02DD42D48006F0809 /* GJLAFHTTPSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFHTTPSessionManager.m; sourceTree = "<group>"; };
-		A0E72AC12DD42D48006F0809 /* GJLAFURLSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFURLSessionManager.m; sourceTree = "<group>"; };
-		A0E72AC22DD42D48006F0809 /* GJLAFURLRequestSerialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFURLRequestSerialization.h; sourceTree = "<group>"; };
-		A0E72AC32DD42D48006F0809 /* GJLAFURLRequestSerialization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFURLRequestSerialization.m; sourceTree = "<group>"; };
-		A0E72AC42DD42D48006F0809 /* GJLAFNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFNetworking.h; sourceTree = "<group>"; };
-		A0E72AC52DD42D48006F0809 /* GJLAFNetworkReachabilityManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFNetworkReachabilityManager.m; sourceTree = "<group>"; };
-		A0E72AC62DD42D48006F0809 /* GJLAFSecurityPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLAFSecurityPolicy.m; sourceTree = "<group>"; };
-		A0E72AC72DD42D48006F0809 /* GJLAFCompatibilityMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLAFCompatibilityMacros.h; sourceTree = "<group>"; };
-		A0E72AD72DD42DF1006F0809 /* GJLASRCofigModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLASRCofigModel.h; sourceTree = "<group>"; };
-		A0E72AD82DD42DF1006F0809 /* GJLASRCofigModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLASRCofigModel.m; sourceTree = "<group>"; };
 		A0E72AE02DD4373A006F0809 /* BZQWebRTC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BZQWebRTC.h; sourceTree = "<group>"; };
 		A0E72AE12DD4373A006F0809 /* BZQWebRTC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BZQWebRTC.m; sourceTree = "<group>"; };
 		A0E72AE42DD4375D006F0809 /* gjl_noise_suppression.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gjl_noise_suppression.c; sourceTree = "<group>"; };
 		A0E72AE52DD4375D006F0809 /* gjl_noise_suppression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gjl_noise_suppression.h; sourceTree = "<group>"; };
 		A0E72B4B2DD5E114006F0809 /* GJLDigitalConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GJLDigitalConfig.h; sourceTree = "<group>"; };
 		A0E72B4C2DD5E114006F0809 /* GJLDigitalConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GJLDigitalConfig.m; sourceTree = "<group>"; };
-		A0E72B552DD5EBAC006F0809 /* JWTGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JWTGenerator.h; sourceTree = "<group>"; };
-		A0E72B562DD5EBAC006F0809 /* JWTGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JWTGenerator.m; sourceTree = "<group>"; };
 		A0E8C97C2B29CD5A0089DEE7 /* GJLOpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GJLOpenUDID.m; sourceTree = "<group>"; };
 		A0E8C97D2B29CD5A0089DEE7 /* GJLOpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GJLOpenUDID.h; sourceTree = "<group>"; };
 		A0FC3D822B282DC40069EA0E /* GJLocalDigitalSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GJLocalDigitalSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0BA7FBC2E28B2D900C8EAED /* AudioToolbox.framework in Frameworks */,
 				A066FDA52B289CBC007A3C68 /* Metal.framework in Frameworks */,
 				A066FDA42B289C7D007A3C68 /* CoreGraphics.framework in Frameworks */,
 				A066FD9F2B2897EF007A3C68 /* QuartzCore.framework in Frameworks */,
@@ -438,68 +387,6 @@
 			path = include;
 			sourceTree = "<group>";
 		};
-		A0E72AAB2DD42D00006F0809 /* SocketRocket */ = {
-			isa = PBXGroup;
-			children = (
-				A0E72AA62DD42D00006F0809 /* SocketRocket.h */,
-				A0E72AA72DD42D00006F0809 /* SRWebSocket.h */,
-				A0E72AA82DD42D00006F0809 /* SRWebSocket.m */,
-				A0E72AA92DD42D00006F0809 /* WebSocketManager.h */,
-				A0E72AAA2DD42D00006F0809 /* WebSocketManager.m */,
-			);
-			path = SocketRocket;
-			sourceTree = "<group>";
-		};
-		A0E72AB52DD42D42006F0809 /* HttpClient */ = {
-			isa = PBXGroup;
-			children = (
-				A0E72AB12DD42D42006F0809 /* GJHttpManager.h */,
-				A0E72AB22DD42D42006F0809 /* GJHttpManager.m */,
-				A0E72AB32DD42D42006F0809 /* GJLHttpClient.h */,
-				A0E72AB42DD42D42006F0809 /* GJLHttpClient.m */,
-			);
-			path = HttpClient;
-			sourceTree = "<group>";
-		};
-		A0E72AC82DD42D48006F0809 /* AFNetworking4.0.1 */ = {
-			isa = PBXGroup;
-			children = (
-				A0E72ABA2DD42D48006F0809 /* GJLAFSecurityPolicy.h */,
-				A0E72ABB2DD42D48006F0809 /* GJLAFNetworkReachabilityManager.h */,
-				A0E72ABC2DD42D48006F0809 /* GJLAFURLSessionManager.h */,
-				A0E72ABD2DD42D48006F0809 /* GJLAFURLResponseSerialization.h */,
-				A0E72ABE2DD42D48006F0809 /* GJLAFURLResponseSerialization.m */,
-				A0E72ABF2DD42D48006F0809 /* GJLAFHTTPSessionManager.h */,
-				A0E72AC02DD42D48006F0809 /* GJLAFHTTPSessionManager.m */,
-				A0E72AC12DD42D48006F0809 /* GJLAFURLSessionManager.m */,
-				A0E72AC22DD42D48006F0809 /* GJLAFURLRequestSerialization.h */,
-				A0E72AC32DD42D48006F0809 /* GJLAFURLRequestSerialization.m */,
-				A0E72AC42DD42D48006F0809 /* GJLAFNetworking.h */,
-				A0E72AC52DD42D48006F0809 /* GJLAFNetworkReachabilityManager.m */,
-				A0E72AC62DD42D48006F0809 /* GJLAFSecurityPolicy.m */,
-				A0E72AC72DD42D48006F0809 /* GJLAFCompatibilityMacros.h */,
-			);
-			path = AFNetworking4.0.1;
-			sourceTree = "<group>";
-		};
-		A0E72AD92DD42DF1006F0809 /* GJLASRConfig */ = {
-			isa = PBXGroup;
-			children = (
-				A0E72AD72DD42DF1006F0809 /* GJLASRCofigModel.h */,
-				A0E72AD82DD42DF1006F0809 /* GJLASRCofigModel.m */,
-			);
-			path = GJLASRConfig;
-			sourceTree = "<group>";
-		};
-		A0E72B542DD5EB9B006F0809 /* JWTGenerator */ = {
-			isa = PBXGroup;
-			children = (
-				A0E72B552DD5EBAC006F0809 /* JWTGenerator.h */,
-				A0E72B562DD5EBAC006F0809 /* JWTGenerator.m */,
-			);
-			path = JWTGenerator;
-			sourceTree = "<group>";
-		};
 		A0E8C97B2B29CD5A0089DEE7 /* OpenUDID-master */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,11 +416,6 @@
 		A0FC3D842B282DC40069EA0E /* GJLocalDigitalSDK */ = {
 			isa = PBXGroup;
 			children = (
-				A0E72B542DD5EB9B006F0809 /* JWTGenerator */,
-				A0E72AD92DD42DF1006F0809 /* GJLASRConfig */,
-				A0E72AC82DD42D48006F0809 /* AFNetworking4.0.1 */,
-				A0E72AB52DD42D42006F0809 /* HttpClient */,
-				A0E72AAB2DD42D00006F0809 /* SocketRocket */,
 				A05E10052DCC8C170057BEC4 /* AudioCapture */,
 				A05E0FF92DCC8BD00057BEC4 /* GJLAudioPlayer */,
 				A0B027122DCB5F9000C4824C /* duixsdka */,
@@ -618,6 +500,7 @@
 		A0FC3E992B2840BC0069EA0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0BA7FBB2E28B2D900C8EAED /* AudioToolbox.framework */,
 				A066FDA62B289E0C007A3C68 /* CoreVideo.framework */,
 				A066FDA22B289C0D007A3C68 /* Metal.framework */,
 				A066FDA02B2897F7007A3C68 /* Foundation.framework */,
@@ -686,8 +569,6 @@
 				A0C35E8E2DE6002500FA89D5 /* dhwenet.h in Headers */,
 				A0C35E8F2DE6002500FA89D5 /* atomicops.h in Headers */,
 				A0C35E902DE6002500FA89D5 /* dh_mem.h in Headers */,
-				A0E72AB62DD42D42006F0809 /* GJLHttpClient.h in Headers */,
-				A0E72AB72DD42D42006F0809 /* GJHttpManager.h in Headers */,
 				A0D81D752B298FBB002F98C1 /* DIMetalView.h in Headers */,
 				A0FC3E502B283DD80069EA0E /* jconfig.h in Headers */,
 				A0FC3E972B283E7E0069EA0E /* DigitalHumanDriven.h in Headers */,
@@ -696,21 +577,8 @@
 				A0E8C97F2B29CD5A0089DEE7 /* GJLOpenUDID.h in Headers */,
 				A0FC3E512B283DD80069EA0E /* jmorecfg.h in Headers */,
 				A05E0FFA2DCC8BD00057BEC4 /* GJLAudioPlayer.h in Headers */,
-				A0E72B582DD5EBAC006F0809 /* JWTGenerator.h in Headers */,
 				A0E72AE62DD4375D006F0809 /* gjl_noise_suppression.h in Headers */,
 				A0E72AE22DD4373A006F0809 /* BZQWebRTC.h in Headers */,
-				A0E72AC92DD42D48006F0809 /* GJLAFCompatibilityMacros.h in Headers */,
-				A0E72ACA2DD42D48006F0809 /* GJLAFURLSessionManager.h in Headers */,
-				A0E72ACB2DD42D48006F0809 /* GJLAFNetworkReachabilityManager.h in Headers */,
-				A0E72ACC2DD42D48006F0809 /* GJLAFHTTPSessionManager.h in Headers */,
-				A0E72ACD2DD42D48006F0809 /* GJLAFSecurityPolicy.h in Headers */,
-				A0E72ACE2DD42D48006F0809 /* GJLAFNetworking.h in Headers */,
-				A0E72ACF2DD42D48006F0809 /* GJLAFURLRequestSerialization.h in Headers */,
-				A0E72ADB2DD42DF1006F0809 /* GJLASRCofigModel.h in Headers */,
-				A0E72AD02DD42D48006F0809 /* GJLAFURLResponseSerialization.h in Headers */,
-				A0E72AAE2DD42D00006F0809 /* SRWebSocket.h in Headers */,
-				A0E72AAF2DD42D00006F0809 /* SocketRocket.h in Headers */,
-				A0E72AB02DD42D00006F0809 /* WebSocketManager.h in Headers */,
 				A0A336A22B31499800C07A38 /* DigitalConfigModel.h in Headers */,
 				A05E10062DCC8C170057BEC4 /* GJLKFAudioCapture.h in Headers */,
 				A05E10072DCC8C170057BEC4 /* GJLKFAudioConfig.h in Headers */,
@@ -793,13 +661,6 @@
 				A0B1C4332B29BECA009E0716 /* GJLGCDTimer.m in Sources */,
 				A05E10082DCC8C170057BEC4 /* GJLKFAudioCapture.mm in Sources */,
 				A0E72AE32DD4373A006F0809 /* BZQWebRTC.m in Sources */,
-				A0E72B572DD5EBAC006F0809 /* JWTGenerator.m in Sources */,
-				A0E72AB82DD42D42006F0809 /* GJLHttpClient.m in Sources */,
-				A0E72ADA2DD42DF1006F0809 /* GJLASRCofigModel.m in Sources */,
-				A0E72AB92DD42D42006F0809 /* GJHttpManager.m in Sources */,
-				A0E72AD12DD42D48006F0809 /* GJLAFHTTPSessionManager.m in Sources */,
-				A0E72AD22DD42D48006F0809 /* GJLAFSecurityPolicy.m in Sources */,
-				A0E72AD32DD42D48006F0809 /* GJLAFURLRequestSerialization.m in Sources */,
 				A0E72AE72DD4375D006F0809 /* gjl_noise_suppression.c in Sources */,
 				A0C35E912DE6002500FA89D5 /* dhwenet.cpp in Sources */,
 				A0C35E922DE6002500FA89D5 /* iir_filter.cpp in Sources */,
@@ -817,9 +678,6 @@
 				A0C35E9F2DE6002500FA89D5 /* dh_data.cpp in Sources */,
 				A0C35EA02DE6002500FA89D5 /* jmat.cpp in Sources */,
 				A0C35EA12DE6002500FA89D5 /* malpha.cpp in Sources */,
-				A0E72AD42DD42D48006F0809 /* GJLAFURLSessionManager.m in Sources */,
-				A0E72AD52DD42D48006F0809 /* GJLAFNetworkReachabilityManager.m in Sources */,
-				A0E72AD62DD42D48006F0809 /* GJLAFURLResponseSerialization.m in Sources */,
 				A0E72B4E2DD5E114006F0809 /* GJLDigitalConfig.m in Sources */,
 				A05E10092DCC8C170057BEC4 /* GJLKFAudioConfig.m in Sources */,
 				A05E0FFB2DCC8BD00057BEC4 /* GJLAudioPlayer.mm in Sources */,
@@ -829,8 +687,6 @@
 				A0E8C97E2B29CD5A0089DEE7 /* GJLOpenUDID.m in Sources */,
 				A0FC3EA92B2855430069EA0E /* shaders.metal in Sources */,
 				A0A336A32B31499800C07A38 /* DigitalConfigModel.m in Sources */,
-				A0E72AAC2DD42D00006F0809 /* SRWebSocket.m in Sources */,
-				A0E72AAD2DD42D00006F0809 /* WebSocketManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,19 +26,20 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 ## 🥳 有什么优势？
 
 - **仿真数字人体验**：自然呈现面部表情、语调和情绪共鸣，打造「像人一样」的 AI 对话。
-- **极致响应速度**：对话延迟低于 1.5 秒（持续优化中），带来毫秒级的畅快互动体验。
+- **支持流式音频**：边合成、边说话，支持中途打断、抢话，让数字人不仅会说话，而且更像「人」。
+- **极致响应速度**：数字人响应延迟低于 120ms（测试设备为骁龙® 8 Gen 2 SoC），带来毫秒级流畅互动体验。
 - **成本友好，随处部署**：轻量化运行，资源占用极低，轻松适配手机、平板、智能屏等终端。
 - **无惧弱网环境**：核心处理本地完成，对网络依赖极低，尤其适合金融、政务、法律等高稳定性场景。
 - **全行业适配**：模块化设计，支持快速定制，轻松打造各行业专属数字人解决方案。
 
 ## 📑 开发文档
 
-- Android 开发者：[DUIX-Mobile SDK for Android](https://github.com/GuijiAI/duix.ai/blob/main/duix-android/dh_aigc_android/README.md)
-- iOS 开发者：[DUIX-Mobile SDK for iOS](https://github.com/GuijiAI/duix.ai/blob/main/duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
+- Android 开发者：[DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README.md)
+- iOS 开发者：[DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
 
-## 💚 体验 DEMO
+## 💚 实际部署案例
 
-- Android：[APK 下载](https://github.com/duixcom/Duix.mobile/blob/main/duix-android/test-release.apk)
+- 前往哔哩哔哩查看：[《程序员与奶奶的虚拟重逢》](https://www.bilibili.com/video/BV1QSgczPESS)
 
 ## ✨ 公用数字人下载 
 
@@ -126,9 +127,7 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 <details>
 <summary>是否支持流式音频？</summary>
 
-流式音频目前还处于开发阶段；
-
-如需你当前阶段需要，请联系上方的企业微信。
+支持，流式音频已于 2025 年 7 月 17 日版本更新中上线。
 
 </details>
 
@@ -141,5 +140,5 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 ## 💡 版本计划
 
-- [ ]  流式音频能力，预计时间：2025 年 7 月 30 日前
+- [x]  流式音频能力，2025 年 7 月 16 日上线
 - [ ]  算法响应优化，预计时间：2025 年 8 月 30 日前

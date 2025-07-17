@@ -1,209 +1,186 @@
 ## 硅基本地版DUIX-PRO SDK使⽤⽂档 (1.2.0)
-    
-### 物料准备
- GJLocalDigitalSDK.framework  (-Embed & Sign)
- 
 
- 
-      
+简体中文 | [English](./GJLocalDigitalSDK_en.md)
 
-### 开发环境
-开发⼯具: Xcode  ios12.0以上 iphone8及以上
+---
 
-## 快速开始
+## 一、产品概述
+
+`硅基本地版 DUIX-PRO SDK` 是一套轻量级的本地部署 2D 虚拟人解决方案，支持通过语音实时驱动虚拟人形象。该 SDK 可在 iOS 设备上运行，具备低延迟、高帧率、边缘计算离线运行等优势。
+
+### 1.1 适用场景
+
+- **部署成本低**：无需服务端支持，适合大屏终端、本地 App 快速集成；
+- **网络依赖小**：本地模型运行，支持政务大厅、展厅、机场等弱网环境；
+- **功能多样化**：适用于导览播报、业务咨询、数字迎宾等 AI 数字人应用场景。
+
+### 1.2 核心功能
+
+- **数字人渲染与驱动**：支持本地渲染虚拟人形象，响应语音输入实时口型驱动；
+- **语音播报控制**：支持音频播放、PCM 推流、动作与播报联动；
+- **动作控制系统**：可自定义启动、停止、随机动作；
+
+本 SDK 提供本地部署的 2D 数字人渲染及语音播报能力，适用于 iOS 12+ 版本的设备。支持语音驱动数字人形象的实时呈现，具备低延迟、低功耗、高性能等特点。
+
+---
+
+
+## 二、开发准备
+
+- **SDK 组件**：`GJLocalDigitalSDK.framework`（设置为 Embed & Sign）
+- **开发环境**：
+  - Xcode 12 及以上
+  - iPhone 8 及以上设备
+  - iOS 12.0+
+
+---
+
+## 三、快速开始
 ```
-            //授权
-            NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
-             if(result==1)
-             {
-       
- //                NSString *bgpath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] bundlePath],@"bg2.jpg"];
- //                [[GJLDigitalManager manager] toChangeBBGWithPath:bgpath];
-                 [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
-                     if(isSuccess)
-                     {
-                         
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                      
-                    
-                         
-                                [[GJLDigitalManager manager] toStartRuning];
-                                [weakSelf initASR];
-                                [[GJLASRManager manager] toOpenAsr];
-                          
-                     
-                         });
-//
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
+                                                 digitalModel:weakSelf.digitalPath 
+                                                    showView:weakSelf.showView];
 
-                     }
-                     else
-                     {
-                         [SVProgressHUD showInfoWithStatus:errorMsg];
-                     }
-                 }];
-             }
-     
-```
-## 调用流程
-```
-1. 启动服务前需要准备好授权的appId,appKey以及同步数字人需要的基础配置和模型文件。
-2. 使用授权接口授权。
-3. 初始化数字人渲染服务。
-4. 调用toStart函数开始渲染数字人
-5. 调用toSpeakWithPath函数驱动数字人播报。
-6. 调用cancelAudioPlay函数可以主动停止播报。
-7. 调用toStop结束并释放数字人渲染
-```
+if (result == 1) {
+    // 2. 启动渲染
+    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 3. 启动流式驱动
+                [[GJLDigitalManager manager] toStartRuning];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        }
+    }];
+}
 
-### SDK回调
-
-```
-/*
-*数字人渲染报错回调
-*0 未授权 -1未初始化 50009资源超时或未配置
-*/
-@property (nonatomic, copy) void (^playFailed)(NSInteger code,NSString *errorMsg);
-
-/*
-*音频播放结束回调
-*/
-@property (nonatomic, copy) void (^audioPlayEnd)(void);
-
-/*
-*音频播放进度回调
-/
-@property (nonatomic, copy) void (^audioPlayProgress)(float current,float total);
-```
-
-## 方法
-
-
-### 初始化
 
 ```
-/*
-*basePath 底层通用模型路径-保持不变
-*digitalPath 数字人模型路径- 替换数字人只需要替换这个路径
-*return 1 返回成功 0未授权 -1 初始化失败
-*showView 显示界面
-*/
+  
+---
+
+## 四、调用流程
+```
+1.准备资源：同步数字人所需的基础配置和模型文件
+
+2.初始化服务：initBaseModel:digitalModel:showView:
+
+3.启动渲染：toStart:
+
+4.驱动播报：toWavPcmData:（流式驱动）
+
+5.停止播报：stopPlaying:（主动停止）
+
+6.释放资源：toStop（结束渲染）
+```
+
+---
+
+## 五、核心功能接口
+
+
+### 5.1 初始化配置
+
+```
+/**
+ * 初始化数字人服务
+ * @param basePath    基础模型路径（固定不变）
+ * @param digitalPath 数字人模型路径（替换数字人时更新此路径）
+ * @param showView    数字人渲染视图
+ * @return 状态码 1=成功, 0=未授权, -1=失败
+ */
 -(NSInteger)initBaseModel:(NSString*)basePath digitalModel:(NSString*)digitalPath showView:(UIView*)showView;
 ```
 
-### 替换背景
+
+
+
+### 5.2 渲染数字人控制
 
 ```
 /*
-* bbgPath 替换背景 
-* 注意: -jpg格式 ----背景size等于数字人模型的getDigitalSize-----------
+*启动数字人渲染
 */
+-(void)toStart:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
+```
+
+
+```
+/*
+*停止渲染并释放资源
+*/
+-(void)toStop;
+```
+
+
+```
+/*
+*恢复播放（暂停后调用）
+*/
+-(void)toPlay;
+```
+
+```
+/*
+*暂停数字人播放
+*/
+-(void)toPause;
+```
+
+
+### 5.3 背景管理
+
+```
+/**
+ * 动态替换背景
+ * @param bbgPath JPG格式背景图路径
+ */
 -(void)toChangeBBGWithPath:(NSString*)bbgPath;
 ```
 
 
 
-### 开始渲染数字人
+
+### 5.4 音频控制
 
 ```
 /*
-*开始
-*/
--(void)toStart:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
-```
-
-### 结束渲染数字人并释放
-```
-/*
-*结束
-*/
--(void)toStop;
-```
-
-### 数字人模型的宽度高度
-
-```
-/*
-*初始化模型过后才能获取
-*getDigitalSize 数字人模型的宽度 数字人模型的高度
-*/
--(CGSize)getDigitalSize;
-```
-
-### 取消播放音频
-
-```
-/*
-*取消播放音频
-*/
--(void)cancelAudioPlay;
-```
-
-
-
-### 授权成功
-
-```
-/*
-*是否授权成功
-*/
--(NSInteger)isGetAuth;
-```
-
-### PCM流式
-
-```
-/*
-*开始录音和播放
-*/
--(void)toStartRuning;
-```
-
-```
-/*
-*一句话或一段话的初始化session
-*/
--(void)newSession;
-```
-
-```
-/*
-*一句话或一段话的推流结束调用finishSession 而非播放结束调用
-*/
--(void)finishSession;
-```
-
-
-```
-/*
-*finishSession 结束后调用续上continueSession
-*/
--(void)continueSession;
-```
-
-```
-/*
-*是否静音
-*/
--(void)toMute:(BOOL)isMute;
-```
-
-
-```
-/*
-*pcm
-*size
-* 参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
+*audioData播放音频流 ，参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
+*驱动数字人播报(PCM流)
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
 
 ```
 /*
-*清空buffer
+* 开始音频流播放
+*/
+- (void)startPlaying;
+```
+
+
+```
+/*
+* 结束音频流播放
+*/
+- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+```
+
+
+```
+/*
+*设置静音模式
+*/
+-(void)toMute:(BOOL)isMute;
+```
+
+```
+/*
+*清空音频缓冲区
 */
 -(void)clearAudioBuffer;
 ```
-
 
 ```
 /*
@@ -220,177 +197,143 @@
 -(void)toResumePcm;
 ```
 
-
 ```
 /*
 * 是否启用录音
- */
+*/
 -(void)toEnableRecord:(BOOL)isEnable;
 ```
 
 
+### 5.5 流式会话管理
 ```
 /*
-* 开始音频流播放
+*启动流式会话
 */
-- (void)startPlaying;
+-(void)toStartRuning;
 ```
 
 ```
 /*
-* 结束音频流播放
+*开始新会话（单句/段落）
 */
-- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+-(void)newSession;
 ```
 
-
-## 动作
-
-### 随机动作
- 
 ```
 /*
-* 开始动作前调用
-* 随机动作（一段文字包含多个音频，建议第一个音频开始时设置随机动作）
-* return 0 数字人模型不支持随机动作 1 数字人模型支持随机动作
+*结束当前会话
+*/
+-(void)finishSession;
+```
+
+
+```
+/*
+*继续会话（finish后调用）
+*/
+-(void)continueSession;
+```
+
+
+### 5.6 动作控制
+
+```
+/*
+* 启用随机动作（建议在首段音频开始时调用）
+* 返回：0=不支持, 1=成功
 */
 -(NSInteger)toRandomMotion;
 ```
 
-### 开始动作
-
 ```
 /*
-* 开始动作 （一段文字包含多个音频，第一个音频开始时设置）
-* return 0  数字人模型不支持开始动作 1  数字人模型支持开始动作
+* 启用开始动作（首段音频开始时调用）
+* 返回：0=不支持, 1=成功
 */
 -(NSInteger)toStartMotion;
 ```
 
-### 结束动作
 ```
 /*
-* 结束动作 （一段文字包含多个音频，最后一个音频播放结束时设置）
-*isQuickly YES 立即结束动作   NO 等待动作播放完成再静默
-*return 0 数字人模型不支持结束动作  1 数字人模型支持结束动作
+* 结束动作（末段音频结束时调用）
+*isQuickly: YES=立即结束, NO=等待动作完成
+*返回：0=不支持, 1=成功
 */
 -(NSInteger)toSopMotion:(BOOL)isQuickly;
 ```
 
-### 暂停后开始播放数字人
+### 5.7 状态查询
+
 ```
 /*
-*暂停后才需执行播放数字人
+*获取数字人模型尺寸（需初始化后调用）
+*/ 
+-(CGSize)getDigitalSize;
+```
+
+```
+/*
+*检查授权状态（1=已授权）
+*/ 
+-(NSInteger)isGetAuth;
+```
+
+---
+
+## 六、回调定义
+
+```
+/*
+*数字人渲染报错
+*错误码说明：
+*    0  = 未授权 
+*   -1 = 未初始化 
+*   50009 = 资源超时/未配置
 */
--(void)toPlay;
-```
+@property (nonatomic, copy) void (^playFailed)(NSInteger code,NSString *errorMsg);
 
-### 暂停数字人播放
-```
 /*
-*暂停数字人播放
+*音频播放结束回调
 */
--(void)toPause;
-```
-
-## 语音识别 
-
-### 初始化录音和ASR
-
-```
-/*
-*初始化录音和ASR
-*/
--(void)initASR;
-```
-
-### 开始识别
-
-```
-/*
-*开始识别
-*/
--(void)toOpenAsr;
-```
-
-### 停止识别
-
-```
-/*
-*停止识别
-*/
--(void)toCloseAsr;
-```
-
-### 语音识别回调
-
-```
-@property (nonatomic, copy) void (^asrBlock)(NSString * asrText,BOOL isFinish);
+@property (nonatomic, copy) void (^audioPlayEnd)(void);
 
 /*
- *data 录音返回 单声道 1   采样率 16000
- */
-@property (nonatomic, copy) void (^recordDataBlock)(NSData * data);
-
-
-
-/*
- *音量回调
- */
-@property (nonatomic, copy) void (^rmsBlock)(float rms);
-
-
-@property (nonatomic, copy) void (^errBlock)(NSError *err);
-
-/*
- * 服务端开始推送音频流
- */
-@property (nonatomic, copy) void (^startPushBlock)(void);
-/*
- *data 服务端返回音频流 单声道 1   采样率 16000
- */
-@property (nonatomic, copy) void (^pushDataBlock)(NSData * data);
-/*
- *服务端停止推送音频流
- */
-@property (nonatomic, copy) void (^stopPushBlock)(void);
-
-/*
- *大模型返回文字
- */
-@property (nonatomic, copy) void (^speakTextBlock)(NSString * speakText);
-
-/*
- *返回动作标记
- */
-@property (nonatomic, copy) void (^motionBlock)(NSString * motionText);
+*音频播放进度回调
+/
+@property (nonatomic, copy) void (^audioPlayProgress)(float current,float total);
 ```
 
-## 版本记录
+---
 
-**1.2.0**
-```
-1. 支持pcm流式
-```
+## 七、版本更新记录
 
-**1.0.3**
-```
-1. 数字人背景透明
-2. 解压内存问题
-```
+### v1.2.0
 
-**1.0.2**
-```
-1. 问答
-2. 语音识别
-3. 文字合成
-4. 说话动作
-```
+- 新增 PCM 推流支持
 
+### v1.0.3
 
-**1.0.1**
-```
-1. 数字人本地授权和初始化
-2. 数字人本地渲染
-3. 音频播放和驱动嘴形
-```
+- 支持透明背景
+- 优化模型解压内存
+
+### v1.0.2
+
+- 支持问答 / 语音识别 / 动作标注 / 合成播报
+
+### v1.0.1
+
+- 初始版本：授权 + 渲染 + 播报
+
+---
+
+## 八、参考开源项目
+
+| 模块                                      | 描述              |
+| --------------------------------------- | --------------- |
+| [ONNX](https://github.com/onnx/onnx)    | 通用人工智能模型格式      |
+| [ncnn](https://github.com/Tencent/ncnn) | 高性能神经网络推理框架（腾讯） |
+
+---
+
+如需更多集成帮助，请联系技术支持。

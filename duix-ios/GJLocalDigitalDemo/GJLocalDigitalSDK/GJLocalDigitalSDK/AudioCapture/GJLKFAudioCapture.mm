@@ -4,6 +4,9 @@
 #import "GJLKFAudioCapture.h"
 #import <AVFoundation/AVFoundation.h>
 #import <mach/mach_time.h>
+#import <zlib.h>
+
+#import <AudioToolbox/AudioToolbox.h>
 //#import "BZQWebRTC.h"
 #import "GJLGCDTimer.h"
 #import "DigitalHumanDriven.h"
