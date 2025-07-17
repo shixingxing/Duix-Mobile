@@ -29,7 +29,7 @@
 //
 //基础模型 git 地址下载较慢，请下载后自己管理加速
 #define BASEMODELURL   @"https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/gj_dh_res.zip"
-//////数字人模型 git 地址下载较慢，请下载后自己管理加速
+//数字人模型 git 地址下载较慢，请下载后自己管理加速
 #define DIGITALMODELURL @"https://github.com/GuijiAI/duix.ai/releases/download/v1.0.0/bendi3_20240518.zip"
 
 
@@ -185,10 +185,10 @@
 -(void)isDownModel
 {
     NSString *unzipPath = [self getHistoryCachePath:@"unZipCache"];
-    NSString * baseName=[[BASEMODELURL lastPathComponent] stringByDeletingPathExtension];
+    NSString * baseName=[[self.baseTextView.text lastPathComponent] stringByDeletingPathExtension];
     self.basePath=[NSString stringWithFormat:@"%@/%@",unzipPath,baseName];
     
-    NSString * digitalName=[[DIGITALMODELURL lastPathComponent] stringByDeletingPathExtension];
+    NSString * digitalName=[[self.digitalTextView.text lastPathComponent] stringByDeletingPathExtension];
     self.digitalPath=[NSString stringWithFormat:@"%@/%@",unzipPath,digitalName];
 
     NSFileManager * fileManger=[NSFileManager defaultManager];
