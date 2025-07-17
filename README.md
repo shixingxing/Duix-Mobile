@@ -34,12 +34,12 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 ## 📑 开发文档
 
-- Android 开发者：[DUIX-Mobile SDK for Android](https://github.com/GuijiAI/duix.ai/blob/main/duix-android/dh_aigc_android/README.md)
-- iOS 开发者：[DUIX-Mobile SDK for iOS](https://github.com/GuijiAI/duix.ai/blob/main/duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
+- Android 开发者：[DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README.md)
+- iOS 开发者：[DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
 
-## 💚 体验 DEMO
+## 💚 实际部署案例
 
-- Android：[APK 下载](https://github.com/duixcom/Duix.mobile/blob/main/duix-android/test-release.apk)
+- 前往哔哩哔哩查看：[《程序员与奶奶的虚拟重逢》](https://www.bilibili.com/video/BV1QSgczPESS)
 
 ## ✨ 公用数字人下载 
 
@@ -140,5 +140,5 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 ## 💡 版本计划
 
-- [ ]  流式音频能力，预计时间：2025 年 7 月 30 日前
+- [x]  流式音频能力，2025 年 7 月 16 日前
 - [ ]  算法响应优化，预计时间：2025 年 8 月 30 日前

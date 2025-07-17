@@ -1,5 +1,7 @@
 ## Silicon Basic Edition DUIX SDK Usage Document (1.2.0)
-    
+
+[简体中文](./GJLocalDigitalSDK.md) | English
+
 ###  Supported Systems and Hardware Versions
  GJLocalDigitalSDK.framework  (-Embed & Sign)
  

@@ -1,5 +1,7 @@
 ## 硅基本地版DUIX-PRO SDK使⽤⽂档 (1.2.0)
-    
+
+简体中文 | [English](./GJLocalDigitalSDK_en.md)
+
 ### 物料准备
  GJLocalDigitalSDK.framework  (-Embed & Sign)
  
