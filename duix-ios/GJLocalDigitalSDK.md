@@ -3,62 +3,64 @@
 简体中文 | [English](./GJLocalDigitalSDK_en.md)
 
 ### 物料准备
- GJLocalDigitalSDK.framework  (-Embed & Sign)
+ GJLocalDigitalSDK.framework (需设置为 Embed & Sign)
  
 
  
       
 
 ### 开发环境
-开发⼯具: Xcode  ios12.0以上 iphone8及以上
+开发工具: Xcode
+
+最低系统要求: iOS 12.0+
+
+设备要求: iPhone 8 及以上机型
 
 ## 快速开始
 ```
-            //授权
-            NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
-             if(result==1)
-             {
-       
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
+                                                 digitalModel:weakSelf.digitalPath 
+                                                    showView:weakSelf.showView];
 
-                 [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
-                     if(isSuccess)
-                     {
-                         
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                      
-                    
-                         
-                                [[GJLDigitalManager manager] toStartRuning];
-                          
-                     
-                         });
-
-
-                     }
-                     else
-                     {
-                         [SVProgressHUD showInfoWithStatus:errorMsg];
-                     }
-                 }];
-             }
+if (result == 1) {
+    // 2. 启动渲染
+    [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // 3. 启动流式驱动
+                [[GJLDigitalManager manager] toStartRuning];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        }
+    }];
+}
      
 ```
 ## 调用流程
 ```
-1. 启动服务前需要准备好同步数字人需要的基础配置和模型文件。
-2. 初始化数字人渲染服务。
-3. 调用toStart函数开始渲染数字人
-4. 调用toWavPcmData函数驱动数字人播报。
-5. 调用stopPlaying函数可以主动停止播报。
-6. 调用toStop结束并释放数字人渲染
+1.准备资源：同步数字人所需的基础配置和模型文件
+
+2.初始化服务：initBaseModel:digitalModel:showView:
+
+3.启动渲染：toStart:
+
+4.驱动播报：toWavPcmData:（流式驱动）
+
+5.停止播报：stopPlaying:（主动停止）
+
+6.释放资源：toStop（结束渲染）
 ```
 
 ### SDK回调
 
 ```
 /*
-*数字人渲染报错回调
-*0 未授权 -1未初始化 50009资源超时或未配置
+*数字人渲染报错
+*错误码说明：
+*    0  = 未授权 
+*   -1 = 未初始化 
+*   50009 = 资源超时/未配置
 */
 @property (nonatomic, copy) void (^playFailed)(NSInteger code,NSString *errorMsg);
 
@@ -76,130 +78,107 @@
 ## 方法
 
 
-### 初始化
+### 初始化配置
 
 ```
-/*
-*basePath 底层通用模型路径-保持不变
-*digitalPath 数字人模型路径- 替换数字人只需要替换这个路径
-*return 1 返回成功 0未授权 -1 初始化失败
-*showView 显示界面
-*/
+/**
+ * 初始化数字人服务
+ * @param basePath    基础模型路径（固定不变）
+ * @param digitalPath 数字人模型路径（替换数字人时更新此路径）
+ * @param showView    数字人渲染视图
+ * @return 状态码 1=成功, 0=未授权, -1=失败
+ */
 -(NSInteger)initBaseModel:(NSString*)basePath digitalModel:(NSString*)digitalPath showView:(UIView*)showView;
 ```
 
-### 替换背景
+
+
+
+### 渲染数字人控制
 
 ```
 /*
-* bbgPath 替换背景 
-* 注意: -jpg格式 ----背景size等于数字人模型的getDigitalSize-----------
+*启动数字人渲染
 */
+-(void)toStart:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
+```
+
+
+```
+/*
+*停止渲染并释放资源
+*/
+-(void)toStop;
+```
+
+
+```
+/*
+*恢复播放（暂停后调用）
+*/
+-(void)toPlay;
+```
+
+```
+/*
+*暂停数字人播放
+*/
+-(void)toPause;
+```
+
+
+### 背景管理
+
+```
+/**
+ * 动态替换背景
+ * @param bbgPath JPG格式背景图路径
+ */
 -(void)toChangeBBGWithPath:(NSString*)bbgPath;
 ```
 
 
 
-### 开始渲染数字人
 
-```
-/*
-*开始
-*/
--(void)toStart:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
-```
-
-### 结束渲染数字人并释放
-```
-/*
-*结束
-*/
--(void)toStop;
-```
-
-### 数字人模型的宽度高度
-
-```
-/*
-*初始化模型过后才能获取
-*getDigitalSize 数字人模型的宽度 数字人模型的高度
-*/
--(CGSize)getDigitalSize;
-```
-
-### 取消播放音频
-
-```
-/*
-*取消播放音频
-*/
--(void)cancelAudioPlay;
-```
-
-
-
-### 授权成功
-
-```
-/*
-*是否授权成功
-*/
--(NSInteger)isGetAuth;
-```
-
-### PCM流式
-
-```
-/*
-*开始录音和播放
-*/
--(void)toStartRuning;
-```
-
-```
-/*
-*一句话或一段话的初始化session
-*/
--(void)newSession;
-```
-
-```
-/*
-*一句话或一段话的推流结束调用finishSession 而非播放结束调用
-*/
--(void)finishSession;
-```
-
-
-```
-/*
-*finishSession 结束后调用续上continueSession
-*/
--(void)continueSession;
-```
-
-```
-/*
-*是否静音
-*/
--(void)toMute:(BOOL)isMute;
-```
-
+### 音频控制
 
 ```
 /*
 *audioData播放音频流 ，参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
+*驱动数字人播报(PCM流)
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
 
 ```
 /*
-*清空buffer
+* 开始音频流播放
+*/
+- (void)startPlaying;
+```
+
+
+```
+/*
+* 结束音频流播放
+*/
+- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+```
+
+
+```
+/*
+*设置静音模式
+*/
+-(void)toMute:(BOOL)isMute;
+```
+
+```
+/*
+*清空音频缓冲区
 */
 -(void)clearAudioBuffer;
 ```
-
 
 ```
 /*
@@ -216,39 +195,58 @@
 -(void)toResumePcm;
 ```
 
-
 ```
 /*
 * 是否启用录音
- */
+*/
 -(void)toEnableRecord:(BOOL)isEnable;
 ```
 
 
+### 流式会话管理
 ```
 /*
-* 开始音频流播放
+*启动流式会话
 */
-- (void)startPlaying;
+-(void)toStartRuning;
 ```
 
 ```
 /*
-* 结束音频流播放
+*开始新会话（单句/段落）
 */
-- (void)stopPlaying:(void (^)( BOOL isSuccess))success;
+-(void)newSession;
+```
+
+```
+/*
+*结束当前会话
+*/
+-(void)finishSession;
 ```
 
 
-## 动作
+```
+/*
+*继续会话（finish后调用）
+*/
+-(void)continueSession;
+```
+
+
+
+
+
+
+
+## 动作控制
 
 ### 随机动作
  
 ```
 /*
-* 开始动作前调用
-* 随机动作（一段文字包含多个音频，建议第一个音频开始时设置随机动作）
-* return 0 数字人模型不支持随机动作 1 数字人模型支持随机动作
+* 启用随机动作（建议在首段音频开始时调用）
+* 返回：0=不支持, 1=成功
 */
 -(NSInteger)toRandomMotion;
 ```
@@ -257,8 +255,8 @@
 
 ```
 /*
-* 开始动作 （一段文字包含多个音频，第一个音频开始时设置）
-* return 0  数字人模型不支持开始动作 1  数字人模型支持开始动作
+* 启用开始动作（首段音频开始时调用）
+* 返回：0=不支持, 1=成功
 */
 -(NSInteger)toStartMotion;
 ```
@@ -266,56 +264,19 @@
 ### 结束动作
 ```
 /*
-* 结束动作 （一段文字包含多个音频，最后一个音频播放结束时设置）
-*isQuickly YES 立即结束动作   NO 等待动作播放完成再静默
-*return 0 数字人模型不支持结束动作  1 数字人模型支持结束动作
+* 结束动作（末段音频结束时调用）
+*isQuickly: YES=立即结束, NO=等待动作完成
+*返回：0=不支持, 1=成功
 */
 -(NSInteger)toSopMotion:(BOOL)isQuickly;
 ```
 
-### 暂停后开始播放数字人
-```
-/*
-*暂停后才需执行播放数字人
-*/
--(void)toPlay;
-```
+### 状态查询
+// 获取数字人模型尺寸（需初始化后调用）
+-(CGSize)getDigitalSize;
 
-### 暂停数字人播放
-```
-/*
-*暂停数字人播放
-*/
--(void)toPause;
-```
+// 检查授权状态（1=已授权）
+-(NSInteger)isGetAuth;
 
 
 
-## 版本记录
-
-**1.2.0**
-```
-1. 支持pcm流式
-```
-
-**1.0.3**
-```
-1. 数字人背景透明
-2. 解压内存问题
-```
-
-**1.0.2**
-```
-1. 问答
-2. 语音识别
-3. 文字合成
-4. 说话动作
-```
-
-
-**1.0.1**
-```
-1. 数字人本地授权和初始化
-2. 数字人本地渲染
-3. 音频播放和驱动嘴形
-```
