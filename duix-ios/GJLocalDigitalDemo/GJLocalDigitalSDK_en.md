@@ -80,17 +80,8 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
 
 ## Methods
 
-### Auth
 
-```
-/*
- * appId The APPID of the corresponding application
- * appKey The secret key of the corresponding application
- * isSuccess YES means success, NO means failure
- * errorMsg Error message
- */
-- (void)initWithAppId:(NSString *)appId appKey:(NSString *)appKey block:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
-```
+
 
 ### Initialization
 

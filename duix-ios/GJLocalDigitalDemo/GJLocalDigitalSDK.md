@@ -77,17 +77,6 @@
 
 ## 方法
 
-### 授权
-
-```
-/*
-*appId 对应应用的APPID
-*appKey 对应应用的密钥
-*isSuccess YES 返回成功 NO返回失败
-*errorMsg 错误原因
-*/
-- (void)initWithAppId:(NSString *)appId appKey:(NSString *)appKey block:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
-```
 
 ### 初始化
 
