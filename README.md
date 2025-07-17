@@ -35,7 +35,7 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 ## 📑 开发文档
 
 - Android 开发者：[DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README.md)
-- iOS 开发者：[DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK.md)
+- iOS 开发者：[DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README.md)
 
 ## 💚 实际部署案例
 

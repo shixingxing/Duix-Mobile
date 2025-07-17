@@ -35,7 +35,7 @@ Start building your own interactive digital human now and significantly boost yo
 ## 📑 Development Documentation
 
 - For Android Developers: [DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README_en.md)
-- For iOS Developers: [DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/GJLocalDigitalSDK_en.md)
+- For iOS Developers: [DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README_en.md)
 
 ## 💚 Real Deployment Case
 
