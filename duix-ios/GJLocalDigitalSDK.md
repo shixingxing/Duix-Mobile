@@ -12,14 +12,7 @@
 
 ## 快速开始
 ```
-    //授权
-       [GJLDigitalConfig shareConfig].appName= [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    [GJLDigitalConfig shareConfig].userId = [NSString stringWithFormat:@"sdk_%@",[OpenUDID value]];
-
-    [[GJLDigitalManager manager] initWithAppId:self.appId appKey:self.appKey conversationId:self.conversationId block:^(BOOL isSuccess, NSString *errorMsg) {
-        if(isSuccess)
-        {
-    
+            //授权
             NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
              if(result==1)
              {
@@ -49,18 +42,7 @@
                      }
                  }];
              }
-            else
-            {
-                [SVProgressHUD showInfoWithStatus:@"模型初始化失败"];
-            }
      
-        }
-        else
-        {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
-        }
-            
-    }];
 ```
 ## 调用流程
 ```
@@ -95,17 +77,6 @@
 
 ## 方法
 
-### 授权
-
-```
-/*
-*appId 对应应用的APPID
-*appKey 对应应用的密钥
-*isSuccess YES 返回成功 NO返回失败
-*errorMsg 错误原因
-*/
-- (void)initWithAppId:(NSString *)appId appKey:(NSString *)appKey block:(void (^) (BOOL isSuccess, NSString *errorMsg))block;
-```
 
 ### 初始化
 
@@ -221,7 +192,7 @@
 /*
 *pcm
 *size
-* 参考toSpeakWithPath 转换成pcm的代码
+* 参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
