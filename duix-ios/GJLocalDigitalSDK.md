@@ -190,9 +190,7 @@
 
 ```
 /*
-*pcm
-*size
-* 参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
+*audioData播放音频流 ，参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
