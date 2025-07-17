@@ -1,4 +1,6 @@
-# Silicon-Based Digital Human SDK [[中文]] (./README.md)
+# Silicon-Based Digital Human SDK 
+
+[简体中文](./README.md) | English
 
 ## 1. Product Introduction
 
