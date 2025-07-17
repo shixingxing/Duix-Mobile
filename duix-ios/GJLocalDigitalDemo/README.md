@@ -1,6 +1,6 @@
 ## 硅基本地版DUIX-PRO SDK使⽤⽂档 (1.2.0)
 
-简体中文 | [English](./GJLocalDigitalSDK_en.md)
+简体中文 | [English](./README_en.md)
 
 ---
 

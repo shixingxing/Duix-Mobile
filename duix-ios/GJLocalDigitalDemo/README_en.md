@@ -1,6 +1,6 @@
 # GJLocalDigitalSDK Documentation (v1.2.0)
 
-English | [简体中文](./GJLocalDigitalSDK.md)
+English | [简体中文](./README.md)
 
 ---
 
