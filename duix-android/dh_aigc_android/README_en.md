@@ -16,14 +16,14 @@ Provide customized AI anchors, smart customer service and other multi-scene imag
 
 ### 1. Supported Systems and Hardware Versions
 
-| Item                  | Description                                                  |
-| :-------------------- | :----------------------------------------------------------- |
-| System                | Supports Android 7.0+ (API Level 24) to Android 13 (API Level 33) system. |
-| CPU Architecture      | armeabi-v7a, arm64-v8a                                       |
-| Hardware Requirements | Requires devices with 4-core CPU or higher, 4GB memory or higher, and available storage space of 500MB or higher. |
-| Network               | Supports WIFI and mobile networks. If using cloud-based Q&A database, the device bandwidth (for the actual bandwidth of digital humans) is expected to be 10mbps or higher. |
-| Development IDE       | Android Studio Giraffe 2022.3.1 Patch 2                      |
-| Memory Requirements   | Memory available for digital humans >= 400MB                 |
+| Item                    | Description                                                                                                                        |
+|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------|
+| System                  | Supports Android 10+ system.                                                                                                       |
+| CPU Architecture        | armeabi-v7a, arm64-v8a                                                                                                             |
+| Hardware Requirements   | Requires devices with 8-core CPU or higher(Qualcomm 8 Gen2), 8GB memory or higher, and available storage space of 1GB or higher.   |
+| Network                 | -                                                                                                                                  |
+| Development IDE         | Android Studio Giraffe 2022.3.1 Patch 2                                                                                            |
+| Memory Requirements     | Memory available for digital humans >= 800MB                                                                                       |
 
 ### 2. SDK Integration
 
@@ -32,33 +32,101 @@ add the following configuration in build.gradle:
 ```gradle
 dependencies {
     // reference SDK project
-    implementation project(":duix-sdk")
-    // The SDK uses exoplayer to handle audio (required)
-    implementation 'com.google.android.exoplayer:exoplayer:2.14.2'
+    api project(":duix-sdk")
     ...
 }
 ```
 
-Permission requirements, add the following configuration in AndroidManifest.xml:
-
-```xml
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
-</manifest>
-```
-
-<br>
 
 ## III. SDK Invocation and API Description
 
-### 1. Initialize SDK
+### 1. Model checking and downloading
+
+Before using the rendering service, it is necessary to synchronize the basic configuration and model files to local storage. The SDK provides a simple demonstration of the model download and decompression process using VirtualModelUtil.
+If the model download is too slow or unable to download, developers can choose to cache the model package to their own storage service.
+
+Function definition:
+ai.guiji.duix.sdk.client.VirtualModelUtil
+
+```
+// Check if the basic configuration has been downloaded
+boolean checkBaseConfig(Context context)
+
+// Check if the model has been downloaded
+boolean checkModel(Context context, String name)
+
+// Basic configuration download
+void baseConfigDownload(Context context, String url, ModelDownloadCallback callback)
+
+// Model download
+void modelDownload(Context context, String modelUrl, ModelDownloadCallback callback)
+```
+
+ModelDownloadCallback:
+ai.guiji.duix.sdk.client.VirtualModelUtil$ModelDownloadCallback
+
+```
+interface ModelDownloadCallback {
+    void onDownloadProgress(String url, long current, long total);
+    void onUnzipProgress(String url, long current, long total);
+    void onDownloadComplete(String url, File dir);
+    void onDownloadFail(String url, int code, String msg);
+}
+```
+
+Example call:
+
+```kotlin
+if (!VirtualModelUtil.checkBaseConfig(mContext)){
+    VirtualModelUtil.baseConfigDownload(mContext, baseConfigUrl, callback)
+}
+```
+
+```kotlin
+if (!VirtualModelUtil.checkModel(mContext, modelUrl)){
+    VirtualModelUtil.modelDownload(mContext, modelUrl, callback)
+}
+```
+
+
+### 2. Initialize SDK
 
 Build the DUIX object and add callback events in the render page onCreate() stage:
 
+Function definition:
+ai.guiji.duix.sdk.client.DUIX
+
+```
+// Build DUIX object
+public DUIX(Context context, String modelName, RenderSink sink, Callback callback)
+
+// Initialize DUIX service
+void init()
+```
+
+DUIX object construction instructions:
+
+| Parameter   | Type         | Description                                                                                                                                  |
+|:------------|:-------------|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| context     | Context      | System context                                                                                                                               |
+| modelName   | String       | Can pass the URL of the model download (already downloaded) or the cached file name                                                          |
+| render      | RenderSink   | Rendering data interface, the SDK provides a default rendering component that inherits from this interface, or you can implement it yourself |
+| callback    | Callback     | Various callback events handled by the SDK                                                                                                   |
+
+
+The definition of callback:
+ai.guiji.duix.sdk.client.Callback
+
+```
+interface Callback {
+    void onEvent(String event, String msg, Object info);
+}
+```
+
+Example call:
+
 ```kotlin
-duix = DUIX(mContext, baseDir, modelDir, mDUIXRender) { event, msg, info ->
+duix = DUIX(mContext, modelDir, mDUIXRender) { event, msg, info ->
     when (event) {
         ai.guiji.duix.sdk.client.Constant.CALLBACK_EVENT_INIT_READY -> {
             initOK()
@@ -75,42 +143,15 @@ duix = DUIX(mContext, baseDir, modelDir, mDUIXRender) { event, msg, info ->
 duix?.init()
 ```
 
-DUIX object construction instructions:
+Confirm the initialization result in the init callback
 
-| Parameter | Type       | Description                                                  |
-| :-------- | :--------- | :----------------------------------------------------------- |
-| context   | Context    | System context                                               |
-| baseDir   | String     | Stores configuration files for model driving, need to manage it yourself. You can unzip the compressed file to external storage and provide the folder path |
-| modelDir  | String     | Stores model files Folder, need to manage it yourself. You can unzip the compressed file to external storage and provide the folder path |
-| render    | RenderSink | Rendering data interface, the SDK provides a default rendering component that inherits from this interface, or you can implement it yourself |
-| callback  | Callback   | Various callback events handled by the SDK                   |
-
-Refer to the LiveActivity demo example
-
-### 2. Get SDK model initialization status
-
-```kotlin
-object : Callback {
-        fun onEvent(event: String, msg: String, info: Object) {
-        when (event) {
-            "init.ready" -> {
-                // SDK model initialization successful
-            }
-
-            "init.error" -> {
-                // Initialization failed
-                Log.e(TAG, "init error: $msg")
-            }
-            // ...
-
-        }
-    }
-}
-```
 
 ### 3. Digital Human Avatar Display
 
 Use the RenderSink interface to accept rendering frame data; the SDK provides an implementation of this interface, DUIXRenderer.java. You can also implement the interface yourself to customize rendering. The definition of RenderSink is as follows:
+
+The definition of RenderSink is as follows:
+ai.guiji.duix.sdk.client.render.RenderSink
 
 ```java
 /**
@@ -123,6 +164,8 @@ public interface RenderSink {
 
 }
 ```
+
+Example call:
 
 Use DUIXRenderer and DUIXTextureView control to simply implement rendering display; this control supports transparency and can be freely set background and foreground:
 
@@ -143,25 +186,80 @@ override fun onCreate(savedInstanceState: Bundle?) {
     binding.glTextureView.renderMode =
         GLSurfaceView.RENDERMODE_WHEN_DIRTY      // Must be called after setting Render
 
-    duix = DUIX(mContext, baseDir, modelDir, mDUIXRender) { event, msg, _ ->
+    duix = DUIX(mContext, modelUrl, mDUIXRender) { event, msg, _ ->
     }
     // ...
 }
 ```
 
-### 4. Start Digital Human Broadcast
+### 4. Using streaming push PCM to drive digital human playback
 
-After initialization is successful, you can play audio to drive the image:
+**PCM format: 16k sample rate, single channel, 16 bit**
+
+Function definition:
+ai.guiji.duix.sdk.client.DUIX
+
+```
+// Notification service starts pushing audio
+void startPush()
+
+// Push PCM data
+void pushPcm(byte[] buffer)
+
+// Complete an audio push
+void stopPush()
+
+```
+
+startPush, pushPcm, and stopPush need to be called in pairs, and pushPcm should not be too long. You can call stopPush to end the current session after a whole audio segment is pushed, and use startPush to restart the push for the next audio segment.
+
+
+Example call:
+
+```kotlin
+val thread = Thread {
+            duix?.startPush()
+            val inputStream = assets.open("pcm/2.pcm")
+            val buffer = ByteArray(320)
+            var length = 0
+            while (inputStream.read(buffer).also { length = it } > 0){
+                val data = buffer.copyOfRange(0, length)
+                duix?.pushPcm(data)
+            }
+            duix?.stopPush()
+            inputStream.close()
+}
+thread.start()
+```
+
+
+
+
+
+### 5. Using wav file to drive digital human playback
+
+Function definition:
+ai.guiji.duix.sdk.client.DUIX
+
+```
+void playAudio(String wavPath) 
+```
+
+This function is compatible with the old WAV driver digital human interface, and internally it actually calls the PCM streaming method to implement the driver.
+
+Parameter description:
+
+| Parameter   | Type     | Description                                                                     |
+|:------------|:---------|:--------------------------------------------------------------------------------|
+| wavPath     | String   | Address or https network address of a 16k sample rate mono channel wav file     |
+
+
+Example call:
 
 ```kotlin
 duix?.playAudio(wavPath)
 ```
 
-Parameter description:
-
-| Parameter | Type   | Description                                                  |
-| :-------- | :----- | :----------------------------------------------------------- |
-| wavPath   | String | Address or https network address of a 16k sample rate mono channel wav file |
 
 Audio playback status and progress callback:
 
@@ -181,19 +279,14 @@ object : Callback {
             "play.error" -> {
                 // Audio playback exception
             }
-            "play.progress" -> {
-                // Audio playback progress
-            }
-
         }
     }
 }
-
 ```
 
-### 5. Terminate Current Broadcast
+### 6. Terminate Current playback
 
-Call this interface to terminate the broadcast when the digital human is broadcasting.
+Call this interface to terminate the playback when the digital human is playing.
 
 Function definition:
 
@@ -207,63 +300,51 @@ Example call:
 duix?.stopAudio()
 ```
 
-### 6. Play Action Mode
+### 7. Play the specified action interval
+
+Support for new action interval annotation in the model (SpecialAction.json)
 
 Function definition:
+ai.guiji.duix.sdk.client.DUIX
 
 ```
-boolean setRandomMotion(boolean random);
+/**
+ * Play the specified action interval
+ * @param name The name of the action interval can be obtained from @{ModelInfo.getSilenceRegional()} when the init callback is successful
+ * @param now
+ */
+void startMotion(String name, boolean now)
 ```
 
 Example call:
 
 ```kotlin
-duix?.setRandomMotion(true)
+duix?.startMotion("Hello", true)
 ```
 
-### 7. Play Action Interval
 
-When the model supports playing action intervals, you can use this function to play multiple intervals.
+### 8. Randomly play action intervals
+
+Randomly play scenes and old annotation protocols (config.json)
 
 Function definition:
 
 ```
-void startMotion();
+void startRandomMotion(boolean now);
 ```
 
 Example call:
 
 ```kotlin
-duix?.startMotion()
+duix?.startRandomMotion(true)
 ```
-
-### 8. Stop Action Interval
-
-When the model supports playing action intervals, you can use this function to stop play action intervals.
-
-Function definition:
-
-```
-void stopMotion(boolean immediately);
-```
-
-Example call:
-
-```kotlin
-duix?.stopMotion(false)
-```
-
-## 7. Proguard Configuration
-
-If the code uses obfuscation, please configure in proguard-rules.pro:
-
 
 ## IV. Proguard configuration
 
-```pro
--keep class com.btows.ncnntest.** {*; }
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
+If the code uses obfuscation, please configure in proguard-rules.pro:
+
+```
+-keep class ai.guiji.duix.DuixNcnn{*; }
 ```
 
 <br>
@@ -274,6 +355,15 @@ If the code uses obfuscation, please configure in proguard-rules.pro:
 2. The audio file to be played should not be too large; a large audio file import will consume a lot of CPU, causing drawing stuck.<br><br>
 
 ## VI. Version Record
+
+**<a>4.0.1</a>**
+
+```text
+1. Support PCM audio stream to drive digital humans and improve audio playback response speed.
+2. Optimize the playback of action intervals, which can be specified according to the model configuration.
+3. Customize audio player and remove Exoplayer playback dependency
+4. Provide a concise model download synchronization management tool
+```
 
 **3.0.4**
 
