@@ -83,7 +83,7 @@
 
     
     UILabel *label4=[[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(  self.baseTextView.frame)+20,self.view.frame.size.width-40,44)];
-    label4.text=@"数字人模型:";
+    label4.text=@"数字人模型url:";
     label4.textColor=[UIColor blackColor];
     label4.textAlignment=NSTextAlignmentLeft;
     [self.view addSubview:label4];
