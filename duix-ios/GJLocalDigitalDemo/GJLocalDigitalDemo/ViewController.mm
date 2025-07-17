@@ -54,7 +54,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
   
     UILabel *titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(20, 150,self.view.frame.size.width-40,44)];
-    titleLabel.text=@"Github地址可能下载失败，您可以考虑使用代理或者将文件缓存到自己的存储服务";
+    titleLabel.text=@"Github地址可能下载失败，您可以考虑将文件缓存到自己的存储服务";
     titleLabel.textColor=[UIColor blackColor];
     titleLabel.textAlignment=NSTextAlignmentLeft;
     titleLabel.numberOfLines=0;
