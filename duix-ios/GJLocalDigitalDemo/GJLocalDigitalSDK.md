@@ -203,7 +203,7 @@
 /*
 *pcm
 *size
-* 参考toSpeakWithPath 转换成pcm的代码
+* 参考demo里面GJLPCMManager类里toSpeakWithPath 转换成pcm的代码
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
