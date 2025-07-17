@@ -10,10 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 @interface GJLDigitalManager : NSObject
 
-/*
- modeType 0 默认生产  1测试  2开发
- */
-@property (nonatomic, assign) NSInteger modeType;
+
 
 /*
  backType 0 背景透明   1 使用背景渲染

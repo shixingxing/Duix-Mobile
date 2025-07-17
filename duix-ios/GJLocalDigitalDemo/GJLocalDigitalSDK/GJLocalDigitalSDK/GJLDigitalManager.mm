@@ -10,10 +10,10 @@
 #import "DIMetalView.h"
 #import "GJLGCDTimer.h"
 #import "GJLAudioPlayer.h"
-#import "GJHttpManager.h"
+
 #import <GJLDecry/GJLDecry.h>
 
-#import "JWTGenerator.h"
+
 #define DEBASEPATH @"DecryBasePath"
 #define DEDIGITALPATH @"DecryDigitalPath"
 
@@ -144,39 +144,7 @@ static GJLDigitalManager * manager = nil;
 
 
 
--(NSString*)getLocalSignWithAppId:(NSString *)appId appKey:(NSString *)appKey
-    {
-        NSDate *now = [NSDate date];
-        NSTimeInterval sevenDaysInSeconds = 7 * 24 * 60 * 60;
-        NSDate *expiresDate = [now dateByAddingTimeInterval:sevenDaysInSeconds];
 
-        // 打印appId和appSecret
-        NSLog(@"appId: %@ appSecret: %@", appId, appKey);
-
-        // 创建JWT
-
-    // 构建payload
-          NSDictionary *payload = @{@"appId": appId,
-                                    @"iat": @([[NSDate date] timeIntervalSince1970]), // issued at
-                                    @"exp": @([expiresDate timeIntervalSince1970])    // expires at
-          };
-
-          // 使用JWT库创建token
-        NSError *error;
-        NSString *jwt_str = [JWTGenerator generateJWTWithPayload:payload secretKey:appKey];
-        //[JWT encodePayload:payload withSecret:appKey algorithm:[[JWTAlgorithmHS256 alloc] init]];
-       // 编码
-//       NSMutableCharacterSet *charset = [NSCharacterSet URLQueryAllowedCharacterSet].mutableCopy;
-//       [charset removeCharactersInString:@"+"]; // 强制编码加号
-        NSString *appsign =jwt_str;// [jwt_str stringByAddingPercentEncodingWithAllowedCharacters:charset];
-          if (error) {
-              NSLog(@"Error encoding JWT: %@", error);
-          } else {
-              // 打印token
-              NSLog(@"appsign: %@", appsign);
-          }
-        return appsign;
-}
 
 -(NSInteger)initBaseModel:(NSString*)basePath digitalModel:(NSString*)digitalPath showView:(UIView*)showView
 {
@@ -1468,11 +1436,7 @@ static GJLDigitalManager * manager = nil;
         success(isSuccess);
     }];
 }
--(void)setModeType:(NSInteger)modeType
-{
-        _modeType=modeType;
-        [GJHttpManager manager].modeType=modeType;
-}
+
 -(void)toWavPcmData:(NSData*)audioData
 {
     
