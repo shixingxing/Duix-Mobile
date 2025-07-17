@@ -19,8 +19,7 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
              if(result==1)
              {
        
- //                NSString *bgpath =[NSString stringWithFormat:@"%@/%@",[[NSBundle mainBundle] bundlePath],@"bg2.jpg"];
- //                [[GJLDigitalManager manager] toChangeBBGWithPath:bgpath];
+
                  [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
                      if(isSuccess)
                      {
@@ -30,12 +29,11 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
                     
                          
                                 [[GJLDigitalManager manager] toStartRuning];
-                                [weakSelf initASR];
-                                [[GJLASRManager manager] toOpenAsr];
+                           
                           
                      
                          });
-//
+
 
                      }
                      else
@@ -299,78 +297,7 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
 -(void)toPause;
 ```
 
-## Speech Recognition 
 
-### Initialize Recording and ASR
-
-```
-/*
-* Initialize recording and ASR
-*/
--(void)initASR;
-```
-
-### Start Recognition
-
-```
-/*
-* Start recognition
-*/
--(void)toOpenAsr;
-```
-
-### Stop Recognition
-
-```
-/*
-* Stop recognition
-*/
--(void)toCloseAsr;
-```
-
-### Speech Recognition Callbacks
-
-```
-@property (nonatomic, copy) void (^asrBlock)(NSString * asrText,BOOL isFinish);
-
-/*
- * data - recorded data (mono, 16000Hz sample rate)
- */
-@property (nonatomic, copy) void (^recordDataBlock)(NSData * data);
-
-
-
-/*
- * Volume callback
- */
-@property (nonatomic, copy) void (^rmsBlock)(float rms);
-
-
-@property (nonatomic, copy) void (^errBlock)(NSError *err);
-
-/*
- * Server starts pushing audio stream
- */
-@property (nonatomic, copy) void (^startPushBlock)(void);
-/*
- * data - server returns audio stream (mono, 16000Hz sample rate)
- */
-@property (nonatomic, copy) void (^pushDataBlock)(NSData * data);
-/*
- * Server stops pushing audio stream
- */
-@property (nonatomic, copy) void (^stopPushBlock)(void);
-
-/*
- * Large model returns text
- */
-@property (nonatomic, copy) void (^speakTextBlock)(NSString * speakText);
-
-/*
- * Returns action marker
- */
-@property (nonatomic, copy) void (^motionBlock)(NSString * motionText);
-```
 
 ## Version History
 
