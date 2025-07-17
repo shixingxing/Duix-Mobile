@@ -16,6 +16,40 @@
 
 
 
+//开发环境
+#define GJSDKBaseDevUrl @"https://devvshow.guiji.ai/"
+//测试环境
+#define GJSDKBaseTestUrl @"https://prevshow.guiji.ai/"
+//生产环境
+#define GJSDKBaseUrl @"https://duix.guiji.cn/"
 
+
+//开发环境ws
+#define GJSDKWebSocketDevUrl  @"ws://192.168.6.56:18080"
+//测试环境ws
+#define GJSDKWebSocketTestUrl  @"wss://prevshow.guiji.ai/livekit-client-ws"
+//生产环境ws
+#define GJSDKWebSocketUrl  @"wss://duix.guiji.cn/livekit-client-ws"
+
+
+//获取数字人资源下载地址
+#define GJGETCONVERSATIONBYID @"duix-openapi-v2/sdk/getConversationById"
+//检查是否存在可用时长
+#define GJCHECKDURATION @"duix-openapi-v2/sdkLocalVersion/checkDuration"
+//授权
+#define GJLGETAPPSIG @"duix-openapi-v2/sdk/getApplicationSig"
+
+//结束会话
+#define GJLENDSESSION       @"duix-openapi-v2/sdkLocalVersion/endSession"
+//心跳
+#define GJLHEARTBEAT      @"duix-openapi-v2/sdkLocalVersion/heartbeat"
+//流式问答接口
+#define GETANSWERSTREAM @"duix-openapi-v2/answer/getAnswerStream"
+//创建tts链接
+#define  CREATETTS      @"duix-openapi-v2/sdk/createTTS"
+
+#define  GETANSWERSTREAMFILE         @"duix-openapi-v2/answer/getAnswerStreamFile"
+//创建会话V2
+#define  CREATESESSIONV2             @"duix-openapi-v2/sdkLocalVersion/createSessionV2"
 
 #endif /* GJLocalDigitalSDK_pch */
