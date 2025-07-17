@@ -216,7 +216,7 @@
     __weak typeof(self)weakSelf = self;
     NSString *zipPath = [self getHistoryCachePath:@"ZipCache"];
     //下载基础模型
-    [[HttpClient manager] downloadWithURL:BASEMODELURL savePathURL:[NSURL fileURLWithPath:zipPath] pathExtension:nil progress:^(NSProgress * progress) {
+    [[HttpClient manager] downloadWithURL:self.baseTextView.text savePathURL:[NSURL fileURLWithPath:zipPath] pathExtension:nil progress:^(NSProgress * progress) {
         double down_progress=(double)progress.completedUnitCount/(double)progress.totalUnitCount*0.5;
         [SVProgressHUD showProgress:down_progress status:@"正在下载基础模型"];
     } success:^(NSURLResponse *response, NSURL *filePath) {
@@ -250,7 +250,7 @@
 {
     __weak typeof(self)weakSelf = self;
     NSString *zipPath = [self getHistoryCachePath:@"ZipCache"];
-    [[HttpClient manager] downloadWithURL:DIGITALMODELURL savePathURL:[NSURL fileURLWithPath:zipPath] pathExtension:nil progress:^(NSProgress * progress) {
+    [[HttpClient manager] downloadWithURL:self.digitalTextView.text savePathURL:[NSURL fileURLWithPath:zipPath] pathExtension:nil progress:^(NSProgress * progress) {
         double down_progress=0.5+(double)progress.completedUnitCount/(double)progress.totalUnitCount*0.5;
         [SVProgressHUD showProgress:down_progress status:@"正在下载数字人模型"];
     } success:^(NSURLResponse *response, NSURL *filePath) {
