@@ -13,13 +13,6 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
 ## Quick Start
 ```
 
-       [GJLDigitalConfig shareConfig].appName= [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    [GJLDigitalConfig shareConfig].userId = [NSString stringWithFormat:@"sdk_%@",[OpenUDID value]];
-
-    [[GJLDigitalManager manager] initWithAppId:self.appId appKey:self.appKey conversationId:self.conversationId block:^(BOOL isSuccess, NSString *errorMsg) {
-        if(isSuccess)
-        {
-    
             NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
              if(result==1)
              {
@@ -54,13 +47,6 @@ Development Tool: Xcode ios12.0 and above iphone8 and above
                 [SVProgressHUD showInfoWithStatus:@"model fail"];
             }
      
-        }
-        else
-        {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
-        }
-            
-    }];
 ```
 ## Call process
 ```

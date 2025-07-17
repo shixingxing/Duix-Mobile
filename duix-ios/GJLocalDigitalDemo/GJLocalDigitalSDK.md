@@ -12,14 +12,7 @@
 
 ## 快速开始
 ```
-    //授权
-       [GJLDigitalConfig shareConfig].appName= [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
-    [GJLDigitalConfig shareConfig].userId = [NSString stringWithFormat:@"sdk_%@",[OpenUDID value]];
-
-    [[GJLDigitalManager manager] initWithAppId:self.appId appKey:self.appKey conversationId:self.conversationId block:^(BOOL isSuccess, NSString *errorMsg) {
-        if(isSuccess)
-        {
-    
+            //授权
             NSInteger result=   [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath digitalModel:weakSelf.digitalPath showView:weakSelf.showView];
              if(result==1)
              {
@@ -49,18 +42,7 @@
                      }
                  }];
              }
-            else
-            {
-                [SVProgressHUD showInfoWithStatus:@"模型初始化失败"];
-            }
      
-        }
-        else
-        {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
-        }
-            
-    }];
 ```
 ## 调用流程
 ```
