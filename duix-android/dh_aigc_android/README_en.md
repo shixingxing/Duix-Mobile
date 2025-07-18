@@ -1,23 +1,22 @@
+# Duix Mobile for Android SDK Documentation
 
-# Silicon-based Digital Human SDK
+[简体中文](./README.md) | English
 
-Simplified Chinese | [English](./README_en.md)
+## 1. Product Overview
 
-## 1. Product Introduction
-
-The `Silicon-based Digital Human SDK` is a lightweight, fully offline 2D virtual human solution for Android platforms, supporting voice audio-driven digital human avatars and real-time rendering.
+`Duix Mobile for Android` is a lightweight, fully offline 2D digital human solution for Android, supporting real-time rendering of digital avatars driven by voice audio.
 
 ### 1.1 Application Scenarios
 
-- **Low Deployment Cost**: Suitable for large-screen terminals, government exhibition halls, banks, and other unmanned scenarios.
-- **Low Network Dependency**: Fully local operation, no internet required, can operate stably in subways or remote areas.
-- **Diverse Functionality**: Can serve various business types such as guided tours, Q&A customer service, and intelligent companionship.
+- **Low deployment cost**: Suitable for unattended scenarios such as large-screen terminals, government halls, and banks.
+- **Minimal network dependency**: Runs entirely locally, no internet required, stable operation in subways and remote areas.
+- **Diverse functionality**: Can serve as a guide, Q&A customer service, intelligent companion, and more.
 
 ### 1.2 Core Features
 
-- Digital human avatar customization and local rendering
-- Real-time voice-driven broadcasting (supports WAV playback and PCM push)
-- Motion playback control (designated motion, random motion)
+- Customizable digital avatar and local rendering
+- Real-time voice-driven playback (supports WAV playback and PCM streaming)
+- Motion playback control (specific or random actions)
 - Automatic resource download management
 
 ---

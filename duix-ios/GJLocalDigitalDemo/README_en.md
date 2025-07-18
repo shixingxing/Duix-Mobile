@@ -1,25 +1,22 @@
-## Silicon-based Local Edition DUIX-PRO SDK Documentation (v1.2.0)
+# Duix Mobile for iOS SDK Documentation
 
 [简体中文](./README.md) | English
 
----
-
 ## 1. Product Overview
 
-`Silicon-based Local Edition DUIX-PRO SDK` is a lightweight locally deployed 2D virtual human solution for iOS platforms. It supports real-time voice-driven virtual character lip-syncing and motion responses.
+`Duix Mobile for iOS` is a lightweight, locally deployed 2D digital human solution for iOS, supporting real-time avatar lip-sync and motion response driven by voice.
 
-### 1.1 Applicable Scenarios
+### 1.1 Application Scenarios
 
-- **Low Deployment Cost**: No server dependencies, suitable for government terminals, airports, exhibition halls, etc.
-- **Network-Friendly**: Supports fully offline operation.
-- **Diverse Functionality**: Supports intelligent scenarios like guided tours, Q&A services, digital greeters, etc.
+- **Low deployment cost**: No server dependency, suitable for government terminals, airports, exhibition halls, and more.
+- **Offline friendly**: Fully offline operation supported.
+- **Diverse functionality**: Supports guided broadcasting, Q&A services, digital reception, and other intelligent scenarios.
 
 ### 1.2 Core Features
 
-- **Digital Human Rendering & Driving**: Local rendering of virtual characters with real-time lip-sync response to voice input
-- **Voice Broadcast Control**: Supports audio playback, PCM streaming, and motion-broadcast synchronization
-- **Motion Control System**: Customizable start/stop actions and random motions
-
+- **Digital human rendering and driving**: Supports local avatar rendering, real-time lip-sync driven by voice input.
+- **Voice playback control**: Supports audio playback, PCM streaming, and action-broadcast linkage.
+- **Motion control system**: Customizable start, stop, and random actions.
 
 ---
 
@@ -61,7 +58,6 @@
 | CPU & Memory   | Recommended A12+ chip, ≥3GB RAM          |
 
 ---
-
 
 ## 5. Workflow Overview
 
@@ -162,7 +158,6 @@ if (result == 1) {
 */
 -(void)toWavPcmData:(NSData*)audioData;
 ```
-
 
 ```
 /*
@@ -270,8 +265,8 @@ if (result == 1) {
 -(NSInteger)toSopMotion:(BOOL)isQuickly;
 ```
 
-
 ### 7.7 Status Queries
+
 ```
 /*
 * Get digital human model dimensions (call after initialization)
@@ -285,6 +280,7 @@ if (result == 1) {
 */ 
 -(NSInteger)isGetAuth;
 ```
+
 ---
 
 ## 8. Callback Definitions
@@ -313,6 +309,7 @@ if (result == 1) {
 */
 @property (nonatomic, copy) void (^audioPlayProgress)(float current,float total);
 ```
+
 ---
 
 ## 9. FAQ & Troubleshooting
@@ -323,7 +320,6 @@ if (result == 1) {
 | No rendered output     | showView empty or not added | Ensure view is mounted in controller |
 | No broadcast response  | Invalid audio format/path   | Verify PCM format/path validity    |
 | Premature playback stop| Session not continued/buffer overflow | Check `continueSession` usage     |
-
 
 ## 10. Version History
 
@@ -343,6 +339,7 @@ if (result == 1) {
 ### v1.0.1
 
 - Initial version: authorization + rendering + broadcast
+
 ---
 
 ## 🔗 Open Source Dependencies
@@ -352,5 +349,4 @@ if (result == 1) {
 | [ONNX](https://github.com/onnx/onnx)     | Universal AI model format        |
 | [ncnn](https://github.com/Tencent/ncnn)  | High-performance neural network inference framework (Tencent) |
  
- 
- For additional integration support, please contact technical support.
+For additional integration support, please contact technical support.

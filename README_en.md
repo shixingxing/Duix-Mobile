@@ -2,23 +2,23 @@
 
 https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
 
-# 🚀🚀🚀 Duix-Mobile — The Best Real-time Interactive Digital Human Solution for Mobile Devices
+# 🚀🚀🚀 Duix Mobile — The Best Real-time Interactive Digital Human Solution for Mobile Devices
 
 **📱 Cross-platform support: iOS / Android / Tablet / Automotive / VR / IoT / Large Screen Interaction, etc.**
 
-## 😎 What is Duix-Mobile?
+## 😎 What is Duix Mobile?
 
-Duix-Mobile, open-sourced by GuijiAI, is a **real-time conversational digital human SDK that can be deployed on mobile phones or embedded screens**.
+Duix Mobile, open-sourced by GuijiAI, is a **real-time conversational digital human SDK that can be deployed on mobile phones or embedded screens**.
 
 Developers can easily integrate their own or third-party Large Language Models (LLM), Automatic Speech Recognition (ASR), and Text-to-Speech (TTS) services to quickly build digital human interfaces that can naturally converse with users.
 
-Duix-Mobile supports one-click cross-platform deployment (Android/iOS), has a low learning curve, and is suitable for various application scenarios such as intelligent customer service, virtual doctors, virtual lawyers, virtual companionship, and virtual teaching.
+Duix Mobile supports one-click cross-platform deployment (Android/iOS), has a low learning curve, and is suitable for various application scenarios such as intelligent customer service, virtual doctors, virtual lawyers, virtual companionship, and virtual teaching.
 
 Start building your own interactive digital human now and significantly boost your product performance!
 
 ## 🤩 Application Scenarios
 
-- Duix-Mobile supports various practical application scenarios across Android/iOS/Pad/large screen devices;
+- Duix Mobile supports various practical application scenarios across Android/iOS/Pad/large screen devices;
 - Significantly enhance your product performance and boost your revenue levels.
 
 ![](./res/example.png)
@@ -27,19 +27,21 @@ Start building your own interactive digital human now and significantly boost yo
 
 - **Realistic Digital Human Experience**: Natural presentation of facial expressions, tone, and emotional resonance, creating "human-like" AI conversations.
 - **Streaming Audio Support**: Synthesize and speak simultaneously, supports interruption and barge-in, making digital humans not only talk but also behave more "human-like".
-- **Ultimate Response Speed**: Conversation latency under 120ms (tested on Snapdragon® 8 Gen 2 SoC), delivering millisecond-level smooth interaction experience.
+- **Ultimate Response Speed**: Digital human response latency under 120ms (tested on Snapdragon® 8 Gen 2 SoC), delivering millisecond-level smooth interaction experience.
 - **Cost-Friendly, Deploy Anywhere**: Lightweight operation, extremely low resource consumption, easily adaptable to phones, tablets, smart screens, and other terminals.
 - **Resilient in Weak Network Environments**: Core processing completed locally, minimal network dependency, especially suitable for scenarios requiring high stability like finance, government, and legal sectors.
 - **Comprehensive Industry Adaptation**: Modular design, supports rapid customization, easily create industry-specific digital human solutions.
 
 ## 📑 Development Documentation
 
-- For Android Developers: [DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README_en.md)
-- For iOS Developers: [DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README_en.md)
+- For Android Developers: [Duix Mobile SDK for Android](./duix-android/dh_aigc_android/README_en.md)
+- For iOS Developers: [Duix Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README_en.md)
 
-## 💚 Real Deployment Case
+## 💚 Real Deployment Cases
 
-- Watch on Bilibili: ["Programmer's Virtual Reunion with Grandma"](https://www.bilibili.com/video/BV1QSgczPESS)
+See on Bilibili:
+- ["A Programmer's Virtual Reunion with Grandma"](https://www.bilibili.com/video/BV1QSgczPESS)
+- ["Grok Meets Duix: Who Is Your Real Girlfriend?"](https://www.bilibili.com/video/BV1Dbg3zbExC/)
 
 ## ✨ Public Digital Human Downloads
 

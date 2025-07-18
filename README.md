@@ -2,23 +2,23 @@
 
 https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
 
-# 🚀🚀🚀 Duix-Mobile —— 全网效果最好的移动端【实时对话数字人】
+# 🚀🚀🚀 Duix Mobile —— 全网效果最好的移动端【实时对话数字人】
 
 **📱 跨平台支持：iOS / Android / 平板 / 车载系统 / VR设备 / IoT终端 / 大屏交互等**
 
-## 😎 Duix-Mobile 是什么？
+## 😎 Duix Mobile 是什么？
 
-本次由硅基智能开源的 Duix-Mobile，是一个**可部署在手机或嵌入式屏幕的实时对话数字人 SDK**。
+本次由硅基智能开源的 Duix Mobile，是一个**可部署在手机或嵌入式屏幕的实时对话数字人 SDK**。
 
 开发者可以轻松集成自有或第三方的大语言模型（LLM）、语音识别（ASR）和语音合成（TTS）服务，快速构建能与用户自然对话的数字人界面。
 
-Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适用于智能客服、虚拟医生、虚拟律师、虚拟陪伴、虚拟教学等多种应用场景。
+Duix Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适用于智能客服、虚拟医生、虚拟律师、虚拟陪伴、虚拟教学等多种应用场景。
 
 现在就开始构建你自己的交互数字人，大幅提升你的产品业绩吧！
 
 ## 🤩 有哪些应用场景？
 
-- Duix-Mobile 在 Andorid/iOS/Pad/大屏 等设备下可以支持到多种实际应用场景；
+- Duix Mobile 在 Andorid/iOS/Pad/大屏等设备下可以支持到多种实际应用场景；
 - 大幅度提升你的产品表现力，从而提升你的营收水平。
 
 ![](./res/example.png)
@@ -34,12 +34,14 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 ## 📑 开发文档
 
-- Android 开发者：[DUIX-Mobile SDK for Android](./duix-android/dh_aigc_android/README.md)
-- iOS 开发者：[DUIX-Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README.md)
+- Android 开发者：[Duix Mobile SDK for Android](./duix-android/dh_aigc_android/README.md)
+- iOS 开发者：[Duix Mobile SDK for iOS](./duix-ios/GJLocalDigitalDemo/README.md)
 
 ## 💚 实际部署案例
 
-- 前往哔哩哔哩查看：[《程序员与奶奶的虚拟重逢》](https://www.bilibili.com/video/BV1QSgczPESS)
+前往哔哩哔哩查看：
+- [《程序员与奶奶的虚拟重逢》](https://www.bilibili.com/video/BV1QSgczPESS)
+- [《Grok 遇见 Duix，谁才是你的真女友？》](https://www.bilibili.com/video/BV1Dbg3zbExC/)
 
 ## ✨ 公用数字人下载 
 
@@ -97,7 +99,7 @@ Duix-Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 <details>
 <summary>我可以集成自己的大模型（LLM）、语音识别（ASR）和语音合成（TTS）吗？</summary>
 
-当然可以，你可以将 Duix-Mobile 的数字人与你的自己 LLM、ASR 和 TTS 进行集成。
+当然可以，你可以将 Duix Mobile 的数字人与你的自己 LLM、ASR 和 TTS 进行集成。
 
 </details>
 
