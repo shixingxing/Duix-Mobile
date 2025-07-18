@@ -73,15 +73,6 @@ D --> E[5. Playback control & motion sync]
 E --> F[6. Release resources & end session]
 ```
 
-```
-1. Prepare resources: Digital human base config + model files
-2. Initialize service: initBaseModel:digitalModel:showView:
-3. Start rendering: toStart:
-4. Drive broadcast: toWavPcmData: (streaming)
-5. Stop broadcast: stopPlaying: (active stop)
-6. Release resources: toStop (end rendering)
-```
-
 ---
 
 ## 6. Quick Start Example

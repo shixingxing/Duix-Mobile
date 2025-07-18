@@ -76,20 +76,6 @@ D --> E[5. 播放控制与动作联动]
 E --> F[6. 资源释放与结束会话]
 ```
 
-```
-1.准备资源：同步数字人所需的基础配置和模型文件
-
-2.初始化服务：initBaseModel:digitalModel:showView:
-
-3.启动渲染：toStart:
-
-4.驱动播报：toWavPcmData:（流式驱动）
-
-5.停止播报：stopPlaying:（主动停止）
-
-6.释放资源：toStop（结束渲染）
-```
-
 ---
 
 ## 六、快速开始示例
