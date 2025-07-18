@@ -46,6 +46,7 @@
 ```xml
 <key>NSMicrophoneUsageDescription</key>
 <string>App requires microphone access to drive digital human voice broadcast</string>
+```
 
 ---
 
