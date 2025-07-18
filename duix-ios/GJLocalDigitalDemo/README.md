@@ -6,13 +6,13 @@
 
 ## 一、产品概述
 
-`硅基本地版 DUIX-PRO SDK` 是一套轻量级的本地部署 2D 虚拟人解决方案，支持通过语音实时驱动虚拟人形象。该 SDK 可在 iOS 设备上运行，具备低延迟、高帧率、边缘计算离线运行等优势。
+`硅基本地版 DUIX-PRO SDK` 是一套轻量级的本地部署 2D 虚拟人解决方案，适用于 iOS 端，支持通过语音实时驱动虚拟人形象进行口型播报和动作响应。
 
 ### 1.1 适用场景
 
-- **部署成本低**：无需服务端支持，适合大屏终端、本地 App 快速集成；
-- **网络依赖小**：本地模型运行，支持政务大厅、展厅、机场等弱网环境；
-- **功能多样化**：适用于导览播报、业务咨询、数字迎宾等 AI 数字人应用场景。
+- **部署成本低**：无服务端依赖，适用于政务终端、机场、展厅等场景。
+- **弱网友好**：支持完全离线运行。
+- **功能多样化**：支持导览播报、问答服务、数字迎宾等多种智能场景。
 
 ### 1.2 核心功能
 
@@ -20,31 +20,60 @@
 - **语音播报控制**：支持音频播放、PCM 推流、动作与播报联动；
 - **动作控制系统**：可自定义启动、停止、随机动作；
 
-本 SDK 提供本地部署的 2D 数字人渲染及语音播报能力，适用于 iOS 12+ 版本的设备。支持语音驱动数字人形象的实时呈现，具备低延迟、低功耗、高性能等特点。
+
+
+---
+
+## 二、术语说明
+
+| 术语           | 含义                                                         |
+|----------------|--------------------------------------------------------------|
+| PCM            | 原始音频流格式（16kHz，16bit，Mono）                        |
+| WAV            | 音频文件格式，适用于短语音播放，内部仍为 PCM 编码         |
+| Session        | 一次完整播报流程（推送→响应→结束）                         |
+| DUIX-PRO       | 本地渲染与驱动管理器，实现模型加载、渲染控制、播报驱动等功能 |
+| GJLPCMManager  | 提供的 PCM 管理类，用于处理音频文件和推送逻辑          |
+
+---
+
+## 三、SDK 获取与集成
+
+
+### 3.1 手动集成（推荐）
+
+1. 将 `GJLocalDigitalSDK.framework` 拖入 Xcode 项目中，设置为：**Embed & Sign**。
+2. 在 `Build Phases > Link Binary With Libraries` 中添加：`AVFoundation.framework`。
+3. Info.plist 中添加麦克风权限：
+
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>App需要使用麦克风权限驱动数字人语音播报</string>
+```
+
+---
+
+## 四、集成要求
+
+| 项目         | 要求                           |
+|--------------|----------------------------------|
+| 系统版本     | iOS 12.0 及以上                  |
+| 开发工具     | Xcode 12 及以上                  |
+| 支持设备     | iPhone 8 及以上                  |
+| 运行环境     | 支持离线，无需联网               |
+| CPU 与内存   | 推荐 A12 芯片及以上，内存 ≥ 3GB |
 
 ---
 
 
-## 二、开发准备
-
-- **SDK 组件**：`GJLocalDigitalSDK.framework`（设置为 Embed & Sign）
-- **开发环境**：
-  - Xcode 12 及以上
-  - iPhone 8 及以上设备
-  - iOS 12.0+
-
----
-
-
-## 三、调用流程
+## 五、使用流程概览
 
 ```mermaid
 graph TD
-A[检查配置与模型] --> B[构建 DUIX 实例]
-B --> C[调用 init 初始化]
-C --> D[展示形象 / 渲染]
-D --> E[PCM 或 WAV 音频驱动]
-E --> F[播放控制与动作触发]
+A[1. 准备资源配置与模型文件] --> B[2. 初始化 DUIX-PRO]
+B --> C[3. 启动渲染视图]
+C --> D[4. 推送音频数据（PCM/WAV）]
+D --> E[5. 播放控制与动作联动]
+E --> F[6. 资源释放与结束会话]
 ```
 
 ```
@@ -63,35 +92,30 @@ E --> F[播放控制与动作触发]
 
 ---
 
-## 四、快速开始
-```
-NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
-                                                 digitalModel:weakSelf.digitalPath 
-                                                    showView:weakSelf.showView];
-
+## 六、快速开始示例
+```objc
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:basePath 
+                                                 digitalModel:digitalPath 
+                                                    showView:self.showView];
 if (result == 1) {
-    // 2. 启动渲染
     [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
         if (isSuccess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 3. 启动流式驱动
-                [[GJLDigitalManager manager] toStartRuning];
-            });
+            [[GJLDigitalManager manager] toStartRuning];
         } else {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
+            NSLog(@"启动失败：%@", errorMsg);
         }
     }];
 }
-
-
 ```
+
+> 注意：basePath 为基础资源目录，digitalPath 为模型目录
 
 ---
 
-## 五、核心功能接口
+## 七、关键接口与使用说明
 
 
-### 5.1 初始化配置
+### 7.1 初始化配置
 
 ```
 /**
@@ -106,7 +130,7 @@ if (result == 1) {
 
 
 
-### 5.2 渲染数字人控制
+### 7.2 渲染数字人控制
 
 ```
 /*
@@ -139,7 +163,7 @@ if (result == 1) {
 ```
 
 
-### 5.3 背景管理
+### 7.3 背景管理
 
 ```
 /**
@@ -152,7 +176,7 @@ if (result == 1) {
 
 
 
-### 5.4 音频控制
+### 7.4 音频播报控制
 
 ```
 /*
@@ -215,7 +239,7 @@ if (result == 1) {
 ```
 
 
-### 5.5 流式会话管理
+### 7.5 流式会话管理
 ```
 /*
 *启动流式会话
@@ -246,7 +270,7 @@ if (result == 1) {
 ```
 
 
-### 5.6 动作控制
+### 7.6 动作控制
 
 ```
 /*
@@ -273,7 +297,7 @@ if (result == 1) {
 -(NSInteger)toSopMotion:(BOOL)isQuickly;
 ```
 
-### 5.7 状态查询
+### 7.7 状态查询
 
 ```
 /*
@@ -291,7 +315,7 @@ if (result == 1) {
 
 ---
 
-## 六、回调定义
+## 八、回调定义
 
 ```
 /*
@@ -316,7 +340,18 @@ if (result == 1) {
 
 ---
 
-## 七、版本更新记录
+## 九、常见问题与排查指南
+
+| 问题现象           | 可能原因               | 建议处理方式                         |
+|--------------------|------------------------|--------------------------------------|
+| 初始化返回 -1      | SDK 授权失败            | 检查 info.plist 是否包含授权字段      |
+| 无法渲染画面        | showView 为空或未添加   | 确保 viewController 中已渲染视图挂载 |
+| 播报无响应          | 音频格式错误或路径无效   | 确保 PCM 格式正确 / 路径有效         |
+| 播放提前中断        | 会话未续接 / 缓冲区溢出   | 检查是否正确调用 `continueSession`   |
+
+---
+
+## 十、版本更新记录
 
 ### v1.2.0
 
@@ -337,12 +372,12 @@ if (result == 1) {
 
 ---
 
-## 八、参考开源项目
+## 🔗 开源依赖
 
-| 模块                                      | 描述              |
-| --------------------------------------- | --------------- |
-| [ONNX](https://github.com/onnx/onnx)    | 通用人工智能模型格式      |
-| [ncnn](https://github.com/Tencent/ncnn) | 高性能神经网络推理框架（腾讯） |
+| 模块                                      | 描述                         |
+|-------------------------------------------|------------------------------|
+| [ONNX](https://github.com/onnx/onnx)      | 通用 AI 模型标准格式         |
+| [ncnn](https://github.com/Tencent/ncnn)   | 高性能神经网络推理框架（腾讯） |
 
 ---
 

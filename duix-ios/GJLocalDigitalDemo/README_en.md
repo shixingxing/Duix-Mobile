@@ -1,98 +1,113 @@
-# GJLocalDigitalSDK Documentation (v1.2.0)
+## Silicon-based Local Edition DUIX-PRO SDK Documentation (v1.2.0)
 
-English | [简体中文](./README.md)
+简体中文 | [English](./README_en.md)
 
 ---
 
 ## 1. Product Overview
 
-`GJLocalDigitalSDK` is a lightweight local deployment solution for 2D virtual humans that supports real-time driving of virtual characters through voice. This SDK runs on iOS devices and features low latency, high frame rate, and edge computing capabilities for offline operation.
+`Silicon-based Local Edition DUIX-PRO SDK` is a lightweight locally deployed 2D virtual human solution for iOS platforms. It supports real-time voice-driven virtual character lip-syncing and motion responses.
 
 ### 1.1 Applicable Scenarios
 
-- **Low Deployment Cost**: No server support required, suitable for large-screen terminals and quick integration into local apps
-- **Minimal Network Dependency**: Runs locally, ideal for weak network environments like government halls, exhibition centers, and airports
-- **Diverse Functionality**: Applicable for AI digital human scenarios such as guided tours, business consulting, and digital reception
+- **Low Deployment Cost**: No server dependencies, suitable for government terminals, airports, exhibition halls, etc.
+- **Network-Friendly**: Supports fully offline operation.
+- **Diverse Functionality**: Supports intelligent scenarios like guided tours, Q&A services, digital greeters, etc.
 
 ### 1.2 Core Features
 
-- **Digital Human Rendering & Driving**: Local rendering of virtual characters with real-time lip-syncing to voice input
-- **Voice Broadcast Control**: Supports audio playback, PCM streaming, and action-broadcast coordination
-- **Motion Control System**: Customizable start, stop, and random actions
+- **Digital Human Rendering & Driving**: Local rendering of virtual characters with real-time lip-sync response to voice input
+- **Voice Broadcast Control**: Supports audio playback, PCM streaming, and motion-broadcast synchronization
+- **Motion Control System**: Customizable start/stop actions and random motions
 
-This SDK provides locally deployed 2D digital human rendering and voice broadcast capabilities for devices running iOS 12+. It supports real-time presentation of voice-driven digital humans with low latency, low power consumption, and high performance.
 
 ---
 
-## 2. Development Preparation
+## 2. Terminology
 
-- **SDK Component**: `GJLocalDigitalSDK.framework` (Set to Embed & Sign)
-- **Development Environment**:
-  - Xcode 12+
-  - iPhone 8+ devices
-  - iOS 12.0+
+| Term            | Description                                                                 |
+|-----------------|-----------------------------------------------------------------------------|
+| PCM             | Raw audio stream format (16kHz, 16bit, Mono)                                |
+| WAV             | Audio file format suitable for short voice playback (internally PCM encoded)|
+| Session         | Complete broadcast process (Push → Response → End)                          |
+| DUIX-PRO        | Local rendering and driving manager handling model loading, render control, etc. |
+| GJLPCMManager   | PCM management class for handling audio files and streaming logic           |
+
+---
+
+## 3. SDK Acquisition & Integration
+
+### 3.1 Manual Integration (Recommended)
+
+1. Drag `GJLocalDigitalSDK.framework` into Xcode project → Set to **Embed & Sign**
+2. Add `AVFoundation.framework` in `Build Phases > Link Binary With Libraries`
+3. Add microphone permission in Info.plist:
+
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>App requires microphone access to drive digital human voice broadcast</string>
+
+---
+
+## 4. Integration Requirements
+
+| Item           | Requirement                              |
+|----------------|------------------------------------------|
+| OS Version     | iOS 12.0+                                |
+| Development Tools | Xcode 12+                                |
+| Supported Devices | iPhone 8+                                |
+| Runtime Environment | Offline operation (no network required)  |
+| CPU & Memory   | Recommended A12+ chip, ≥3GB RAM          |
 
 ---
 
 
-
-##  3. Workflow
+## 5. Workflow Overview
 
 ```mermaid
 graph TD
-A[Check Configuration and Model] --> B[Build DUIX Instance]
-B --> C[Call init to initialize]
-C --> D[Display Image / Render]
-D --> E[PCM or WAV Audio Driving]
-E --> F[Playback Control and Action Trigger]
-F --> G[Resource Release]
+A[1. Prepare resource config & model files] --> B[2. Initialize DUIX-PRO]
+B --> C[3. Start rendering view]
+C --> D[4. Push audio data (PCM/WAV)]
+D --> E[5. Playback control & motion sync]
+E --> F[6. Release resources & end session]
 ```
 
 ```
-1. Prepare resources: Synchronize base configurations and model files required for the digital human
-
+1. Prepare resources: Digital human base config + model files
 2. Initialize service: initBaseModel:digitalModel:showView:
-
 3. Start rendering: toStart:
-
-4. Drive broadcast: toWavPcmData: (streaming-driven)
-
+4. Drive broadcast: toWavPcmData: (streaming)
 5. Stop broadcast: stopPlaying: (active stop)
-
-6. Release resources: toStop (stop rendering)
+6. Release resources: toStop (end rendering)
 ```
 
 ---
 
-## 4. Quick Start
+## 6. Quick Start Example
 
 ```
-// 1. Initialize authorization
-NSInteger result = [[GJLDigitalManager manager] initBaseModel:weakSelf.basePath 
-                                                 digitalModel:weakSelf.digitalPath 
-                                                    showView:weakSelf.showView];
-
+NSInteger result = [[GJLDigitalManager manager] initBaseModel:basePath 
+                                                 digitalModel:digitalPath 
+                                                    showView:self.showView];
 if (result == 1) {
-    // 2. Start rendering
     [[GJLDigitalManager manager] toStart:^(BOOL isSuccess, NSString *errorMsg) {
         if (isSuccess) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // 3. Start streaming driver
-                [[GJLDigitalManager manager] toStartRuning];
-            });
+            [[GJLDigitalManager manager] toStartRuning];
         } else {
-            [SVProgressHUD showInfoWithStatus:errorMsg];
+            NSLog(@"Start failed: %@", errorMsg);
         }
     }];
 }
 
 ```
+> Note: basePath = base resource directory, digitalPath = model directory
 
 ---
 
-## 5. Core Function Interfaces
+## 7. Key Interfaces & Usage
 
-### 5.1 Initialization Configuration
+### 7.1 Initialization Configuration
 
 ```
 /**
@@ -105,7 +120,7 @@ if (result == 1) {
 -(NSInteger)initBaseModel:(NSString*)basePath digitalModel:(NSString*)digitalPath showView:(UIView*)showView;
 ```
 
-### 5.2 Digital Human Rendering Control
+### 7.2 Digital Human Rendering Control
 
 ```
 /*
@@ -135,7 +150,7 @@ if (result == 1) {
 -(void)toPause;
 ```
 
-### 5.3 Background Management
+### 7.3 Background Management
 
 ```
 /**
@@ -145,7 +160,7 @@ if (result == 1) {
 -(void)toChangeBBGWithPath:(NSString*)bbgPath;
 ```
 
-### 5.4 Audio Control
+### 7.4 Audio Control
 
 ```
 /*
@@ -205,7 +220,7 @@ if (result == 1) {
 -(void)toEnableRecord:(BOOL)isEnable;
 ```
 
-### 5.5 Streaming Session Management
+### 7.5 Streaming Session Management
 
 ```
 /*
@@ -235,7 +250,7 @@ if (result == 1) {
 -(void)continueSession;
 ```
 
-### 5.6 Motion Control
+### 7.6 Motion Control
 
 ```
 /*
@@ -263,7 +278,7 @@ if (result == 1) {
 ```
 
 
-### 5.7 Status Queries
+### 7.7 Status Queries
 ```
 /*
 * Get digital human model dimensions (call after initialization)
@@ -279,7 +294,7 @@ if (result == 1) {
 ```
 ---
 
-## 6. Callback Definitions
+## 8. Callback Definitions
 
 ```
 /*
@@ -307,7 +322,17 @@ if (result == 1) {
 ```
 ---
 
-## 7. Version History
+## 9. FAQ & Troubleshooting
+
+| Symptom               | Possible Cause               | Recommended Solution               |
+|-----------------------|------------------------------|------------------------------------|
+| Initialization returns -1 | SDK authorization failed   | Check info.plist for auth fields   |
+| No rendered output     | showView empty or not added | Ensure view is mounted in controller |
+| No broadcast response  | Invalid audio format/path   | Verify PCM format/path validity    |
+| Premature playback stop| Session not continued/buffer overflow | Check `continueSession` usage     |
+
+
+## 10. Version History
 
 ### v1.2.0
 
@@ -327,12 +352,12 @@ if (result == 1) {
 - Initial version: authorization + rendering + broadcast
 ---
 
-## 8. Reference Open-Source Projects
-| Module                                     | Description              |
-| --------------------------------------- | --------------- |
-| [ONNX](https://github.com/onnx/onnx)    | Universal AI model format      |
-| [ncnn](https://github.com/Tencent/ncnn) | High-performance neural network inference framework (Tencent)
- |
+## 🔗 Open Source Dependencies
+
+| Module                                   | Description                      |
+|------------------------------------------|----------------------------------|
+| [ONNX](https://github.com/onnx/onnx)     | Universal AI model format        |
+| [ncnn](https://github.com/Tencent/ncnn)  | High-performance neural network inference framework (Tencent) |
  
  
  For additional integration support, please contact technical support.
