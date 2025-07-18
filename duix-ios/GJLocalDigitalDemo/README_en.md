@@ -66,11 +66,12 @@
 
 ```mermaid
 graph TD
-A[1. Prepare resource config & model files] --> B[2. Initialize DUIX-PRO]
-B --> C[3. Start rendering view]
-C --> D[4. Push audio data (PCM/WAV)]
-D --> E[5. Playback control & motion sync]
-E --> F[6. Release resources & end session]
+A[Check Configuration and Model] --> B[Build DUIX Instance]
+B --> C[Call init to initialize]
+C --> D[Display Image / Render]
+D --> E[PCM or WAV Audio Driving]
+E --> F[Playback Control and Action Trigger]
+F --> G[Resource Release]
 ```
 
 ---
