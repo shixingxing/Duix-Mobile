@@ -91,6 +91,32 @@
     aiLabel.textColor=[UIColor redColor];
     aiLabel.textAlignment=NSTextAlignmentCenter;
     [self.view addSubview:aiLabel];
+    
+
+    
+    // 注册中断通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleInterruption:)
+                                                 name:AVAudioSessionInterruptionNotification
+                                               object:[AVAudioSession sharedInstance]];
+}
+
+// 中断处理回调
+- (void)handleInterruption:(NSNotification *)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    AVAudioSessionInterruptionType type = [userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        // 中断开始：停止AudioUnit
+        [[GJLDigitalManager manager] toStopRunning];
+    } else {
+        // 中断结束：检查是否需要恢复
+        AVAudioSessionInterruptionOptions options = [userInfo[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
+        if (options == AVAudioSessionInterruptionOptionShouldResume) {
+            [[GJLDigitalManager manager] toStartRuning];
+       
+        }
+    }
 }
 -(UIView*)showView
 {
@@ -149,6 +175,7 @@
 //播放音频
 -(void)toRecord
 {
+
 //    [[GJLDigitalManager manager] toRandomMotion];
 //    [[GJLDigitalManager manager] toStartMotion];
     //清空累计的buffer ，initSession里面已经调用，根据业务调整调用clearAudioBuffer

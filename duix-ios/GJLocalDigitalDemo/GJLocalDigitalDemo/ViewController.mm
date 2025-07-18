@@ -115,7 +115,7 @@
 
 
 
-
+ 
 
 
     [[GJCheckNetwork manager] getWifiState];
@@ -138,6 +138,7 @@
     
 
 }
+
 -(void)toStartWav
 {
     if(![self isFileExit])

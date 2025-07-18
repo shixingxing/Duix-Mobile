@@ -240,7 +240,7 @@
 */
 -(void)toSetVolume:(float)volume;
 
-
+-(void)toStopRunning;
 
 @end
 

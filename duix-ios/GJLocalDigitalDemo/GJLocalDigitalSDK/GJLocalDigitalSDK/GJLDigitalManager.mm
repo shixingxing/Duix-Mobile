@@ -528,7 +528,10 @@ static GJLDigitalManager * manager = nil;
     
     
 }
-
+-(void)toStopRunning
+{
+    [[GJLAudioPlayer manager] toStopRunning];
+}
 /*
 *播放
 */
