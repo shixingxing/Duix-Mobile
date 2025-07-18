@@ -1,73 +1,106 @@
-# Silicon-Based Digital Human SDK 
 
-[简体中文](./README.md) | English
+# Silicon-based Digital Human SDK
+
+Simplified Chinese | [English](./README_en.md)
 
 ## 1. Product Introduction
 
-The 2D Digital Human SDK allows for real-time driving of virtual humans via voice.
+The `Silicon-based Digital Human SDK` is a lightweight, fully offline 2D virtual human solution for Android platforms, supporting voice audio-driven digital human avatars and real-time rendering.
 
-### 1.1 Applicable Scenarios
+### 1.1 Application Scenarios
 
-- **Low Deployment Cost**: No need for a technical team from the client side, supports low-cost, rapid deployment on multiple terminals and large screens.
-- **Low Network Dependency**: Can be deployed in various scenarios like subways, banks, government services, etc., for virtual assistant self-service.
-- **Diversified Functions**: Can meet diverse needs in industries like video, media, customer service, finance, broadcasting, etc., according to customer requirements.
+- **Low Deployment Cost**: Suitable for large-screen terminals, government exhibition halls, banks, and other unmanned scenarios.
+- **Low Network Dependency**: Fully local operation, no internet required, can operate stably in subways or remote areas.
+- **Diverse Functionality**: Can serve various business types such as guided tours, Q&A customer service, and intelligent companionship.
 
 ### 1.2 Core Features
 
-- **Customizable Image**: Supports custom virtual assistant images, offering both low-cost and in-depth image generation options.
-- **Customizable Content Broadcasting**: Allows customization of broadcasting content, suitable for applications such as training and announcements.
-- **Real-Time Interaction and Q&A**: Supports real-time conversations and the creation of custom Q&A libraries for consulting, casual conversations, virtual companionship, and customer service in specialized scenarios.
+- Digital human avatar customization and local rendering
+- Real-time voice-driven broadcasting (supports WAV playback and PCM push)
+- Motion playback control (designated motion, random motion)
+- Automatic resource download management
 
 ---
 
-## 2. SDK Integration
+## 2. Terminology
 
-### 2.1 Supported Systems and Hardware Versions
+| Term               | Meaning                                                                    |
+|--------------------|----------------------------------------------------------------------------|
+| PCM                | Pulse-Code Modulation, raw audio stream with 16kHz sample rate, 16-bit depth, Mono channel |
+| WAV                | An audio file format that supports PCM encoding, suitable for short voice playback |
+| RenderSink         | Rendering data reception interface, implemented by the SDK, can be used for custom rendering or default display |
+| DUIX               | Main control object of the digital human, integrates model loading, rendering, broadcasting, and motion control |
+| GLES               | OpenGL ES, a graphics interface for rendering images on Android               |
+| SpecialAction      | A JSON file attached to the model that marks action intervals (e.g., greetings, waving) |
 
-| Item                  | Description                                                                                                 |
-|-----------------------|-------------------------------------------------------------------------------------------------------------|
-| System                | Supports Android 10+ systems.                                                                               |
-| CPU Architecture      | armeabi-v7a, arm64-v8a                                                                                      |
-| Hardware Requirements | Requires CPU with 8 or more cores (Snapdragon 8 Gen 2), 8GB or more RAM, and 1GB or more available storage. |
-| Network               | None (fully local operation)                                                                                |
-| Development IDE       | Android Studio Giraffe 2022.3.1 Patch 2                                                                     |
-| Memory Requirements   | Available memory for the digital human >= 800MB                                                             |
+---
 
-### 2.2 SDK Integration
+## 3. SDK Access
 
-Add the following configuration in the `build.gradle` file:
+> ✅ The SDK is currently provided as a local module or AAR file. You can contact business or technical support to obtain the SDK package.
+
+### 3.1 Module Reference (Recommended)
+
+1. Obtain the complete source package, unzip it, and copy the `duix-sdk` directory to the project root directory.
+2. In the project `settings.gradle`, add:
+
+```gradle
+include ':duix-sdk'
+```
+
+3. In the module's `build.gradle`, add the dependency:
 
 ```gradle
 dependencies {
-    // Reference SDK project
     api project(":duix-sdk")
-    ...
+}
+```
+
+### 3.2 AAR Reference (Optional)
+
+1. Place the compiled `duix-sdk-release.aar` module into the `libs/` directory.
+2. Add the dependency:
+
+```gradle
+dependencies {
+    api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 }
 ```
 
 ---
 
-## 3. Usage Flow Overview
+## 4. Integration Requirements
+
+| Item           | Description                                                     |
+|----------------|-----------------------------------------------------------------|
+| System         | Supports Android 10+ systems.                                    |
+| CPU Architecture | armeabi-v7a, arm64-v8a                                           |
+| Hardware Requirements | Device CPU with 8 or more cores (Snapdragon 8 Gen 2), 8GB or more memory, available storage space of 1GB or more |
+| Network        | None (Fully local operation)                                    |
+| Development IDE | Android Studio Giraffe 2022.3.1 Patch 2                         |
+| Memory Requirements | Minimum 800MB memory available for the digital human          |
+
+---
+
+## 5. Usage Flow Overview
 
 ```mermaid
 graph TD
-A[Check Configuration and Model] --> B[Build DUIX Instance]
-B --> C[Call init to initialize]
-C --> D[Display Image / Render]
+A[Check Configuration and Models] --> B[Build DUIX Instance]
+B --> C[Call init to Initialize]
+C --> D[Display Avatar / Render]
 D --> E[PCM or WAV Audio Driving]
-E --> F[Playback Control and Action Trigger]
+E --> F[Playback Control & Motion Triggering]
 F --> G[Resource Release]
 ```
 
 ---
 
-## 4. SDK Calls and API Description
+## 6. Key Interfaces and Example Calls
 
-### 4.1 Model Check and Download
+### 6.1 Model Check and Download
 
-Before using the rendering service, the basic configuration and model files must be synchronized to local storage. The SDK provides `VirtualModelUtil` for a simple demonstration of model download and decompression.
-
-If the model download is too slow or fails, developers can opt to cache the model package to their own storage service.
+Before using the rendering service, ensure that the basic configuration and model files are synchronized to local storage. The SDK provides a simple demonstration of the model download and decompression process using `VirtualModelUtil`. If model download is slow or fails, developers can choose to cache the model package to their own storage service.
 
 > Function Definition: `ai.guiji.duix.sdk.client.VirtualModelUtil`
 
@@ -75,7 +108,7 @@ If the model download is too slow or fails, developers can opt to cache the mode
 // Check if base configuration is downloaded
 boolean checkBaseConfig(Context context)
 
-// Check if model is downloaded
+// Check if the model is downloaded
 boolean checkModel(Context context, String name)
 
 // Base configuration download
@@ -85,17 +118,17 @@ void baseConfigDownload(Context context, String url, ModelDownloadCallback callb
 void modelDownload(Context context, String modelUrl, ModelDownloadCallback callback)
 ```
 
-**ModelDownloadCallback**: `ai.guiji.duix.sdk.client.VirtualModelUtil$ModelDownloadCallback`
+`ModelDownloadCallback` includes progress, completion, failure callbacks, etc., as defined in the SDK.
 
 ```
 interface ModelDownloadCallback {
     // Download progress
     void onDownloadProgress(String url, long current, long total);
-    // Decompression progress
+    // Unzip progress
     void onUnzipProgress(String url, long current, long total);
-    // Download and decompression completed
+    // Download and unzip complete
     void onDownloadComplete(String url, File dir);
-    // Download and decompression failed
+    // Download and unzip failed
     void onDownloadFail(String url, int code, String msg);
 }
 ```
@@ -116,14 +149,14 @@ if (!VirtualModelUtil.checkModel(mContext, modelUrl)){
 
 ---
 
-### 4.2 Initializing the SDK
+### 6.2 Initialization and Rendering Start
 
-In the `onCreate()` stage of the render page, create the DUIX object and call the `init` function.
+In the `onCreate()` stage of the rendering page, build the DUIX object and call the init interface.
 
 > Function Definition: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
-// Create DUIX object
+// Build DUIX object
 public DUIX(Context context, String modelName, RenderSink sink, Callback callback)
 
 // Initialize DUIX service
@@ -132,14 +165,14 @@ void init()
 
 **DUIX Object Construction Explanation**:
 
-| Parameter  | Type       | Description                            |
-|------------|------------|----------------------------------------|
-| context    | Context    | System context                         |
-| modelName  | String     | Can pass the model download URL (if downloaded) or the cached file name |
-| render     | RenderSink | Render data interface, SDK provides a default render component that inherits this interface, or you can implement it yourself |
-| callback   | Callback   | Various callbacks for SDK processing   |
+| Parameter     | Type      | Description                                                    |
+|---------------|-----------|----------------------------------------------------------------|
+| context       | Context   | System context                                                  |
+| modelName     | String    | Can pass the model download URL (if downloaded) or cached filename |
+| render        | RenderSink| Rendering data interface, SDK provides a default rendering component inheriting from this interface, or you can implement it yourself |
+| callback      | Callback  | Various callback events handled by the SDK                      |
 
-**Callback Definition**: `ai.guiji.duix.sdk.client.Callback`
+Where **Callback** is defined as: `ai.guiji.duix.sdk.client.Callback`
 
 ```
 interface Callback {
@@ -160,7 +193,6 @@ duix = DUIX(mContext, modelUrl, mDUIXRender) { event, msg, info ->
             initError()
         }
         // ...
-
     }
 }
 // Asynchronous callback result
@@ -171,11 +203,11 @@ In the `init` callback, confirm the initialization result.
 
 ---
 
-### 4.3 Displaying the Digital Human Image
+### 6.3 Digital Human Avatar Display
 
-Use the `RenderSink` interface to accept rendering frame data. The SDK provides an implementation of this interface in `DUIXRenderer.java`. You can also implement this interface yourself for custom rendering.
+Use the SDK-provided `DUIXRenderer` and `DUIXTextureView` to quickly implement rendering with transparency support. Alternatively, you can implement the `RenderSink` interface to customize the rendering logic.
 
-**RenderSink Definition**: `ai.guiji.duix.sdk.client.render.RenderSink`
+The **RenderSink** definition is as follows: `ai.guiji.duix.sdk.client.render.RenderSink`
 
 ```java
 /**
@@ -183,7 +215,7 @@ Use the `RenderSink` interface to accept rendering frame data. The SDK provides 
  */
 public interface RenderSink {
 
-    // Frame data is arranged in BGR order
+    // The frame's buffer data is arranged in BGR order
     void onVideoFrame(ImageFrame imageFrame);
 
 }
@@ -191,7 +223,7 @@ public interface RenderSink {
 
 **Call Example**:
 
-Use `DUIXRenderer` and `DUIXTextureView` to implement simple rendering. The `DUIXTextureView` supports transparent channels to set the background and foreground freely.
+Use `DUIXRenderer` and `DUIXTextureView` to quickly implement rendering. These controls support transparency and can freely set the background and foreground.
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,11 +236,11 @@ override fun onCreate(savedInstanceState: Bundle?) {
         )
 
     binding.glTextureView.setEGLContextClientVersion(GL_CONTEXT_VERSION)
-    binding.glTextureView.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // Transparent
-    binding.glTextureView.isOpaque = false           // Transparent
+    binding.glTextureView.setEGLConfigChooser(8, 8, 8, 8, 16, 0) // Transparency
+    binding.glTextureView.isOpaque = false           // Transparency
     binding.glTextureView.setRenderer(mDUIXRender)
     binding.glTextureView.renderMode =
-        GLSurfaceView.RENDERMODE_WHEN_DIRTY      // Must call after setting the renderer
+        GLSurfaceView.RENDERMODE_WHEN_DIRTY      // Must be called after setting the renderer
 
     duix = DUIX(mContext, modelUrl, mDUIXRender) { event, msg, _ ->
     }
@@ -218,122 +250,60 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ---
 
-### 4.4 Using PCM Streaming to Drive Digital Human Broadcasting
+### 6.4 Broadcasting Control
 
-**PCM Format: 16k Sampling Rate, Mono, 16-bit Depth**
+#### Use Streaming PCM to Drive Digital Human Broadcasting
+
+**PCM Format: 16kHz sample rate, single channel, 16-bit depth**
 
 > Function Definition: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
-// Notify the service to start pushing audio
+// Notify service to start pushing audio
 void startPush()
 
 // Push PCM data
 void pushPcm(byte[] buffer)
 
-// Complete an audio push (call this function after the audio push is done, not after playback finishes).
+// Finish a segment of audio push (Call this after the audio push is complete, not after playback finishes)
 void stopPush()
-
 ```
 
-`startPush`, `pushPcm`, and `stopPush` need to be called in pairs. The `pushPcm` should not be too long. After a full segment of audio is pushed, use `stopPush` to end the current session and `startPush` again for the next segment.
+`startPush`, `pushPcm`, and `stopPush` need to be called in pairs. `pushPcm` should not be too long. After pushing the entire audio, call `stopPush` to end the session. Use `startPush` again for the next audio.
 
 **Call Example**:
 
 ```kotlin
 val thread = Thread {
-    duix?.startPush()
-    val inputStream = assets.open("pcm/2.pcm")
-    val buffer = ByteArray(320)
-    var length = 0
-    while (inputStream.read(buffer).also { length = it } > 0){
-        val data = buffer.copyOfRange(0, length)
-        duix?.pushPcm(data)
-    }
-    duix?.stopPush()
-    inputStream.close()
+            duix?.startPush()
+            val inputStream = assets.open("pcm/2.pcm")
+            val buffer = ByteArray(320)
+            var length = 0
+            while (inputStream.read(buffer).also { length = it } > 0){
+                val data = buffer.copyOfRange(0, length)
+                duix?.pushPcm(data)
+            }
+            duix?.stopPush()
+            inputStream.close()
 }
 thread.start()
 ```
 
 ---
 
-### 4.5 Start WAV Audio to Drive Digital Human Broadcasting
+### 6.5 Motion Control
 
-> Function Definition: `ai.guiji.duix.sdk.client.DUIX`
+#### Play Specific Motion Interval
 
-```
-void playAudio(String wavPath)
-```
-
-This function is compatible with the old WAV audio driving interface for digital humans but internally calls the PCM streaming method to drive the output.
-
-**Parameter Description**:
-
-| Parameter  | Type     | Description                              |
-|------------|----------|------------------------------------------|
-| wavPath    | String   | Local WAV file with a 16k sampling rate, mono, 16-bit depth |
-
-**Call Example**:
-
-```kotlin
-duix?.playAudio(wavPath)
-```
-
-Audio playback status and progress callback:
-
-```kotlin
-object : Callback {
-    fun onEvent(event: String, msg: String, info: Object) {
-        when (event) {
-            // ...
-
-            "play.start" -> {
-                // Start playing audio
-            }
-
-            "play.end" -> {
-                // Audio playback completed
-            }
-            "play.error" -> {
-                // Audio playback error
-            }
-        }
-    }
-}
-```
-
----
-
-### 4.6 Terminate Current Broadcasting
-
-When the digital human is broadcasting, call this interface to terminate the broadcast.
-
-> Function Definition: `ai.guiji.duix.sdk.client.DUIX`
-
-```
-boolean stopAudio();
-```
-
-**Call Example**:
-
-```kotlin
-duix?.stopAudio()
-```
-
----
-
-### 4.7 Play a Specified Action Interval
-
-Models support new action interval annotations (SpecialAction.json).
+The model supports new motion intervals marked in `SpecialAction.json`
 
 > Function Definition: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 /**
- * Play specified action interval
- * @param name Action interval name, which can be obtained from @{ModelInfo.getSilenceRegion()} after a successful init callback.
- * @param now Whether to play immediately: true for immediate playback, false for waiting until the current silent or action interval is complete.
+ * Play specific motion interval
+ * @param name The motion interval name, which can be obtained from @{ModelInfo.getSilenceRegion()} after init callback
+ * @param now Whether to play immediately: true: play now; false: wait for current silent or motion interval to finish
  */
 void startMotion(String name, boolean now)
 ```
@@ -341,21 +311,17 @@ void startMotion(String name, boolean now)
 **Call Example**:
 
 ```kotlin
-duix?.startMotion("greet", true)
+duix?.startMotion("Greeting", true)
 ```
 
----
-
-### 4.8 Play Random Action Interval
-
-Randomly play scenes and old annotation protocols (config.json).
+#### Randomly Play Motion Interval
 
 > Function Definition: `ai.guiji.duix.sdk.client.DUIX`
 
 ```
 /**
- * Randomly play an action interval
- * @param now Whether to play immediately: true for immediate playback, false for waiting until the current silent or action interval is complete.
+ * Randomly play a motion interval
+ * @param now Whether to play immediately: true: play now; false: wait for current silent or motion interval to finish
  */
 void startRandomMotion(boolean now);
 ```
@@ -368,9 +334,9 @@ duix?.startRandomMotion(true)
 
 ---
 
-## 5. Proguard Configuration
+## 7. Proguard Configuration
 
-If obfuscation is used, please add the following in `proguard-rules.pro`:
+If using obfuscation, add the following in `proguard-rules.pro`:
 
 ```proguard
 -keep class ai.guiji.duix.DuixNcnn{*; }
@@ -378,35 +344,47 @@ If obfuscation is used, please add the following in `proguard-rules.pro`:
 
 ---
 
-## 6. Notes
+## 8. Precautions
 
-1. Ensure the basic configuration files and models are downloaded to the specified location before driving the rendering initialization.
-2. The PCM audio played should not be too long, as the PCM buffer is cached in memory, and long audio streams may cause memory overflow.
-3. Replace preview models by modifying the `modelUrl` value in the `MainActivity.kt` file and use the SDK's built-in file download and decompression management to obtain complete model files.
-4. Audio driving format: 16k sampling rate, mono, 16-bit depth.
-5. Insufficient device performance may cause audio feature extraction to fall behind the audio playback speed. You can use `duix?.setReporter()` to add a monitoring observer to track frame rendering information.
+1. Ensure that the base configuration file and model are downloaded to the specified location before driving rendering initialization.
+2. PCM audio should not be too long, as PCM buffers are cached in memory; long audio streams may cause memory overflow.
+3. To replace the preview model, modify the `modelUrl` value in `MainActivity.kt` and use the SDK's built-in file download and decompression management to obtain the complete model files.
+4. Audio driving format: 16kHz sample rate, single channel, 16-bit depth.
+5. Insufficient device performance may result in the audio feature extraction speed not matching the playback speed. You can use `duix?.setReporter()` to monitor frame rendering information.
 
 ---
 
-## 7. Version History
+## 9. FAQ and Troubleshooting Guide
+
+| Issue                          | Possible Cause               | Solution                     |
+|---------------------------------|------------------------------|------------------------------|
+| init callback failed            | Model path error or model not downloaded | Use `checkModel` to check model status |
+| Rendering black screen          | EGL configuration or texture view error | Use SDK-provided example settings |
+| No PCM playback effect          | Incorrect format or `startPush` not called | Ensure audio format is correct and call push method |
+| Model download slow             | Unstable network or restricted CDN | Support self-hosted model file storage service |
+
+---
+
+## 10. Version History
 
 **<a>4.0.1</a>**
-1. Supports PCM audio stream to drive the digital human, improving audio playback response time.
-2. Optimized action interval playback, allowing specific action intervals based on model configuration.
-3. Custom audio player, removing the Exoplayer dependency.
-4. Provides a simplified model download synchronization management tool.
+
+1. Supports PCM audio stream driving the digital human, improving audio playback response speed.
+2. Optimized motion interval playback, allowing specific motion intervals based on model configuration.
+3. Custom audio player, removed Exoplayer playback dependency.
+4. Provided simplified model download synchronization management tools.
 
 **<a>3.0.5</a>**
 
 ```text
-1. Updated libonnxruntime.so version for arm32 CPU to fix compatibility issues.
-2. Modified action interval playback function, allowing random and sequential playback, with manual stops to return to the silent interval.
+1. Updated arm32 CPU libonnxruntime.so version to fix compatibility issues.
+2. Modified motion interval playback function, supports random and sequential playback, requires manual call to stop playback to return to silent interval.
 ```
 
 **<a>3.0.4</a>**
 
 ```text
-1. Fixed image rendering issues due to low precision in GL floats on some devices.
+1. Fixed model display issue due to low float precision on some devices.
 ```
 
 **<a>3.0.3</a>**
@@ -415,11 +393,13 @@ If obfuscation is used, please add the following in `proguard-rules.pro`:
 1. Optimized local rendering.
 ```
 
-## 8. Other Related Open-Source Projects
+## 11. 🔗 Open-source Dependencies
 
-| Module  | Description                         |
-|---------|-------------------------------------|
-| [onnx](https://github.com/onnx/onnx) | AI Framework                        |
-| [ncnn](https://github.com/Tencent/ncnn) | High-performance Neural Network Framework |
+| Module                                   | Description                    |
+|------------------------------------------|--------------------------------|
+| [onnx](https://github.com/onnx/onnx)     | General AI model standard format |
+| [ncnn](https://github.com/Tencent/ncnn)  | High-performance neural network computing framework (Tencent) |
 
 ---
+
+For more help, please contact the technical support team.

@@ -4,25 +4,71 @@
 
 ## 一、产品介绍
 
-2D 数字人虚拟人SDK ,可以通过语音完成对虚拟人实时驱动。
+`硅基数字人 SDK` 是一套轻量级、纯离线的 Android 平台 2D 虚拟人解决方案，支持通过语音音频驱动数字人形象并进行实时渲染。
 
-### 1. 适用场景
+### 1.1 应用场景
 
-- **部署成本低**: 无需客户提供技术团队进行配合,支持低成本快速部署在多种终端及大屏;
-- **网络依赖小**:可落地在地铁、银行、政务等多种场景的虚拟助理自助服务上;
-- **功能多样化**:可根据客户需求满足视频、媒体、客服、金融、广电等多个行业的多样化需求
+- **部署成本低**：适用于大屏终端、政务展厅、银行等无人值守场景。
+- **网络依赖小**：完全本地运行，无需联网，可在地铁、偏远地区稳定运行。
+- **功能多样化**：可服务于导览讲解、问答客服、智能陪伴等多种业务形态。
 
-### 2. 核心功能
+### 1.2 核心功能
 
-- **专属形象定制**:支持定制专属的虚拟助理形象,可选低成本或深度形象生成;
-- **播报内容定制**:支持定制专属的播报内容,应用在培训、播报等多种场景上;
-- **实时互动问答**:支持实时对话,也可定制专属问答库,可满足咨询查询、语音闲聊、虚拟陪伴、垂类场景的客服问答等需求。
+- 数字人形象定制与本地渲染
+- 实时语音驱动播报（支持 WAV 播放和 PCM 推送）
+- 动作播放控制（指定动作、随机动作）
+- 资源自动下载管理
 
 ---
 
-## 二、SDK集成
+## 二、术语说明
 
-### 1. 支持的系统和硬件版本
+| 术语                | 含义                                                                     |
+|-------------------|------------------------------------------------------------------------|
+| PCM               | Pulse-Code Modulation，16kHz 采样率、16bit 位深、Mono 单通道的原始音频流                |
+| WAV               | 一种音频文件格式，支持 PCM 编码，适合短语音播放                                             |
+| RenderSink        | 渲染数据接收接口，由 SDK 提供实现，可用于自定义渲染或默认展示                                      |
+| DUIX              | 数字人主控对象，集成了模型加载、渲染、播报、动作等能力                                            |
+| GLES              | OpenGL ES，Android 渲染图像用到的图形接口                                          |
+| SpecialAction     | 模型附带的 JSON 文件，标注动作区间（例如打招呼、挥手等）                                        |
+
+---
+
+## 三、SDK 获取方式
+
+> ✅ 当前 SDK 以本地 Module 或 AAR 方式提供。可联系商务或技术支持获取 SDK 包。
+
+### 3.1 Module 引用（推荐）
+
+1. 获取完整源码包，解压后将 `duix-sdk` 目录复制到项目根目录下。
+2. 在项目 `settings.gradle` 中添加：
+
+```gradle
+include ':duix-sdk'
+```
+
+3. 在模块 `build.gradle` 中添加依赖：
+
+```gradle
+dependencies {
+    api project(":duix-sdk")
+}
+```
+
+### 3.2 AAR 引用（可选）
+
+1. 将duix-sdk模块编译的 `duix-sdk-release.aar` 放入 `libs/` 目录。
+2. 添加依赖：
+
+```gradle
+dependencies {
+    api fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+}
+```
+
+---
+
+## 四、集成要求
 
 | 项目     | 描述                                                 |
 |--------|----------------------------------------------------|
@@ -33,22 +79,9 @@
 | 开发 IDE | Android Studio Giraffe 2022.3.1 Patch 2            |
 | 内存要求   | 可用于数字人的内存 >= 800MB                                 |
 
-### 2. SDK集成
-
-在 build.gradle 中增加配置如下
-
-```gradle
-dependencies {
-    // 引用SDK项目
-    api project(":duix-sdk")
-    ...
-}
-```
-
 ---
 
-## 三、使用流程概览
-
+## 五、使用流程概览
 
 ```mermaid
 graph TD
@@ -62,9 +95,9 @@ F --> G[资源释放]
 
 ---
 
-## 四、SDK调用及API说明
+## 六、关键接口与调用示例
 
-### 1. 模型检查及下载
+### 6.1. 模型检查及下载
 
 使用渲染服务前需要将基础配置及模型文件同步到本地存储中,SDK中提供了VirtualModelUtil简单演示了模型下载解压流程。
 若模型下载过慢或无法下载，开发者可以选择将模型包缓存到自己的存储服务。
@@ -85,7 +118,7 @@ void baseConfigDownload(Context context, String url, ModelDownloadCallback callb
 void modelDownload(Context context, String modelUrl, ModelDownloadCallback callback)
 ```
 
-其中**ModelDownloadCallback**: `ai.guiji.duix.sdk.client.VirtualModelUtil$ModelDownloadCallback`
+`ModelDownloadCallback` 包含进度、完成、失败等回调，详见 SDK 定义。
 
 ```
 interface ModelDownloadCallback {
@@ -112,11 +145,12 @@ if (!VirtualModelUtil.checkBaseConfig(mContext)){
 if (!VirtualModelUtil.checkModel(mContext, modelUrl)){
     VirtualModelUtil.modelDownload(mContext, modelUrl, callback)
 }
+
 ```
 
 ---
 
-### 2. 初始化SDK
+### 6.2. 初始化与渲染启动
 
 在渲染页onCreate()阶段构建DUIX对象并调用init接口
 
@@ -172,9 +206,9 @@ duix?.init()
 
 ---
 
-### 3. 数字人形象展示
+### 6.3. 数字人形象展示
 
-使用RenderSink接口接受渲染帧数据，SDK中提供了该接口实现DUIXRenderer.java。也可以自己实现该接口自定义渲染。
+使用 SDK 提供的 `DUIXRenderer` 和 `DUIXTextureView` 可快速实现支持透明通道的渲染。也可以自己实现RenderSink接口自定义渲染逻辑。
 
 其中**RenderSink**的定义如下: `ai.guiji.duix.sdk.client.render.RenderSink`
 
@@ -219,7 +253,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ---
 
-### 4. 使用流式推送PCM驱动数字人播报
+### 6.4 播报控制
+
+#### 使用流式推送PCM驱动数字人播报
 
 **PCM格式:16k采样率单通道16位深**
 
@@ -259,7 +295,7 @@ thread.start()
 
 ---
 
-### 5. 启动wav音频驱动数字人播报
+#### WAV 播放驱动
 
 > 函数定义: `ai.guiji.duix.sdk.client.DUIX`
 
@@ -308,7 +344,7 @@ object : Callback {
 
 ---
 
-### 6. 终止当前播报
+#### 终止当前播报
 
 当数字人正在播报时调用该接口终止播报。
 
@@ -326,7 +362,10 @@ duix?.stopAudio()
 
 ---
 
-### 7. 播放指定动作区间
+### 6.5. 动作控制
+
+
+#### 播放指定动作区间
 
 模型中支持新的动作区间标注(SpecialAction.json)
 
@@ -347,7 +386,7 @@ void startMotion(String name, boolean now)
 duix?.startMotion("打招呼", true)
 ```
 
-### 8. 随机播放动作区间
+#### 随机播放动作区间
 
 随机播放场景及旧的标注协议(config.json)
 
@@ -369,7 +408,7 @@ duix?.startRandomMotion(true)
 
 ---
 
-## 五. Proguard配置
+## 七. Proguard配置
 
 如果代码使用了混淆，请在proguard-rules.pro中配置：
 
@@ -378,8 +417,8 @@ duix?.startRandomMotion(true)
 ```
 
 ---
- 
-## 六、注意事项
+
+## 八、注意事项
 
 1. 驱动渲染初始化前需要确保基础配置文件及模型下载到指定位置。
 2. 播放的PCM音频不宜过长，播放的PCM缓存在内存中，过长的音频流可能导致内存溢出。
@@ -389,13 +428,27 @@ duix?.startRandomMotion(true)
 
 ---
 
-## 七、版本记录
+## 九、常见问题与排查指南
+
+| 问题现象                | 可能原因                     | 解决方案                   |
+|---------------------|--------------------------|------------------------|
+| init 回调失败           | 模型路径错误或未下载完成             | 使用 `checkModel` 检查模型状态 |
+| 渲染黑屏                | EGL 配置或纹理视图设置错误          | 使用 SDK 提供示例中的设置方法      |
+| PCM 无播报效果           | 格式不符或未调用 startPush       | 确保音频格式正确并调用推送方法        |
+| 模型下载过慢              | 网络不稳定或 CDN 受限            | 支持自建模型文件托管服务           |
+
+---
+
+## 十、版本记录
 
 **<a>4.0.1</a>**
+
+```text
 1. 支持PCM音频流驱动数字人，提升音频播放响应速度。
 2. 优化动作区间播放，可根据模型配置指定播放动作区间。
 3. 自定义音频播放器，去除Exoplayer播放依赖
 4. 提供简洁的模型下载同步管理工具
+```
 
 **<a>3.0.5</a>**
 
@@ -416,9 +469,13 @@ duix?.startRandomMotion(true)
 1. 优化本地渲染。
 ```
 
-## 八、其他相关的第三方开源项目
+## 八、🔗 开源依赖
 
-| 模块                                      | 描述          |
-|-----------------------------------------|-------------|
-| [onnx](https://github.com/onnx/onnx)    | 人工智能框架      |
-| [ncnn](https://github.com/Tencent/ncnn) | 高性能神经网络计算框架 |
+| 模块                                        | 描述                |
+|-------------------------------------------|-------------------|
+| [onnx](https://github.com/onnx/onnx)      | 通用AI模型标准格式        |
+| [ncnn](https://github.com/Tencent/ncnn)   | 高性能神经网络计算框架（腾讯）   |
+
+---
+
+如需更多帮助，请联系技术支持团队。
