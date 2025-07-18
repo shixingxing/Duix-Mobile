@@ -1,6 +1,6 @@
 ## Silicon-based Local Edition DUIX-PRO SDK Documentation (v1.2.0)
 
-简体中文 | [English](./README_en.md)
+[简体中文](./README.md) | English
 
 ---
 
