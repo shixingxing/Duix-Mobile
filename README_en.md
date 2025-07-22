@@ -1,6 +1,6 @@
 [简体中文](/README.md) | English
 
-https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
+[![Duix Mobile 视频封面](./res/main_video_thumbnail.jpg)](https://www.bilibili.com/video/BV1t2g7z3ERK/)
 
 # 🚀🚀🚀 Duix Mobile — The Best Real-time Interactive Digital Human Solution for Mobile Devices
 
@@ -144,3 +144,9 @@ Yes, we provide documentation for voice start and end callbacks.
 
 - [x] Streaming audio capability, completed by July 16, 2025
 - [ ] Algorithm response optimization, expected by August 30, 2025
+
+## 📚 Related Open Source Repositories
+
+- GitHub: https://github.com/duixcom/Duix-Mobile
+- Gitee: https://gitee.com/duix/Duix-Mobile
+- GitCode: https://gitcode.com/openguiji/duix-mobile
