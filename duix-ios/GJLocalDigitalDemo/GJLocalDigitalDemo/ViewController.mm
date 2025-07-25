@@ -300,7 +300,6 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         NSUserDefaults * defaults=[NSUserDefaults standardUserDefaults];
-        NSLog(@"Return key was pressed");
         // 如果你想在按下 return 后不换行，可以返回 NO
         // return NO;
          if(textView==self.baseTextView)
