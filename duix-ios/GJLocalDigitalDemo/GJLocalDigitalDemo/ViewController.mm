@@ -111,6 +111,7 @@
     
     NSUserDefaults * defaults=[NSUserDefaults standardUserDefaults];
     self.baseTextView.text=[defaults objectForKey:@"BASEMODELURL"]?:BASEMODELURL;
+    NSLog(@"DIGITALMODELURLKEY:%@",[defaults objectForKey:@"DIGITALMODELURLKEY"]);
     self.digitalTextView.text=[defaults objectForKey:@"DIGITALMODELURLKEY"]?:DIGITALMODELURL;
 
 
@@ -304,11 +305,11 @@
         // return NO;
          if(textView==self.baseTextView)
         {
-            [defaults setObject:text forKey:@"BASEMODELURL"];
+            [defaults setObject:textView.text forKey:@"BASEMODELURL"];
         }
         else if(textView==self.digitalTextView)
         {
-            [defaults setObject:text forKey:@"DIGITALMODELURLKEY"];
+            [defaults setObject:textView.text forKey:@"DIGITALMODELURLKEY"];
         }
         [textView resignFirstResponder];
         [self isDownModel];
