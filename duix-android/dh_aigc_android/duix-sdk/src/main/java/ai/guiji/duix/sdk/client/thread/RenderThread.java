@@ -315,6 +315,9 @@ public class RenderThread extends Thread {
     }
 
     private void handleStartPushAudio(){
+        if (mCurrentBnfSession > 0){
+            scrfdncnn.finsession(mCurrentBnfSession);
+        }
         mCurrentBnfSession = scrfdncnn.newsession();
         if (audioPlayer != null && isRendering){
             audioPlayer.pushStart();
@@ -340,7 +343,6 @@ public class RenderThread extends Thread {
     private void handleStopPlayAudio(){
         if (scrfdncnn != null && isRendering){
             scrfdncnn.finsession(mCurrentBnfSession);
-            mCurrentBnfSession = scrfdncnn.newsession();
             if (audioPlayer != null){
                 audioPlayer.stop();
             }
