@@ -1,6 +1,6 @@
 简体中文 | [English](/README_en.md)
 
-https://github.com/user-attachments/assets/cee993d6-f6ab-40d8-a52b-ae9e8064247b
+[![Duix Mobile thumbnail](./res/main_video_thumbnail.jpg)](https://www.bilibili.com/video/BV1t2g7z3ERK/)
 
 # 🚀🚀🚀 Duix Mobile —— 全网效果最好的移动端【实时对话数字人】
 
@@ -144,3 +144,10 @@ Duix Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 
 - [x]  流式音频能力，2025 年 7 月 16 日上线
 - [ ]  算法响应优化，预计时间：2025 年 8 月 30 日前
+
+## 📚 相关开源仓库
+
+- GitHub: https://github.com/duixcom/Duix-Mobile
+- Gitee: https://gitee.com/duix/Duix-Mobile
+- GitCode: https://gitcode.com/openguiji/duix-mobile
+
