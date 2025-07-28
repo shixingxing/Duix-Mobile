@@ -270,6 +270,8 @@ void stopPush()
 
 `startPush`, `pushPcm`, and `stopPush` need to be called in pairs. `pushPcm` should not be too long. After pushing the entire audio, call `stopPush` to end the session. Use `startPush` again for the next audio.
 
+**The audio data between each startPush and stopPush segment should be at least 1 second (32000 bytes), otherwise the mouth shape driver cannot be triggered, and blank frames can be used to fill in.**
+
 **Call Example**:
 
 ```kotlin
@@ -372,6 +374,7 @@ If using obfuscation, add the following in `proguard-rules.pro`:
 2. Optimized motion interval playback, allowing specific motion intervals based on model configuration.
 3. Custom audio player, removed Exoplayer playback dependency.
 4. Provided simplified model download synchronization management tools.
+5. The audio data between each startPush and stopPush segment should be at least 1 second (32000 bytes), otherwise the mouth shape driver cannot be triggered, and blank frames can be used to fill in.
 
 **<a>3.0.5</a>**
 

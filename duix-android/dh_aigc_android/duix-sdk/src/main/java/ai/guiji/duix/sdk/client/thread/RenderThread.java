@@ -343,6 +343,7 @@ public class RenderThread extends Thread {
     private void handleStopPlayAudio(){
         if (scrfdncnn != null && isRendering){
             scrfdncnn.finsession(mCurrentBnfSession);
+            mCurrentBnfSession = -1;
             if (audioPlayer != null){
                 audioPlayer.stop();
             }

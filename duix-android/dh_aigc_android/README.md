@@ -275,6 +275,8 @@ void stopPush()
 
 startPush、pushPcm、stopPush需要成对调用，pushPcm不宜过长。可以在一整段音频推送完后调用stopPush结束当前会话，下一段音频再使用startPush重新开启推送。
 
+**每段startPush到stopPush中间的音频数据最少要1秒(32000字节)否则无法触发口型驱动，可以自行使用空白帧填充。**
+
 **调用示例**:
 
 ```kotlin
@@ -425,6 +427,7 @@ duix?.startRandomMotion(true)
 3. 替换预览模型可以在MainActivity.kt文件中修改modelUrl的值，使用SDK中自带的文件下载解压管理以获得完整的模型文件。
 4. 音频驱动的格式: 16k采样率单通道16位深度
 5. 设备性能不足时可能导致音频特征提取的速度跟不上音频播放的速度，可以使用duix?.setReporter()函数添加一个监控观察帧渲染返回的信息。
+6. 每段startPush到stopPush中间的音频数据最少要1秒(32000字节)否则无法触发口型驱动，可以自行使用空白帧填充。
 
 ---
 
