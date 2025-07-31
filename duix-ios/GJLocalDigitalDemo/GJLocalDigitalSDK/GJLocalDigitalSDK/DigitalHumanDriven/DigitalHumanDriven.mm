@@ -410,6 +410,7 @@ static DigitalHumanDriven *manager = nil;
     if(gjduix_s!=nil)
     {
         dhduix_free(gjduix_s);
+        gjduix_s=nil;
     }
  
 
