@@ -79,6 +79,9 @@ dependencies {
 | 开发 IDE | Android Studio Giraffe 2022.3.1 Patch 2            |
 | 内存要求   | 可用于数字人的内存 >= 800MB                                 |
 
+
+**编译项目的Gradle使用的JDK版本为17,需要在File->Setting->Build,Execution,Deployment->Grade Projects->Gradle JDK: ${选择一个17版本的JDK}**
+
 ---
 
 ## 五、使用流程概览
