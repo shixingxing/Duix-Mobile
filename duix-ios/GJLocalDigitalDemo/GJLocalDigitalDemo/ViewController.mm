@@ -310,6 +310,7 @@
         {
             [defaults setObject:textView.text forKey:@"DIGITALMODELURLKEY"];
         }
+        [defaults synchronize];
         [textView resignFirstResponder];
         [self isDownModel];
     }
