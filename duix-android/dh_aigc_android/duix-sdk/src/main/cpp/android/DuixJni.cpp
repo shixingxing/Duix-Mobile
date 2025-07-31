@@ -153,12 +153,14 @@ extern "C" {
     JMat* mat_pic = new JMat(width,height,(uint8_t*)picbuf);
     mat_pic->loadjpg(s_pic,1);
     env->ReleasePrimitiveArrayCritical( arrpic,picbuf, 0);
+    delete mat_pic;
 
     if(s_msk.length()){
         jbyte *mskbuf = (jbyte *) env->GetPrimitiveArrayCritical(arrmsk, 0);
         JMat* mat_msk = new JMat(width,height,(uint8_t*)mskbuf);
         mat_msk->loadjpg(s_msk,1);
         env->ReleasePrimitiveArrayCritical( arrmsk,mskbuf, 0);
+        delete mat_msk;
     }
     return 0;
   }
