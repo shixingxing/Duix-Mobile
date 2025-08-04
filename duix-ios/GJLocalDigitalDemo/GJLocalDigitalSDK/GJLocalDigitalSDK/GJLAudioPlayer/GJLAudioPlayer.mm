@@ -322,7 +322,10 @@ std::vector<int16_t> resample_pcm(const std::vector<int16_t>& input, size_t new_
 
 -(void)toWavPcmData:(NSData*)audioData
 {
-
+    if([DigitalHumanDriven manager].isStop)
+    {
+        return;
+    }
     int dataLength =(int) [audioData length];
     
     // 动态分配uint8_t数组
@@ -343,7 +346,10 @@ std::vector<int16_t> resample_pcm(const std::vector<int16_t>& input, size_t new_
 }
 -(void)wavPCM:(uint8_t*)pcm size:(int)size
 {
-
+    if([DigitalHumanDriven manager].isStop)
+    {
+        return;
+    }
 
 //        dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_FOREVER);
          [[DigitalHumanDriven manager] wavPCM:pcm size:size];
