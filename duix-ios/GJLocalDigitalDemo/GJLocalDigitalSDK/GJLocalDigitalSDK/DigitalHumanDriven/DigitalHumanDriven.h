@@ -53,6 +53,8 @@
 
 @property (nonatomic, assign) int audioIndex;
 
+@property (nonatomic, assign) uint64_t sessid;
+
 @property (nonatomic, copy) void (^imageBlock)(UIImage *image);
 @property (nonatomic, copy) void (^pixerBlock)(CVPixelBufferRef cvPixelBuffer);
 @property (nonatomic, copy) void (^uint8Block)(UInt8*mat_uint8,UInt8*maskMat_uint8 ,UInt8*bfgMat_uint8,UInt8*bbgMat_unit8,int width ,int height);
