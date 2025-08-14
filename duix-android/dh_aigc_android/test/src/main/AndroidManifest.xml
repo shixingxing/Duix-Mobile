@@ -27,11 +27,6 @@
             android:name=".ui.activity.CallActivity"
             android:exported="false">
         </activity>
-
-        <activity
-            android:name=".ui.activity.TestASRActivity"
-            android:exported="false">
-        </activity>
     </application>
 
 </manifest>
