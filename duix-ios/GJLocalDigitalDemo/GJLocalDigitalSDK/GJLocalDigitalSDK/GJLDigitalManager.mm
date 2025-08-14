@@ -740,7 +740,7 @@ static GJLDigitalManager * manager = nil;
     //    [self.audi]
     
 //    [self cancelAudioPlay];
-    [GJLAudioPlayer manager].isPlaying=NO;
+//    [GJLAudioPlayer manager].isPlaying=NO;
     if(self.audioPlayEnd)
     {
         self.audioPlayEnd();
@@ -1373,6 +1373,7 @@ static GJLDigitalManager * manager = nil;
 -(void)clearAudioBuffer
 {
 //    self.audioIndex=0;
+    [DigitalHumanDriven manager].sessid=0;
     [DigitalHumanDriven manager].audioIndex=0;
     [[GJLAudioPlayer manager] clearAudioBuffer];
 //    [self toMute:YES];

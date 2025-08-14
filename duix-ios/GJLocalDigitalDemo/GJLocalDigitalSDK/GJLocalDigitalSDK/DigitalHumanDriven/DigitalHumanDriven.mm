@@ -23,7 +23,7 @@ static DigitalHumanDriven *manager = nil;
 //    dhunet_s *gjunet;
     
     dhduix_s *  gjduix_s;
-    uint64_t sessid;
+
 //    int pcmsize;
 //    int bnfsize;
 //    char* bnf;
@@ -75,7 +75,7 @@ static DigitalHumanDriven *manager = nil;
 {
     [self toStopAudioReadyTimer];
     
-    sessid = dhduix_newsession(gjduix_s);
+    self.sessid = dhduix_newsession(gjduix_s);
 //    NSLog(@"sessid:%llu",sessid);
 
     __weak typeof(self)weakSelf = self;
@@ -91,7 +91,7 @@ static DigitalHumanDriven *manager = nil;
 {
     __weak typeof(self)weakSelf = self;
     dispatch_async(weakSelf.playAuidoQueue, ^{
-        weakSelf.isAudioReady = dhduix_readycnt(self->gjduix_s,self->sessid);
+        weakSelf.isAudioReady = dhduix_readycnt(self->gjduix_s,weakSelf.sessid);
 //                NSLog(@"isAudioReady:%d",self.isAudioReady);
         if(weakSelf.isAudioReady>0)
         {
@@ -189,7 +189,7 @@ static DigitalHumanDriven *manager = nil;
            
       
       
-               rst = dhduix_simpinx(self->gjduix_s,sessid,mat.udata(),mat.width(),mat.height(),boxs,maskMat.udata(),bfgMat.udata(),index);
+               rst = dhduix_simpinx(self->gjduix_s,self.sessid,mat.udata(),mat.width(),mat.height(),boxs,maskMat.udata(),bfgMat.udata(),index);
            
               isLip=YES;
           
@@ -301,7 +301,7 @@ static DigitalHumanDriven *manager = nil;
         if (![GJLAudioPlayer manager].isMute&&index>0&&[GJLAudioPlayer manager].isPlayMutePcm==NO) {
      
      
-            rst = dhduix_simpinx(self->gjduix_s,sessid,mat.udata(),mat.width(),mat.height(),boxs,NULL,NULL,index);
+            rst = dhduix_simpinx(self->gjduix_s,self.sessid,mat.udata(),mat.width(),mat.height(),boxs,NULL,NULL,index);
             isLip=YES;
 //            NSLog(@"isAudioReady:%d,index:%d,rst:%d",self.isAudioReady,index,rst);
 //            double time2=[[NSDate date] timeIntervalSince1970];
@@ -377,10 +377,10 @@ static DigitalHumanDriven *manager = nil;
 -(void)wavPCM:(uint8_t*)pcm size:(int)size
 {
 //    NSLog(@"wavPCM:%d",size);
-    if(sessid>0&&size>0)
+    if(self.sessid>0&&size>0)
     {
      
-            uint64_t rst = dhduix_pushpcm(gjduix_s, sessid, (char*)pcm, size, 0);
+            uint64_t rst = dhduix_pushpcm(gjduix_s, self.sessid, (char*)pcm, size, 0);
        
        
       
@@ -389,18 +389,18 @@ static DigitalHumanDriven *manager = nil;
 }
 -(void)finishSession
 {
-    if(sessid>0)
+    if(self.sessid>0)
     {
-        dhduix_finsession(gjduix_s, sessid);
+        dhduix_finsession(gjduix_s, self.sessid);
     }
 
 }
 //finishSession 结束后调用续上continueSession
 -(void)continueSession
 {
-    if(sessid>0)
+    if(self.sessid>0)
     {
-        dhduix_consession(gjduix_s, sessid);
+        dhduix_consession(gjduix_s, self.sessid);
     }
 }
 - (void)free
@@ -410,6 +410,7 @@ static DigitalHumanDriven *manager = nil;
     if(gjduix_s!=nil)
     {
         dhduix_free(gjduix_s);
+        gjduix_s=nil;
     }
  
 
