@@ -7,7 +7,8 @@
 #include "munet.h"
 #include "malpha.h"
 #include "dhwenet.h"
-#include "Log.h"
+#include <queue>
+//#include "Log.h"
 
 
 struct dhduix_s{
@@ -25,7 +26,7 @@ struct dhduix_s{
   WeAI*   weai_first;
   WeAI*   weai_common;
   PcmSession* cursess;
-  PcmSession* presess;
+  //PcmSession* presess;
   volatile uint64_t  sessid;
 
   jmat_t    *mat_feat;
@@ -33,6 +34,8 @@ struct dhduix_s{
   pthread_t *calcthread;
   pthread_mutex_t pushmutex;
   pthread_mutex_t readmutex;
+  pthread_mutex_t freemutex;
+  std::queue<PcmSession*> *slist;  
 
   int rgb;
   Mobunet     *munet; 
@@ -51,7 +54,16 @@ static void *calcworker(void *arg){
       rst = sess->runcalc(mfcc->sessid,mfcc->weai_common,mfcc->mincalc);
     }
     if(rst!=1){
-      jtimer_mssleep(20);
+      if(!mfcc->slist->empty()){
+        pthread_mutex_lock(&mfcc->freemutex);
+        PcmSession* sess = mfcc->slist->front();
+        mfcc->slist->pop();
+        delete sess;
+        pthread_mutex_unlock(&mfcc->freemutex);
+        jtimer_mssleep(10);
+      }else{
+        jtimer_mssleep(20);
+      }
     }else{
       jtimer_mssleep(10);
     }
@@ -68,6 +80,8 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height){
   duix->maxblock = STREAM_BASE_MAXBLOCK;
   pthread_mutex_init(&duix->pushmutex,NULL);
   pthread_mutex_init(&duix->readmutex,NULL);
+  pthread_mutex_init(&duix->freemutex,NULL);
+  duix->slist = new std::queue<PcmSession*>();
   duix->calcthread = (pthread_t *)malloc(sizeof(pthread_t) );
   duix->running = 1;
   pthread_create(duix->calcthread, NULL, calcworker, (void*)duix);
@@ -153,10 +167,19 @@ int dhduix_initWenet(dhduix_t* dg,char* fnwenet){
 uint64_t dhduix_newsession(dhduix_t* dg){
   uint64_t sessid = ++dg->sessid;
   PcmSession* sess = new PcmSession(sessid,dg->minoff,dg->minblock,dg->maxblock);
-  PcmSession* olds = dg->presess;
-  dg->presess = dg->cursess;
+  //PcmSession* olds = dg->presess;
+  //dg->presess = dg->cursess;
+  //dg->cursess = sess;
+  //if(olds)delete olds;
+  pthread_mutex_lock(&dg->pushmutex);
+  pthread_mutex_lock(&dg->readmutex);
+  PcmSession* olds = dg->cursess;
   dg->cursess = sess;
-  if(olds)delete olds;
+  pthread_mutex_unlock(&dg->pushmutex);
+  pthread_mutex_unlock(&dg->readmutex);
+  pthread_mutex_lock(&dg->freemutex);
+  dg->slist->push(olds);
+  pthread_mutex_unlock(&dg->freemutex);
   return sessid;
 }
 
@@ -212,6 +235,17 @@ int dhduix_finsession(dhduix_t* dg,uint64_t sessid){
 int dhduix_free(dhduix_t* dg){
   dg->running = 0;
   pthread_join(*dg->calcthread, NULL);
+  if(dg->slist){
+    pthread_mutex_lock(&dg->freemutex);
+    while(!dg->slist->empty()){
+      PcmSession* sess = dg->slist->front();
+      dg->slist->pop();
+      delete sess;
+    }
+    pthread_mutex_unlock(&dg->freemutex);
+    delete dg->slist;
+  }
+
   if(dg->weai_first){
     delete dg->weai_first;
     dg->weai_first = NULL;
@@ -224,10 +258,10 @@ int dhduix_free(dhduix_t* dg){
     delete dg->cursess;
     dg->cursess = NULL;
   }
-  if(dg->presess){
-    delete dg->presess;
-    dg->presess = NULL;
-  }
+  //if(dg->presess){
+    //delete dg->presess;
+    //dg->presess = NULL;
+  //}
   if(dg->munet){
     delete dg->munet;
     dg->munet = NULL;
@@ -246,6 +280,7 @@ int dhduix_free(dhduix_t* dg){
   }
   pthread_mutex_destroy(&dg->pushmutex);
   pthread_mutex_destroy(&dg->readmutex);
+  pthread_mutex_destroy(&dg->freemutex);
   free(dg->calcthread);
   jmat_free(dg->mat_feat);
   free(dg);
@@ -315,7 +350,7 @@ int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk
   }
   uint64_t tickb = jtimer_msstamp();
   uint64_t dist = tickb-ticka;
-  LOGD("tooken","===loadjpg %ld\n",dist);
+  //LOGD("tooken","===loadjpg %ld\n",dist);
   int rst = 0;
   if(box){
     rst = dhduix_simpinx(dg,sessid, bpic,dg->width,dg->height, box, bmsk, bfg,bnfinx);
@@ -379,7 +414,7 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   rst = dg->munet->domodel(mpic, mmsk, feat);
   uint64_t tickb = jtimer_msstamp();
   uint64_t dist = tickb-ticka;
-  LOGD("tooken","===domodel %ld\n",dist);
+  //LOGD("tooken","===domodel %ld\n",dist);
   if(dist>40){
     printf("===domodel %d dist %ld\n",rst,dist);
   }
