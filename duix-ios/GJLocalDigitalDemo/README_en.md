@@ -323,6 +323,10 @@ if (result == 1) {
 
 ## 10. Version History
 
+### v1.2.3
+
+- Added support for 128 models
+
 ### v1.2.0
 
 - Added PCM streaming support
