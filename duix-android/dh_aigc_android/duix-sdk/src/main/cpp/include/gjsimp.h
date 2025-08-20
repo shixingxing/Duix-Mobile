@@ -13,6 +13,7 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height);
 int dhduix_initPcmex(dhduix_t* dg,int maxsize,int minoff ,int minblock ,int maxblock,int rgb);
 int dhduix_initWenet(dhduix_t* dg,char* fnwenet); 
 int dhduix_initMunet(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk);
+int dhduix_initMunetex(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk,int rect);
 
 uint64_t dhduix_newsession(dhduix_t* dg);
 

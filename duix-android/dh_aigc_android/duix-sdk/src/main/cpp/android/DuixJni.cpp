@@ -103,6 +103,16 @@ extern "C" {
     return rst;
   }
 
+  JNIEXPORT jint JNICALL Java_ai_guiji_duix_DuixNcnn_initMunetex(JNIEnv *env, jobject thiz,
+      jstring fnparam,jstring fnbin,jstring fnmask,jint kind){
+    if(!g_digit)return -1;
+    std::string sparam = getStringUTF(env,fnparam);
+    std::string sbin = getStringUTF(env,fnbin);
+    std::string smask = getStringUTF(env,fnmask);
+    int rst = dhduix_initMunetex(g_digit,(char*)sparam.c_str(),(char*)sbin.c_str(),(char*)smask.c_str(),kind?kind:168);
+    return rst;
+  }
+
   JNIEXPORT jlong JNICALL Java_ai_guiji_duix_DuixNcnn_newsession(JNIEnv *env, jobject thiz){
     if(!g_digit)return -1;
     uint64_t sessid = dhduix_newsession(g_digit);

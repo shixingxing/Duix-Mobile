@@ -56,7 +56,7 @@ int mainmemcheck(int argc,char** argv){
   rst = dhduix_alloc(&dg,20,width,height);
   //char* fnwenet = "model/wenet.onnx";
   rst = dhduix_initPcmex(dg,0,10,20,50,0);
-  rst = dhduix_initMunet(dg,"model/xinyan_opt.param","model/xinyan_opt.bin","model/weight_168u.bin");
+  rst = dhduix_initMunetex(dg,"model/xinyan_opt.param","model/xinyan_opt.bin","model/weight_168u.bin",128);
   //char* fnwenet = "model/wenet.onnx";
   char* fnwenet = "model/wenet.onnx";
   rst = dhduix_initWenet(dg,fnwenet);
@@ -109,18 +109,23 @@ int mainmemcheck(int argc,char** argv){
 int main(int argc,char** argv){
   dhduix_t* dg = NULL;
   int rst = 0;
-  int width = 540;
-  int height = 720;
+  int width = 1080;
+  int height = 1920;
   rst = dhduix_alloc(&dg,20,width,height);
   //char* fnwenet = "model/wenet.onnx";
   char* fnwenet = "model/wenet.onnx";
   rst = dhduix_initWenet(dg,fnwenet);
   rst = dhduix_initPcmex(dg,0,10,20,50,0);
-  rst = dhduix_initMunet(dg,"model/xinyan_opt.param","model/xinyan_opt.bin","model/weight_168u.bin");
+  rst = dhduix_initMunetex(dg,
+    "mdl128/pro128/dh_model.param",
+      "mdl128/pro128/dh_model.bin","model/weight_168u.bin",128);
 
-  std::string fnpic = "data/xinyan.jpg";
-  std::string fnmsk = "data/m1.jpg";
-  std::string fnfg = "data/xinyan.jpg";
+  //std::string fnpic = "data/xinyan.jpg";
+  //std::string fnmsk = "data/m1.jpg";
+  std::string fnpic = "mdl128/pro128/raw_jpgs/1.sij";
+  std::string fnmsk = "mdl128/pro128/pha/1.sij";
+  std::string fnfg = "mdl128/pro128/raw_sg/1.sij";
+  //std::string fnfg = "data/xinyan.jpg";
   JMat* mat_msk = new JMat();
   mat_msk->loadjpg(fnmsk,1);
   JMat* mat_pic = new JMat();
@@ -128,7 +133,8 @@ int main(int argc,char** argv){
   JMat* mat_fg = new JMat();
   mat_fg->loadjpg(fnfg,1);
   int m_boxs[4];
-  m_boxs[0]=170;m_boxs[2]=382;m_boxs[1]=382;m_boxs[3]=592;
+  //m_boxs[0]=170;m_boxs[2]=382;m_boxs[1]=382;m_boxs[3]=592;
+  m_boxs[0]=414;m_boxs[2]=669;m_boxs[1]=925;m_boxs[3]=1180;
   uint8_t* bpic = (uint8_t*)mat_pic->data();
   uint8_t* bmsk = (uint8_t*)mat_msk->data();
   uint8_t* bfg = (uint8_t*)mat_fg->data();

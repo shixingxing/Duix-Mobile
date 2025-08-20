@@ -36,8 +36,12 @@ int Mobunet::initModel(const char* binfn,const char* paramfn,const char* mskfn){
     printf("===mskfn %s\n",mskfn);
     mat_weights = new JMat(160,160,(uint8_t*)wbuf,1);
     mat_weights->forceref(0);
-    //mat_weights->show("weight");
-    //cv::waitKey(0);
+    mat_weightmin = new JMat(128,128,1);
+    cv::Mat ma = mat_weights->cvmat();
+    cv::Mat mb;
+    cv::resize(ma,mb,cv::Size(128,128));
+    cv::Mat mc = mat_weightmin->cvmat();
+    mb.copyTo(mc);
     return 0;
 }
 
@@ -81,20 +85,16 @@ int Mobunet::domodelold(JMat* pic,JMat* msk,JMat* feat){
     cvadj.convertTo(cvreal,CV_8UC3,scale);
     cv::Mat cvmask;
     cv::cvtColor(cvreal,cvmask,cv::COLOR_RGB2BGR);
-    cv::imshow("cvreal",cvreal);
-    cv::imshow("cvmask",cvmask);
-    //cv::waitKey(0);
-    //getchar();
     BlendGramAlpha((uchar*)cvmask.data,(uchar*)mat_weights->data(),(uchar*)pic->data(),160,160);
     return 0;
 }
 
-int Mobunet::domodel(JMat* pic,JMat* msk,JMat* feat){
+int Mobunet::domodel(JMat* pic,JMat* msk,JMat* feat,int rect){
   int width = pic->width();
   int height = pic->height();
-    ncnn::Mat inmask = ncnn::Mat::from_pixels(msk->udata(), m_rgb?ncnn::Mat::PIXEL_RGB:ncnn::Mat::PIXEL_BGR2RGB, 160, 160);
+    ncnn::Mat inmask = ncnn::Mat::from_pixels(msk->udata(), m_rgb?ncnn::Mat::PIXEL_RGB:ncnn::Mat::PIXEL_BGR2RGB, rect, rect);
     inmask.substract_mean_normalize(mean_vals, norm_vals);
-    ncnn::Mat inreal = ncnn::Mat::from_pixels(pic->udata(), m_rgb?ncnn::Mat::PIXEL_RGB:ncnn::Mat::PIXEL_BGR2RGB, 160, 160);
+    ncnn::Mat inreal = ncnn::Mat::from_pixels(pic->udata(), m_rgb?ncnn::Mat::PIXEL_RGB:ncnn::Mat::PIXEL_BGR2RGB, rect, rect);
     inreal.substract_mean_normalize(mean_vals, norm_vals);
     ncnn::Mat inpic(width,height,6);
     float* buf = (float*)inpic.data;
@@ -119,7 +119,12 @@ int Mobunet::domodel(JMat* pic,JMat* msk,JMat* feat){
     outpic.substract_mean_normalize(outmean_vals, outnorm_vals);
     cv::Mat cvout(width,height,CV_8UC3);
     outpic.to_pixels(cvout.data,m_rgb?ncnn::Mat::PIXEL_RGB:ncnn::Mat::PIXEL_RGB2BGR);
-    BlendGramAlpha((uchar*)cvout.data,(uchar*)mat_weights->data(),(uchar*)pic->data(),width,height);
+
+    if(rect==160){
+      BlendGramAlpha((uchar*)cvout.data,(uchar*)mat_weights->data(),(uchar*)pic->data(),width,height);
+    }else{
+      BlendGramAlpha((uchar*)cvout.data,(uchar*)mat_weightmin->data(),(uchar*)pic->data(),width,height);
+    }
     return 0;
 }
 
@@ -198,10 +203,6 @@ int Mobunet::process2(JMat* pic,const int* boxs,JMat* feat){
     roimask.copyTo(cvreal);
 
     cv::rectangle(cvmask,cv::Rect(5,5,150,150),cv::Scalar(0,0,0),-1);//,cv::LineTypes::FILLED);
-//    cv::imshow("000",cvorig);
-//    cv::imshow("aaa",cvmask);
-//    cv::imshow("bbb",cvreal);
-//    cv::waitKey(0);
 
     ncnn::Mat inmask = ncnn::Mat::from_pixels(picmask.udata(), ncnn::Mat::PIXEL_BGR2RGB, 160, 160);
     inmask.substract_mean_normalize(mean_vals, norm_vals);

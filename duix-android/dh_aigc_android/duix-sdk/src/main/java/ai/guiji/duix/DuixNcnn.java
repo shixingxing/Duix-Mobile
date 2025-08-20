@@ -7,6 +7,7 @@ public class DuixNcnn
     public native int initPcmex(int maxsize,int minoff,int minblock,int maxblock,int rgb);
     public native int initWenet(String fnwenet);
     public native int initMunet(String fnparam,String fnbin,String fnmask);
+    public native int initMunetex(String fnparam,String fnbin,String fnmask, int kind);
 
     public native long newsession();
     public native int finsession(long sessid);

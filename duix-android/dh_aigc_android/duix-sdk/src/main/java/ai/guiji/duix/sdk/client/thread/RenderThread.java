@@ -119,7 +119,11 @@ public class RenderThread extends Thread {
             try {
                 scrfdncnn.alloc(0, 20, info.getWidth(), info.getHeight());
                 scrfdncnn.initPcmex(0,10,20,50,0);
-                scrfdncnn.initMunet(info.getUnetparam(), info.getUnetbin(), info .getUnetmsk());
+                if (info.getModelkind() > 0){
+                    scrfdncnn.initMunetex(info.getUnetparam(), info.getUnetbin(), info .getUnetmsk(), info.getModelkind());
+                } else {
+                    scrfdncnn.initMunet(info.getUnetparam(), info.getUnetbin(), info.getUnetmsk());
+                }
                 scrfdncnn.initWenet(info.getWenetfn());
                 mModelInfo = info;
                 Logger.d("分辨率: " + mModelInfo.getWidth() + "x" + mModelInfo.getHeight());

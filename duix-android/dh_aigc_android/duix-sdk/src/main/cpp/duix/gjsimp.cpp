@@ -12,7 +12,8 @@
 
 
 struct dhduix_s{
-
+  int kind;
+  int rect;
   int width;
   int height;
   int mincalc;
@@ -93,6 +94,8 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height){
   duix->mat_pic = new JMat(width,height);
   //duix->mat_feat = jmat_alloc(20,STREAM_BASE_BNF,1,0,4,NULL);
   duix->mat_feat = jmat_alloc(STREAM_BASE_BNF,20,1,0,4,NULL);
+  duix->kind = 168;
+  duix->rect = 160;
   *pdg = duix;
   return 0;
 }
@@ -293,6 +296,22 @@ int dhduix_initMunet(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk){
   dg->munet = new Mobunet(fnbin,fnparam,fnmsk,20,dg->rgb);
   dg->inited = 1;
   printf("===init munet \n");
+  dg->kind = 168;
+  dg->rect = 160;
+  return 0;
+}
+
+int dhduix_initMunetex(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk,int rect){
+  dg->munet = new Mobunet(fnbin,fnparam,fnmsk,20,dg->rgb);
+  dg->inited = 1;
+  if(rect==128){
+    dg->kind = 128;
+    dg->rect = 128;
+  }else{
+    dg->kind = 168;
+    dg->rect = 160;
+  }
+  printf("===init munet \n");
   return 0;
 }
 
@@ -403,7 +422,7 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   JMat* feat = new JMat(STREAM_CNT_BNF,STREAM_BASE_BNF,(float*)bnfbuf,1);
 
 //    MWorkMat wmat(mat_pic,mat_msk,box);
-  MWorkMat wmat(mat_pic, NULL,box);
+  MWorkMat wmat(mat_pic, NULL,box,dg->kind);
   wmat.premunet();
   JMat* mpic;
   JMat* mmsk;
@@ -411,7 +430,7 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   //tooken
 #ifdef AIRUN_FLAG
   uint64_t ticka = jtimer_msstamp();
-  rst = dg->munet->domodel(mpic, mmsk, feat);
+  rst = dg->munet->domodel(mpic, mmsk, feat,dg->rect);
   uint64_t tickb = jtimer_msstamp();
   uint64_t dist = tickb-ticka;
   //LOGD("tooken","===domodel %ld\n",dist);
