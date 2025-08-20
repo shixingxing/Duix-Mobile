@@ -27,6 +27,8 @@
 
 //多动作
 @property(nonatomic,strong) NSMutableArray * actions;
+//128和168口型 默认168
+@property(nonatomic,assign)NSInteger modelkind;
 @end
 
 @interface DigitalRangeModel : NSObject

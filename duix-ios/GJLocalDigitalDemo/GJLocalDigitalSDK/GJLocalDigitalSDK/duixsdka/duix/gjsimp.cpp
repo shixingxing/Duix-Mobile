@@ -7,10 +7,13 @@
 #include "munet.h"
 #include "malpha.h"
 #include "dhwenet.h"
+#include <queue>
+//#include "Log.h"
 
 
 struct dhduix_s{
-
+  int kind;
+  int rect;
   int width;
   int height;
   int mincalc;
@@ -24,7 +27,7 @@ struct dhduix_s{
   WeAI*   weai_first;
   WeAI*   weai_common;
   PcmSession* cursess;
-  PcmSession* presess;
+  //PcmSession* presess;
   volatile uint64_t  sessid;
 
   jmat_t    *mat_feat;
@@ -32,6 +35,8 @@ struct dhduix_s{
   pthread_t *calcthread;
   pthread_mutex_t pushmutex;
   pthread_mutex_t readmutex;
+  pthread_mutex_t freemutex;
+  std::queue<PcmSession*> *slist;  
 
   int rgb;
   Mobunet     *munet; 
@@ -50,7 +55,16 @@ static void *calcworker(void *arg){
       rst = sess->runcalc(mfcc->sessid,mfcc->weai_common,mfcc->mincalc);
     }
     if(rst!=1){
-      jtimer_mssleep(20);
+      if(!mfcc->slist->empty()){
+        pthread_mutex_lock(&mfcc->freemutex);
+        PcmSession* sess = mfcc->slist->front();
+        mfcc->slist->pop();
+        delete sess;
+        pthread_mutex_unlock(&mfcc->freemutex);
+        jtimer_mssleep(10);
+      }else{
+        jtimer_mssleep(20);
+      }
     }else{
       jtimer_mssleep(10);
     }
@@ -67,6 +81,8 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height){
   duix->maxblock = STREAM_BASE_MAXBLOCK;
   pthread_mutex_init(&duix->pushmutex,NULL);
   pthread_mutex_init(&duix->readmutex,NULL);
+  pthread_mutex_init(&duix->freemutex,NULL);
+  duix->slist = new std::queue<PcmSession*>();
   duix->calcthread = (pthread_t *)malloc(sizeof(pthread_t) );
   duix->running = 1;
   pthread_create(duix->calcthread, NULL, calcworker, (void*)duix);
@@ -78,6 +94,8 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height){
   duix->mat_pic = new JMat(width,height);
   //duix->mat_feat = jmat_alloc(20,STREAM_BASE_BNF,1,0,4,NULL);
   duix->mat_feat = jmat_alloc(STREAM_BASE_BNF,20,1,0,4,NULL);
+  duix->kind = 168;
+  duix->rect = 160;
   *pdg = duix;
   return 0;
 }
@@ -152,10 +170,19 @@ int dhduix_initWenet(dhduix_t* dg,char* fnwenet){
 uint64_t dhduix_newsession(dhduix_t* dg){
   uint64_t sessid = ++dg->sessid;
   PcmSession* sess = new PcmSession(sessid,dg->minoff,dg->minblock,dg->maxblock);
-  PcmSession* olds = dg->presess;
-  dg->presess = dg->cursess;
+  //PcmSession* olds = dg->presess;
+  //dg->presess = dg->cursess;
+  //dg->cursess = sess;
+  //if(olds)delete olds;
+  pthread_mutex_lock(&dg->pushmutex);
+  pthread_mutex_lock(&dg->readmutex);
+  PcmSession* olds = dg->cursess;
   dg->cursess = sess;
-  if(olds)delete olds;
+  pthread_mutex_unlock(&dg->pushmutex);
+  pthread_mutex_unlock(&dg->readmutex);
+  pthread_mutex_lock(&dg->freemutex);
+  dg->slist->push(olds);
+  pthread_mutex_unlock(&dg->freemutex);
   return sessid;
 }
 
@@ -172,7 +199,7 @@ int dhduix_pushpcm(dhduix_t* dg,uint64_t sessid,char* buf,int size,int kind){
     if(sess->first()){
       sess->runfirst(sessid,dg->weai_first);
       uint64_t tick = jtimer_msstamp();
-//      printf("====runfirst  %ld %ld \n",sessid,tick);
+      printf("====runfirst  %ld %ld \n",sessid,tick);
     }
     return 0;
   }else{
@@ -211,6 +238,17 @@ int dhduix_finsession(dhduix_t* dg,uint64_t sessid){
 int dhduix_free(dhduix_t* dg){
   dg->running = 0;
   pthread_join(*dg->calcthread, NULL);
+  if(dg->slist){
+    pthread_mutex_lock(&dg->freemutex);
+    while(!dg->slist->empty()){
+      PcmSession* sess = dg->slist->front();
+      dg->slist->pop();
+      delete sess;
+    }
+    pthread_mutex_unlock(&dg->freemutex);
+    delete dg->slist;
+  }
+
   if(dg->weai_first){
     delete dg->weai_first;
     dg->weai_first = NULL;
@@ -223,10 +261,10 @@ int dhduix_free(dhduix_t* dg){
     delete dg->cursess;
     dg->cursess = NULL;
   }
-  if(dg->presess){
-    delete dg->presess;
-    dg->presess = NULL;
-  }
+  //if(dg->presess){
+    //delete dg->presess;
+    //dg->presess = NULL;
+  //}
   if(dg->munet){
     delete dg->munet;
     dg->munet = NULL;
@@ -245,6 +283,7 @@ int dhduix_free(dhduix_t* dg){
   }
   pthread_mutex_destroy(&dg->pushmutex);
   pthread_mutex_destroy(&dg->readmutex);
+  pthread_mutex_destroy(&dg->freemutex);
   free(dg->calcthread);
   jmat_free(dg->mat_feat);
   free(dg);
@@ -256,6 +295,22 @@ int dhduix_free(dhduix_t* dg){
 int dhduix_initMunet(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk){
   dg->munet = new Mobunet(fnbin,fnparam,fnmsk,20,dg->rgb);
   dg->inited = 1;
+  printf("===init munet \n");
+  dg->kind = 168;
+  dg->rect = 160;
+  return 0;
+}
+
+int dhduix_initMunetex(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk,int rect){
+  dg->munet = new Mobunet(fnbin,fnparam,fnmsk,20,dg->rgb);
+  dg->inited = 1;
+  if(rect==128){
+    dg->kind = 128;
+    dg->rect = 128;
+  }else{
+    dg->kind = 168;
+    dg->rect = 160;
+  }
   printf("===init munet \n");
   return 0;
 }
@@ -284,11 +339,13 @@ int dhduix_readycnt(dhduix_t* dg,uint64_t sessid){
   return sess->calcBlock();
 }
 
+
 #define AIRUN_FLAG 1
-int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk,char* fnfg,int bnfinx,char* bimg,int imgsize){
+int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk,char* fnfg,int bnfinx,char* bimg,char* mskbuf,int imgsize){
   if(sessid!=dg->sessid)return -1;
   if(!dg->running)return -2;
 
+  uint64_t ticka = jtimer_msstamp();
   std::string sfnpic(fnpic);
   std::string sfnmsk(fnmsk);
   std::string sfnfg(fnfg);
@@ -302,6 +359,7 @@ int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk
     mat_msk = dg->mat_msk;
     mat_msk->loadjpg(sfnmsk,1);
     bmsk = (uint8_t*)mat_msk->data();
+    memcpy(mskbuf,bmsk,dg->width*dg->height*3);
   }
   JMat* mat_fg = NULL;
   if(sfnfg.length()){
@@ -309,8 +367,23 @@ int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk
     mat_fg->loadjpg(sfnfg,1);
     bfg = (uint8_t*)mat_fg->data();
   }
-  int rst = dhduix_simpinx(dg,sessid, bpic,dg->width,dg->height, box, bmsk, bfg,bnfinx);
-  return 0;
+  uint64_t tickb = jtimer_msstamp();
+  uint64_t dist = tickb-ticka;
+  //LOGD("tooken","===loadjpg %ld\n",dist);
+  int rst = 0;
+  if(box){
+    rst = dhduix_simpinx(dg,sessid, bpic,dg->width,dg->height, box, bmsk, bfg,bnfinx);
+  }else{
+    rst = dhduix_simpblend(dg,sessid, bpic,dg->width,dg->height,  bmsk, bfg);
+  }
+  int size = dg->width*dg->height*3;
+  if(bfg){
+    memcpy(bimg,bfg,size);
+  }else{
+    memcpy(bimg,bpic,size);
+  }
+  if(bmsk) memcpy(mskbuf,bmsk,size);
+  return rst;
 }
 
 int dhduix_simpinx(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int height,int* box,uint8_t* bmsk,uint8_t* bfg,int inx){
@@ -319,15 +392,22 @@ int dhduix_simpinx(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   PcmSession* sess = dg->cursess;
   if(!sess)return -3;
   int rst = 0;
+  int w = width?width:dg->width;
+  int h = height?height:dg->height;
   pthread_mutex_lock(&dg->readmutex);
   rst =  sess->readblock(sessid,dg->mat_feat,inx);
   pthread_mutex_unlock(&dg->readmutex);
-//  printf("===readblock %d\n",rst);
+  //printf("===readblock %d\n",rst);
   if(rst>0){
-    rst = dhduix_simprst(dg,sessid, bpic,width,height, box, bmsk, bfg,(uint8_t*)dg->mat_feat->data,STREAM_ALL_BNF);
+    rst = dhduix_simprst(dg,sessid, bpic,w,h, box, bmsk, bfg,(uint8_t*)dg->mat_feat->data,STREAM_ALL_BNF);
     return 1;
   }
   return rst;
+}
+
+int dhduix_simpblend(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int height,uint8_t* bmsk,uint8_t* bfg){
+  //
+  return 0;
 }
 
 int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int height,int* box,uint8_t* bmsk,uint8_t* bfg,uint8_t* bnfbuf,int bnflen){
@@ -341,7 +421,8 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   //read pcm
   JMat* feat = new JMat(STREAM_CNT_BNF,STREAM_BASE_BNF,(float*)bnfbuf,1);
 
-  MWorkMat wmat(mat_pic,NULL,box);
+//    MWorkMat wmat(mat_pic,mat_msk,box);
+  MWorkMat wmat(mat_pic, NULL,box,dg->kind);
   wmat.premunet();
   JMat* mpic;
   JMat* mmsk;
@@ -349,9 +430,10 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   //tooken
 #ifdef AIRUN_FLAG
   uint64_t ticka = jtimer_msstamp();
-  rst = dg->munet->domodel(mpic, mmsk, feat);
+  rst = dg->munet->domodel(mpic, mmsk, feat,dg->rect);
   uint64_t tickb = jtimer_msstamp();
   uint64_t dist = tickb-ticka;
+  //LOGD("tooken","===domodel %ld\n",dist);
   if(dist>40){
     printf("===domodel %d dist %ld\n",rst,dist);
   }
@@ -365,7 +447,6 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
   delete mat_pic;
   if(mat_fg)delete mat_fg;
   if(mat_msk)delete mat_msk;
-
   return 0;
 }
 

@@ -13,6 +13,7 @@ int dhduix_alloc(dhduix_t** pdg,int mincalc,int width,int height);
 int dhduix_initPcmex(dhduix_t* dg,int maxsize,int minoff ,int minblock ,int maxblock,int rgb);
 int dhduix_initWenet(dhduix_t* dg,char* fnwenet); 
 int dhduix_initMunet(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk);
+int dhduix_initMunetex(dhduix_t* dg,char* fnparam,char* fnbin,char* fnmsk,int rect);
 
 uint64_t dhduix_newsession(dhduix_t* dg);
 
@@ -23,7 +24,8 @@ int dhduix_simprst(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int heig
 int dhduix_allcnt(dhduix_t* dg,uint64_t sessid);
 int dhduix_readycnt(dhduix_t* dg,uint64_t sessid);
 int dhduix_simpinx(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int height,int* box,uint8_t* bmsk,uint8_t* bfg,int bnfinx);
-int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk,char* fnfg,int bnfinx,char* bimg,int imgsize);
+int dhduix_fileinx(dhduix_t* dg,uint64_t sessid,char* fnpic,int* box,char* fnmsk,char* fnfg,int bnfinx,char* bimg,char* mskbuf,int imgsize);
+int dhduix_simpblend(dhduix_t* dg,uint64_t sessid,uint8_t* bpic,int width,int height,uint8_t* bmsk,uint8_t* bfg);
 
 int dhduix_simppcm(dhduix_t* dg,char* buf,int size,char* pre,int presize,char* bnf,int bnfsize);
 

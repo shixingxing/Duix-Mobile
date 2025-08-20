@@ -15,6 +15,7 @@
     {
         self.width=540;
         self.height=960;
+        self.modelkind=168;
         self.res_fmt=@"";
         self.ranges=[[NSMutableArray alloc] init];
         self.reverses=[[NSMutableArray alloc] init];

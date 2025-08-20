@@ -1,6 +1,6 @@
 #include "malpha.h"
 
-MWorkMat::MWorkMat(JMat* pic,JMat* msk,const int* boxs){
+MWorkMat::MWorkMat(JMat* pic,JMat* msk,const int* boxs,int kind){
     m_boxx = boxs[0];
     m_boxy=boxs[1];
     m_boxwidth=boxs[2]-m_boxx;
@@ -9,73 +9,93 @@ MWorkMat::MWorkMat(JMat* pic,JMat* msk,const int* boxs){
     m_pic = pic;
     m_msk = msk;
 
-    pic_real160 = new JMat(160,160,3,0,1);
-    pic_mask160 = new JMat(160,160,3,0,1);
-    //pic_crop160 = new JMat(160,160,3,0,1);
 
-    msk_real160 = new JMat(160,160,1,0,1);
+    if(kind==168){
 
-    //msk_mask160 = new JMat(160,160,3,0,1);
+      srcw = 168;
+      edge = 4;
+      adjw = 160;
+      mskx = 5;
+      msky = 5;
+      mskw = 150;
+      mskh = 145;
+
+    }else if(kind==128){
+      srcw = 134;
+      edge = 3;
+      adjw = 128;
+      mskx = 4;
+      msky = 4;
+      mskw = 120;
+      mskh = 120;
+
+
+    }
+
+    pic_realadjw = new JMat(adjw,adjw,3,0,1);
+    pic_maskadjw = new JMat(adjw,adjw,3,0,1);
+    //pic_cropadjw = new JMat(adjw,adjw,3,0,1);
+
+    msk_realadjw = new JMat(adjw,adjw,1,0,1);
 
 }
 
 MWorkMat::~MWorkMat(){
-    matpic_org168.release();
+    matpic_orgsrcw.release();
     matpic_roirst.release();
-    delete pic_real160;
-    delete pic_mask160;
-    delete msk_real160;
-    if(pic_clone160) delete pic_clone160;
+    delete pic_realadjw;
+    delete pic_maskadjw;
+    delete msk_realadjw;
+    if(pic_cloneadjw) delete pic_cloneadjw;
 }
 
 int MWorkMat::munet(JMat** ppic,JMat** pmsk){
-    *ppic = pic_real160;
-    *pmsk = pic_mask160;
+
+    *ppic = pic_realadjw;
+    *pmsk = pic_maskadjw;
     return 0;
 }
 
 int MWorkMat::premunet(){
     matpic_roisrc = cv::Mat(m_pic->cvmat(),cv::Rect(m_boxx,m_boxy,m_boxwidth,m_boxheight));
-    cv::resize(matpic_roisrc , matpic_org168, cv::Size(168, 168), cv::INTER_AREA);
-    //vtacc
-    matpic_roi160 = cv::Mat(matpic_org168,cv::Rect(4,4,160,160));
-    cv::Mat cvmask = pic_mask160->cvmat();
-    cv::Mat cvreal = pic_real160->cvmat();
-    matpic_roi160.copyTo(cvmask);
-    matpic_roi160.copyTo(cvreal);
-    //cv::rectangle(cvmask,cv::Rect(5,5,150,150),cv::Scalar(0,0,0),-1);//,cv::LineTypes::FILLED);
-    cv::rectangle(cvmask,cv::Rect(5,5,150,145),cv::Scalar(0,0,0),-1);//,cv::LineTypes::FILLED);
-    //cv::rectangle(cvmask,cv::Rect(4,4,152,152),cv::Scalar(0,0,0),-1);//,cv::LineTypes::FILLED);
-    //cv::imwrite("cvmask.bmp",cvmask);
-    //cv::waitKey(0);
-    pic_clone160 = pic_real160->refclone(0);
+    cv::resize(matpic_roisrc , matpic_orgsrcw, cv::Size(srcw, srcw), cv::INTER_AREA);
+    matpic_roiadjw = cv::Mat(matpic_orgsrcw,cv::Rect(edge,edge,adjw,adjw));
+    cv::Mat cvmask = pic_maskadjw->cvmat();
+    cv::Mat cvreal = pic_realadjw->cvmat();
+    //printf("===matpic %d %d\n",matpic_roiadjw.cols,matpic_roiadjw.rows);
+    //printf("===cvreal %d %d\n",cvreal.cols,cvreal.rows);
+    //getchar();
+    matpic_roiadjw.copyTo(cvreal);
+    matpic_roiadjw.copyTo(cvmask);
+    pic_cloneadjw = pic_realadjw->refclone(0);
+    cv::rectangle(cvmask,cv::Rect(mskx,msky,mskw,mskh),cv::Scalar(0,0,0),-1);//,cv::LineTypes::FILLED);
     return 0;
 }
 
 int MWorkMat::finmunet(JMat* fgpic){
-    cv::Mat cvreal = pic_real160->cvmat();
+    cv::Mat cvreal = pic_realadjw->cvmat();
 
         //for(int k=0;k<16;k++){
-            //cv::line(cvreal,cv::Point(0,k*10),cv::Point(160,k*10),cv::Scalar(0,255,0));
+            //cv::line(cvreal,cv::Point(0,k*10),cv::Point(adjw,k*10),cv::Scalar(0,255,0));
         //}
         //for(int k=0;k<16;k++){
-            //cv::line(cvreal,cv::Point(k*10,0),cv::Point(k*10,160),cv::Scalar(0,255,0));
+            //cv::line(cvreal,cv::Point(k*10,0),cv::Point(k*10,adjw),cv::Scalar(0,255,0));
         //}
-    cvreal.copyTo(matpic_roi160);
-    //cv::imwrite("accpre.bmp",matpic_org168);
-    if(m_msk) vtacc((uint8_t*)matpic_org168.data,168*168);
-    //cv::imwrite("accend.bmp",matpic_org168);
-    if(fgpic&&(fgpic->width()==168)){
+    cvreal.copyTo(matpic_roiadjw);
+    //cv::imwrite("accpre.bmp",matpic_orgsrcw);
+    if(m_msk) vtacc((uint8_t*)matpic_orgsrcw.data,srcw*srcw);
+    //cv::imwrite("accend.bmp",matpic_orgsrcw);
+    if(fgpic&&(fgpic->width()==srcw)){
       std::vector<cv::Mat> list;
-      cv::split(matpic_org168,list);
+      cv::split(matpic_orgsrcw,list);
       matmsk_roisrc = cv::Mat(m_msk->cvmat(),cv::Rect(m_boxx,m_boxy,m_boxwidth,m_boxheight));
-      cv::resize(matmsk_roisrc , matmsk_org168, cv::Size(168, 168), cv::INTER_AREA);
-      cv::Mat rrr(168,168,CV_8UC1);
-      cv::cvtColor(matmsk_org168,rrr,cv::COLOR_RGB2GRAY);
+      cv::resize(matmsk_roisrc , matmsk_orgsrcw, cv::Size(srcw, srcw), cv::INTER_AREA);
+      cv::Mat rrr(srcw,srcw,CV_8UC1);
+      cv::cvtColor(matmsk_orgsrcw,rrr,cv::COLOR_RGB2GRAY);
       list.push_back(rrr);
       cv::merge(list,fgpic->cvmat());
     }else{
-      cv::resize(matpic_org168, matpic_roirst, cv::Size(m_boxwidth, m_boxheight), cv::INTER_AREA);
+      cv::resize(matpic_orgsrcw, matpic_roirst, cv::Size(m_boxwidth, m_boxheight), cv::INTER_AREA);
       if(fgpic){
         matpic_roisrc = cv::Mat(fgpic->cvmat(),cv::Rect(m_boxx,m_boxy,m_boxwidth,m_boxheight));
         matpic_roirst.copyTo(matpic_roisrc);
@@ -87,36 +107,28 @@ int MWorkMat::finmunet(JMat* fgpic){
 }
 
 int MWorkMat::alpha(JMat** preal,JMat** pimg,JMat** pmsk){
-    *preal = pic_clone160;
-    *pimg =  pic_real160;
-    *pmsk =  msk_real160;
+    *preal = pic_cloneadjw;
+    *pimg =  pic_realadjw;
+    *pmsk =  msk_realadjw;
     return 0;
 }
 
 int MWorkMat::prealpha(){
     printf("x %d y %d w %d h %d \n",m_boxx,m_boxy,m_boxwidth,m_boxheight);
-    //m_msk->show("cba");
-    //cv::waitKey(0);
     matmsk_roisrc = cv::Mat(m_msk->cvmat(),cv::Rect(m_boxx,m_boxy,m_boxwidth,m_boxheight));
-    cv::resize(matmsk_roisrc , matmsk_org168, cv::Size(168, 168), cv::INTER_AREA);
+    cv::resize(matmsk_roisrc , matmsk_orgsrcw, cv::Size(srcw, srcw), cv::INTER_AREA);
 
-    matmsk_roi160 = cv::Mat(matmsk_org168,cv::Rect(4,4,160,160));
-    cv::Mat cvmask = msk_real160->cvmat();
-    cv::cvtColor(matmsk_roi160,cvmask,cv::COLOR_RGB2GRAY);
-
-    //BlendGramAlphaRev(pic_clone160->udata(),msk_real160->udata(),pic_crop160->udata(),160,160);
-    //pic_crop160->show("aaa");
-    //cv::waitKey(0);
-    //pic_crop160
-    //
+    matmsk_roiadjw = cv::Mat(matmsk_orgsrcw,cv::Rect(edge,edge,adjw,adjw));
+    cv::Mat cvmask = msk_realadjw->cvmat();
+    cv::cvtColor(matmsk_roiadjw,cvmask,cv::COLOR_RGB2GRAY);
     return 0;
 }
 
 int MWorkMat::finalpha(){
-    cv::Mat cvmask = msk_real160->cvmat();
-    cv::cvtColor(cvmask,matmsk_roi160,cv::COLOR_GRAY2RGB);
+    cv::Mat cvmask = msk_realadjw->cvmat();
+    cv::cvtColor(cvmask,matmsk_roiadjw,cv::COLOR_GRAY2RGB);
     //
-    cv::resize(matmsk_org168, matmsk_roirst, cv::Size(m_boxwidth, m_boxheight), cv::INTER_AREA);
+    cv::resize(matmsk_orgsrcw, matmsk_roirst, cv::Size(m_boxwidth, m_boxheight), cv::INTER_AREA);
     matmsk_roirst.copyTo(matmsk_roisrc);
     return 0;
 }

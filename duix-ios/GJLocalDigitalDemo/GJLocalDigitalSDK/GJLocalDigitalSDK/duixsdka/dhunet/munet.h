@@ -16,9 +16,10 @@ class Mobunet{
         float mean_vals[3] = {127.5f, 127.5f, 127.5f};
         float norm_vals[3] = {1 / 127.5f, 1 / 127.5f, 1 / 127.5f};
         JMat*   mat_weights = nullptr;
+        JMat*   mat_weightmin = nullptr;
         int initModel(const char* binfn,const char* paramfn,const char* mskfn);
     public:
-        int domodel(JMat* pic,JMat* msk,JMat* feat);
+        int domodel(JMat* pic,JMat* msk,JMat* feat,int rect = 160);
         int domodelold(JMat* pic,JMat* msk,JMat* feat);
         int preprocess(JMat* pic,JMat* feat);
         int process(JMat* pic,const int* boxs,JMat* feat);

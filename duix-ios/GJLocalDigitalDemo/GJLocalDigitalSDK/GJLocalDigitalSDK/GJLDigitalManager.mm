@@ -330,6 +330,11 @@ static GJLDigitalManager * manager = nil;
     [DigitalHumanDriven manager].configModel.width=width>0?width:540;
     [DigitalHumanDriven manager].configModel.height=height>0?height:960;
     [DigitalHumanDriven manager].need_png=[[config_dic valueForKey:@"need_png"]?:@"" integerValue];
+    if([config_dic.allKeys containsObject:@"modelkind"])
+    {
+        [DigitalHumanDriven manager].configModel.modelkind=[[config_dic valueForKey:@"modelkind"]?:@"" integerValue];
+    }
+
     //NSDictionary *mydic=    @{@"ranges":@[@{ @"min": @"1",@"max": @"64", @"type": @"0"}, @{@"min": @"65",@"max": @"125", @"type": @"1"}]};
     
     [[DigitalHumanDriven manager].configModel.ranges removeAllObjects];

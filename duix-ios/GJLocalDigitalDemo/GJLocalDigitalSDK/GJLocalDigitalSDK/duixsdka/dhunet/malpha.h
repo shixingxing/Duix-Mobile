@@ -7,44 +7,50 @@
 #include <stdio.h>
 
 class MWorkMat{
-    private:
-        int     m_boxx;
-        int     m_boxy;
-        int     m_boxwidth;
-        int     m_boxheight;
-        JMat*   m_pic;
-        JMat*   m_msk;
+  private:
+    int     srcw = 168;
+    int     edge = 4;
+    int     adjw = 160;
 
-        JMat*   pic_real160;//blendimg
-        JMat*   pic_mask160;
+    int     mskx = 5;
+    int     msky = 5;
+    int     mskw = 150;
+    int     mskh = 145;
+    int     m_boxx;
+    int     m_boxy;
+    int     m_boxwidth;
+    int     m_boxheight;
+    JMat*   m_pic;
+    JMat*   m_msk;
 
-        cv::Mat matpic_roisrc;//box area
-        cv::Mat matpic_org168;
-        cv::Mat matpic_roi160;
-        JMat*   pic_clone160;//blendimg
-        cv::Mat matpic_roirst;
+    JMat*   pic_realadjw;//blendimg
+    JMat*   pic_maskadjw;
 
-        //JMat*   pic_crop160;
-        //
-        JMat*   msk_real160;
-        //JMat*   msk_mask160;
+    cv::Mat matpic_roisrc;//box area
+    cv::Mat matpic_orgsrcw;
+    cv::Mat matpic_roiadjw;
+    JMat*   pic_cloneadjw;//blendimg
+    cv::Mat matpic_roirst;
 
-        cv::Mat matmsk_roisrc;//box area
-        cv::Mat matmsk_org168;
-        cv::Mat matmsk_roi160;
+    //
+    JMat*   msk_realadjw;
 
-        cv::Mat matmsk_roirst;
+    cv::Mat matmsk_roisrc;//box area
+    cv::Mat matmsk_orgsrcw;
+    cv::Mat matmsk_roiadjw;
 
-        int vtacc(uint8_t* buf,int count);
-    public:
-        MWorkMat(JMat* pic,JMat* msk,const int* boxs);
-        int premunet();
-        int munet(JMat** ppic,JMat** pmsk);
-        int finmunet(JMat* fgpic=NULL);
-        int prealpha();
-        int alpha(JMat** preal,JMat** pimg,JMat** pmsk);
-        int finalpha();
+    cv::Mat matmsk_roirst;
 
-        virtual ~MWorkMat();
+    int vtacc(uint8_t* buf,int count);
+  public:
+    MWorkMat(JMat* pic,JMat* msk,const int* boxs,int kind=168);
+    int premunet();
+    int munet(JMat** ppic,JMat** pmsk);
+    int finmunet(JMat* fgpic=NULL);
+    int prealpha();
+    int alpha(JMat** preal,JMat** pimg,JMat** pmsk);
+    int finalpha();
+
+    virtual ~MWorkMat();
 };
 

@@ -138,7 +138,7 @@ static DigitalHumanDriven *manager = nil;
     const char *cBinPath2 = [binPath2 UTF8String];
     char *binPathStr2 = (char *)cBinPath2;
     
-    rst = dhduix_initMunet(gjduix_s,paramPathStr,binPathStr,binPathStr2);
+    rst = dhduix_initMunetex(gjduix_s,paramPathStr,binPathStr,binPathStr2,(int)self.configModel.modelkind);
     return rst;
 }
 
