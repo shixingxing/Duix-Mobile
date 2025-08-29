@@ -1,6 +1,8 @@
 [简体中文](/README.md) | English
 
-[![Duix Mobile 视频封面](./res/main_video_thumbnail.jpg)](https://www.bilibili.com/video/BV1t2g7z3ERK/)
+<a href="https://www.bilibili.com/video/BV1t2g7z3ERK/" target="_blank">
+  <img src="./res/main_video_thumbnail.jpg" alt="Duix Mobile thumbnail">
+</a>
 
 # 🚀🚀🚀 Duix Mobile — The Best Real-time Interactive Digital Human Solution for Mobile Devices
 
@@ -48,43 +50,25 @@ See on Bilibili:
 - Below are 8 public digital humans provided by Duix, available for download and integration.
 
 <table>
-  <tr>
-    <td align="center">
-      <img src="./res/avatar/1.png" alt="Model 1" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv0515_20240516_optim_m80.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/2.png" alt="Model 2" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv3_20240511_optim_m80.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/3.png" alt="Model 3" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/wuhao_20240418_optim_m80.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/siyao_20240418_optim_m80.zip"><button>Download</button></a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696309955760197_fdc4a25a012c99789cd1ec95f5faf0de_optim_m80.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696303589556293_268307125eeeff7e2c85461dd8c3ac52_optim_m80.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696326678212677_9d4da9041e81466f5dadc99ddd1e3bd9.zip"><button>Download</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/4.png" alt="Model 4" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/651686686687301_846161843f9ffdaaeace716bf3436be5_optim_m80.zip"><button>Download</button></a>
-    </td>
-  </tr>
-</table>
+    <tr>
+      <td align="center">
+        <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713557460262982_2457fffb22e79c764c9b47d66f50c507.zip">Download</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713276132638789_505586d97c3e935299f57c6262d9ece7_optim_m80.zip">Download</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/712880634105925_68b3f5a2208cc7438194d9d35fb0d5eb_optim_m80.zip">Download</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713276017438789_23737a8bb6c21137dbdba34ca75b9365_optim_m80.zip">Download</a>
+      </td>
+    </tr>
+    </table>
 
 ## 🤗 How to Customize Private Digital Humans?
 
@@ -129,7 +113,7 @@ Usually, recording a 15-second to 2-minute video is sufficient to complete the c
 <details>
 <summary>Is streaming audio supported?</summary>
 
-Yes, streaming audio was released in the July 17, 2025 update.
+Yes, streaming audio was released in the July 17, 2025 version update.
 
 </details>
 
@@ -142,7 +126,7 @@ Yes, we provide documentation for voice start and end callbacks.
 
 ## 💡 Version Roadmap
 
-- [x] Streaming audio capability, completed by July 16, 2025
+- [x] Streaming audio capability, launched on July 16, 2025
 - [ ] Algorithm response optimization, expected by August 30, 2025
 
 ## 📚 Related Open Source Repositories

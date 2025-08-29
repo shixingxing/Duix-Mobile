@@ -1,6 +1,8 @@
 简体中文 | [English](/README_en.md)
 
-[![Duix Mobile thumbnail](./res/main_video_thumbnail.jpg)](https://www.bilibili.com/video/BV1t2g7z3ERK/)
+<a href="https://www.bilibili.com/video/BV1t2g7z3ERK/" target="_blank">
+  <img src="./res/main_video_thumbnail.jpg" alt="Duix Mobile thumbnail">
+</a>
 
 # 🚀🚀🚀 Duix Mobile —— 全网效果最好的移动端【实时对话数字人】
 
@@ -48,43 +50,25 @@ Duix Mobile 支持一键跨平台部署（Android/iOS），上手门槛低，适
 - 以下是 Duix 提供的 8 个公有数字人，可供下载和集成。
 
 <table>
-  <tr>
-    <td align="center">
-      <img src="./res/avatar/1.png" alt="Model 1" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv0515_20240516_optim_m80.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/2.png" alt="Model 2" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/guilv3_20240511_optim_m80.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/3.png" alt="Model 3" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/wuhao_20240418_optim_m80.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/siyao_20240418_optim_m80.zip"><button>下载</button></a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696309955760197_fdc4a25a012c99789cd1ec95f5faf0de_optim_m80.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696303589556293_268307125eeeff7e2c85461dd8c3ac52_optim_m80.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/696326678212677_9d4da9041e81466f5dadc99ddd1e3bd9.zip"><button>下载</button></a>
-    </td>
-    <td align="center">
-      <img src="./res/avatar/4.png" alt="Model 4" width="100%"><br>
-      <a href="https://github.com/duixcom/Duix.mobile/releases/download/v1.0.0/651686686687301_846161843f9ffdaaeace716bf3436be5_optim_m80.zip"><button>下载</button></a>
-    </td>
-  </tr>
-</table>
+    <tr>
+      <td align="center">
+        <img src="./res/avatar/7.jpg" alt="Model 7" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713557460262982_2457fffb22e79c764c9b47d66f50c507.zip">下载</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/8.png" alt="Model 8" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713276132638789_505586d97c3e935299f57c6262d9ece7_optim_m80.zip">下载</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/5.jpg" alt="Model 5" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/712880634105925_68b3f5a2208cc7438194d9d35fb0d5eb_optim_m80.zip">下载</a>
+      </td>
+      <td align="center">
+        <img src="./res/avatar/6.png" alt="Model 6" width="100%"><br>
+        <a href="https://github.com/duixcom/Duix.mobile/releases/download/v2.0.0/713276017438789_23737a8bb6c21137dbdba34ca75b9365_optim_m80.zip">下载</a>
+      </td>
+    </tr>
+    </table>
 
 ## 🤗 如何定制私有数字人？
 
