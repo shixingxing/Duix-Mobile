@@ -47,7 +47,7 @@ See on Bilibili:
 
 ## ✨ Public Digital Human Downloads
 
-- Below are 8 public digital humans provided by Duix, available for download and integration.
+- Below are 4 public digital humans provided by Duix, available for download and integration.
 
 <table>
     <tr>
